@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.move {
+    margin-left: 20px;
+}
+
+.tdinput {
+    padding:2px;
+    height: 20px;
+    width: 40px;
+    background-color:#f9f9f9;
+}
