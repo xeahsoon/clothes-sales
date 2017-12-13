@@ -16,8 +16,8 @@ public class StorageServiceImpl implements StorageService {
 	private StorageMapper storageMapper;
 	
 	@Override
-	public List<Storage> listSameGoods(int code) {
-		return storageMapper.listSameGoodWithCode(code);
+	public List<Storage> listSameGoods(int good_id) {
+		return storageMapper.listSameGoods(good_id);
 	}
 
 	@Override

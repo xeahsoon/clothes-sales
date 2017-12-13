@@ -14,5 +14,4 @@ public interface UserService {
 	 * @return 找到返回User对象，没有找到返回null
 	 * */
 	User login(String loginname,String password);
-
 }

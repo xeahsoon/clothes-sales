@@ -133,6 +133,7 @@
                     <th>金额</th>
                     <th>收银员</th>
                     <th>导购员</th>
+                    <th>会员卡号</th>
                     <th>支付方式</th>
                     <th>操作</th>
                   </tr>
@@ -140,21 +141,44 @@
                 <tbody>
                 <c:forEach items="${requestScope.order_list }" var="order">
 					<tr>
-						<td>${order.create_date }</td>
-						<td><a href="#" onclick="showAtRight('orderDetail/${order.id}')"><fmt:formatNumber value="${order.id }" pattern="00000000"/></a></td>
+						<td><fmt:formatDate value="${order.create_date }" type="both"/></td>
+						<td><a href="#" onclick="showAtRight('orderDetail/${order.id}')" title="查看详细"><fmt:formatNumber value="${order.id }" pattern="00000000"/></a></td>
 						<td>${order.sum_money }</td>
 						<td>${order.user.name }</td>
-						<td><c:forEach items="${order.staffs }" var="staff">
-						${staff.staff.name }
-						</c:forEach></td>
+						<td>
+							<c:forEach items="${order.staffs }" var="staff">
+							${staff.staff.name }
+							</c:forEach>
+						</td>
+						<td>${order.member.phone }</td>
 						<c:if test="${order.pay_mode == 1 }"><td>银行卡</td></c:if>
 						<c:if test="${order.pay_mode == 2 }"><td>支付宝</td></c:if>
 						<c:if test="${order.pay_mode == 3 }"><td>微信</td></c:if>
-						<td><a href="printOrder/${order.id }">打印</a>/<a href="addOrderRemark/${order.id }">备注</a></td>
+						<c:if test="${order.pay_mode == 4 }">现金</c:if>
+						<td><a href="#"><span class="glyphicon glyphicon-edit" title="备注" data-toggle="modal" data-target="#remark"></span></a></td>
 					</tr>
 				</c:forEach>
               </tbody>
               </table>
+              <!-- add remark modal -->
+              <div class="modal fade" id="remark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            	<div class="modal-dialog">
+                	<div class="modal-content">
+                		<div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                        <h4 class="modal-title" id="myModalLabel">添加备注</h4>
+                    	</div>
+                    	<div class="modal-body">
+                    		<p><span>备注信息：</span><span class="pull-right">单号：123134123</span></p>
+                    		<textarea class="form-control" autofocus="autofocus"></textarea>
+                    	</div>
+                    	<div class="modal-footer">
+                    		<input type="button" class="btn btn-default" data-dismiss="modal" value="关闭">
+                        	<input  type="button" class="btn btn-primary" value="保存">
+                    	</div>
+                	</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -171,6 +195,12 @@
     <script src="css/bootstrap/js/bootstrap-multiselect.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="js/echarts.js"></script>
+    
+    <!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
+    <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery.jqprint-0.3.js"></script>
+    
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <!--<script src="css/bootstrap/js/holder.min.js"></script>-->
   </body>

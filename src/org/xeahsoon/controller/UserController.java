@@ -35,10 +35,16 @@ public class UserController {
 		// 根据登录名和密码查找用户，判断用户登录
 		User user = userService.login(loginname, password);
 		if(user != null){
-			// 登录成功，将user对象设置到HttpSession作用范围域
-			session.setAttribute("user", user);
-			// 转发到main请求
-			mv.setView(new RedirectView("/clothes_sales/main"));
+			if(user.getStatus() == 0) {
+				//未通过审核，登陆失败
+				mv.addObject("message", "用户未通过审核，请联系管理员!");
+				mv.setViewName("loginForm");
+			} else {
+				// 登录成功，将user对象设置到HttpSession作用范围域
+				session.setAttribute("user", user);
+				// 转发到main请求
+				mv.setView(new RedirectView("/clothes_sales/main"));
+			}
 		}else{
 			// 登录失败，设置失败提示信息，并跳转到登录页面
 			mv.addObject("message", "登录名或密码错误，请重新输入!");
@@ -46,6 +52,4 @@ public class UserController {
 		}
 		return mv;
 	}
-	
-	
 }

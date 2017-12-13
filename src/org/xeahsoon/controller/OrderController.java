@@ -29,10 +29,6 @@ public class OrderController {
 		List<Order> order_list = orderService.listAllOrders();
 		model.addAttribute("order_list", order_list);
 		
-		for(Order o : order_list) {
-			System.out.println(o.getId());
-		}
-		
 		return "main";
 	}
 	
@@ -41,9 +37,19 @@ public class OrderController {
 	public String listOrderDetails(
 			@PathVariable(value="order_id") int order_id,
 			Model model) {
+		Order order = orderService.findOrderById(order_id);
 		
-		List<OrderDetail> detail_list = orderService.listOrderDetails(order_id);
-		model.addAttribute("detail_list", detail_list);
+		model.addAttribute("order", order);
+		
+		return "orderDetail";
+	}
+	
+	@RequestMapping("/searchOrder")
+	public String searchOrder(String order_id,
+			Model model) {
+		
+		Order order = orderService.findOrderById(Integer.parseInt(order_id));
+		model.addAttribute("order", order);
 		
 		return "orderDetail";
 	}
@@ -57,12 +63,7 @@ public class OrderController {
 		Order order = orderService.findOrderById(order_id);
 		System.out.println(order.getUser());
 		
-		List<OrderDetail> detail_list = orderService.listOrderDetails(order_id);
-		List<Staff> staff_list = orderService.listOrderStaffs(order_id);
-		
 		model.addAttribute("order", order);
-		model.addAttribute("detail_list", detail_list);
-		model.addAttribute("staff_list", staff_list);
 		
 		return "printOrder";
 	}

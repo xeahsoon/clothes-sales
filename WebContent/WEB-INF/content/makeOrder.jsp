@@ -170,14 +170,17 @@
                         </tr>
                         </tr>
                         <tr style="border-bottom: 2px solid #ddd">
-                            <td colspan="6">合计</td>
+                        	<td colspan="5">
+                        		<span class="pull-left">备注：&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        		<input type="text" name="remark" class="form-control" style="height:20px; width:78%; background-color:#f9f9f9;"/>
+                        	</td>
+                            <td>合计</td>
                             <td>9件</td>
                             <td>810.0</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
             </form>
             </div>
         </div>

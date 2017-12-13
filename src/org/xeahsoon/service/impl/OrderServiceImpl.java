@@ -24,12 +24,6 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private StaffMapper staffMapper;
 	
-	@Autowired
-	private OrderDetailMapper orderDetailMapper;
-	
-	@Autowired
-	private OrderStaffMapper orderStaffMapper;
-	
 	@Override
 	public Order findOrderById(int id) {
 		return orderMapper.findOrderById(id);
@@ -40,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.listAllOrders();
 	}
 
-	@Override
+	/*@Override
 	public List<OrderDetail> listOrderDetails(int order_id) {
 		return orderDetailMapper.listAllDetailsByID(order_id);
 	}
@@ -52,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 			staffs.add(staffMapper.getStaffById(os.getId()));
 		}
 		return staffs;
-	}
+	}*/
 
 	@Override
 	public int addOrderRemark(String remark, int order_id) {

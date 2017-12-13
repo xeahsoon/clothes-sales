@@ -8,8 +8,8 @@ import org.xeahsoon.pojo.Storage;
 
 public interface StorageMapper {
 
-	@Select("select * from storage where code = #{code}")
-	List<Storage> listSameGoodWithCode(@Param("code")int code);
+	@Select("select * from storage where good_id = #{good_id}")
+	List<Storage> listSameGoods(@Param("good_id")int good_id);
 	
 	@Select("select * from storage where id = #{id}")
 	List<Storage> getStorageWithId(@Param("id")int id);
