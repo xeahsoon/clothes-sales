@@ -24,9 +24,26 @@
     <link href="css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <script type="text/javascript" src="js/showRight.js"></script>
-
-  </head>
+    <script>
+    	function setModalContent(id, remark) {
+    		$("#order_id").val(id);
+    		/* 不可设为disabled，否则表单无法提交order_id */
+    		document.getElementById("order_id").readOnly="readOnly";
+    		$("#remark").val(remark);
+    	}
+    </script>
+</head>
   <body>
+  <style>
+	.operator {
+		color: #666;
+	}
+	.operator:hover {
+		color: #337ab7;
+	    cursor: pointer;
+	}
+  </style>
+  
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -60,9 +77,9 @@
           </div>
           <div id="list1" class="collapse in">
             <ul class="nav nav-sidebar">
-              <li><a href="#" onclick="showAtRight('makeOrder')">销售打单</a></li>
-              <li><a href="#" onclick="showAtRight('orderDetail')">销售单查询</a></li>
-              <li><a href="#" onclick="showAtRight('returnGood')">销售退换货</a></li>
+              <li><a onclick="showAtRight('makeOrder')">销售打单</a></li>
+              <li><a onclick="showAtRight('orderDetail')">销售单查询</a></li>
+              <li><a onclick="showAtRight('returnGood')">销售退换货</a></li>
             </ul>
           </div>
 
@@ -142,7 +159,7 @@
                 <c:forEach items="${requestScope.order_list }" var="order">
 					<tr>
 						<td><fmt:formatDate value="${order.create_date }" type="both"/></td>
-						<td><a href="#" onclick="showAtRight('orderDetail/${order.id}')" title="查看详细"><fmt:formatNumber value="${order.id }" pattern="00000000"/></a></td>
+						<td><fmt:formatNumber value="${order.id }" pattern="00000000"/></td>
 						<td>${order.sum_money }</td>
 						<td>${order.user.name }</td>
 						<td>
@@ -154,36 +171,23 @@
 						<c:if test="${order.pay_mode == 1 }"><td>银行卡</td></c:if>
 						<c:if test="${order.pay_mode == 2 }"><td>支付宝</td></c:if>
 						<c:if test="${order.pay_mode == 3 }"><td>微信</td></c:if>
-						<c:if test="${order.pay_mode == 4 }">现金</c:if>
-						<td><a href="#"><span class="glyphicon glyphicon-edit" title="备注" data-toggle="modal" data-target="#remark"></span></a></td>
+						<c:if test="${order.pay_mode == 4 }"><td>现金</td></c:if>
+						<td>
+						<!-- <span class="glyphicon glyphicon-share operator" title="详细" data-toggle="modal" data-target="#remark" onclick="setID('<fmt:formatNumber value="${order.id }" pattern="00000000"/>')"></span> -->
+						<span class="glyphicon glyphicon-share operator" title="详细" onclick="showAtRight('orderDetail/${order.id}')"></span>
+						<span style="color: #ddd;">/</span>
+						<span class="glyphicon glyphicon-edit operator" title="退换货" onclick="showAtRight('returnGood/${order.id}')"></span>
+						</td>
 					</tr>
 				</c:forEach>
               </tbody>
-              </table>
-              <!-- add remark modal -->
-              <div class="modal fade" id="remark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            	<div class="modal-dialog">
-                	<div class="modal-content">
-                		<div class="modal-header">
-	                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                        <h4 class="modal-title" id="myModalLabel">添加备注</h4>
-                    	</div>
-                    	<div class="modal-body">
-                    		<p><span>备注信息：</span><span class="pull-right">单号：123134123</span></p>
-                    		<textarea class="form-control" autofocus="autofocus"></textarea>
-                    	</div>
-                    	<div class="modal-footer">
-                    		<input type="button" class="btn btn-default" data-dismiss="modal" value="关闭">
-                        	<input  type="button" class="btn btn-primary" value="保存">
-                    	</div>
-                	</div>
-                </div>
-              </div>
+              </table>  
+
             </div>
           </div>
         </div>
 
-      </div>
+      </div> 
 
     </div>
 

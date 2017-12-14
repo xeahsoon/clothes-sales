@@ -51,7 +51,7 @@
                         cursor: pointer;
                     }
                 </style>
-                <span id="symbol" class="glyphicon glyphicon-plus" title="新增导购员"></span>
+                <span id="symbol" class="glyphicon glyphicon-plus operator" title="新增导购员"></span>
             </div>
             <form action="/add_staff" method="post" class="add" style="display: none">
                 <div class="input-group col-md-3 pull-left">

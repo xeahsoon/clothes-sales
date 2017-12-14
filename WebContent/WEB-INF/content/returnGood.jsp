@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +34,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <form action="search_good" class="form-controll">
+            <form action="searchReturnGood" class="form-controll">
                 <div class="input-group ">
                     <span class="input-group-addon">单号：</span>
                     <input type="text" class="form-control" placeholder="请输入流水单号..">
@@ -48,12 +51,21 @@
                 }
             </style>
             <tr style="border-bottom:1px solid #ddd;">
-                <td>时间：</td><td>2017-12-01 15:14:32</td><td>/</td>
-                <td>单号：</td><td>12345678</td><td>/</td>
-                <td>收银：</td><td>店长1</td><td>/</td>
-                <td>导购：</td><td>松子 小黑 倩倩</td><td>/</td>
-                <td>支付：</td><td>支付宝</td>
-                <td>/</td><td>会员：</td><td>15270926232</td>
+                <td>时间：</td><td><fmt:formatDate value="${order.create_date }" type="both"/></td><td>/</td>
+                <td>单号：</td><td><fmt:formatNumber value="${order.id }" pattern="00000000"/></td><td>/</td>
+                <td>收银：</td><td>${order.user.name }</td><td>/</td>
+                <td>导购：</td><td>
+					<c:forEach items="${order.staffs }" var="staff">
+						${staff.staff.name }
+					</c:forEach>
+				</td><td>/</td>
+                <td>支付：</td><td>
+                	<c:if test="${order.pay_mode == 1 }">银行卡</c:if>
+					<c:if test="${order.pay_mode == 2 }">支付宝</c:if>
+					<c:if test="${order.pay_mode == 3 }">微信</c:if>
+					<c:if test="${order.pay_mode == 4 }">现金</c:if>
+                </td>
+                <td>/</td><td>会员：</td><td>${order.member.phone }</td>
             </tr>
         </table>
     </div>
@@ -70,68 +82,36 @@
                 <th width="11%">折扣</th>
                 <th width="11%">金额</th>
                 <th width="8%">
-                    <span id="check_ok" class="glyphicon glyphicon-ok"></span>
-                    <span id="check_remove" class="glyphicon glyphicon-remove" style="display: none"></span>
+                    <span id="check_ok" class="glyphicon glyphicon-ok operator"></span>
+                    <span id="check_remove" class="glyphicon glyphicon-remove operator" style="display: none"></span>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>10000000001</td>
-                <td>17202001</td>
-                <td>T恤</td>
-                <td>红色</td>
-                <td>S</td>
-                <td>90</td>
-                <td>1.00</td>
-                <td>90</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td>10000000001</td>
-                <td>17202001</td>
-                <td>T恤</td>
-                <td>红色</td>
-                <td>S</td>
-                <td>90</td>
-                <td>1.00</td>
-                <td>90</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td>10000000001</td>
-                <td>17202001</td>
-                <td>T恤</td>
-                <td>红色</td>
-                <td>S</td>
-                <td>90</td>
-                <td>1.00</td>
-                <td>90</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-                <td>10000000001</td>
-                <td>17202001</td>
-                <td>T恤</td>
-                <td>红色</td>
-                <td>S</td>
-                <td>90</td>
-                <td>1.00</td>
-                <td>90</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            </tr>
+            <c:forEach items="${order.details }" var="detail">
+            	<tr>
+            		<td><fmt:formatNumber value="${detail.storage_id }" pattern="00000000000"/></td>
+            		<td><fmt:formatNumber value="${detail.good_id }" pattern="00000000"/></td>
+            		<td></td>
+            		<td>${detail.color }</td>
+            		<td>${detail.size }</td>
+            		<td>${detail.price }</td>
+            		<td><fmt:formatNumber value="${detail.discount }" pattern="0.00"/></td>
+            		<td>${detail.dis_price }</td>
+            		<td><input type="checkbox"></td>
+            	</tr>
+            </c:forEach>
             <tr style="border-bottom: 2px solid #ddd">
                 <td colspan="5">
                     <label>备注：&nbsp;&nbsp;</label>
-                    邮寄至顾客家，地址及联系方式见记事簿，经手人：松子
+                  	${order.remark }
                 </td>
                 <td>合计</td>
-                <td>9件</td>
-                <td>810.0</td>
+                <td>${order.nums }</td>
+                <td>${order.sum_money }</td>
                 <td>
                     <span class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-list"></span>
+                        <span class="glyphicon glyphicon-list operator"></span>
                         <!--<b class="caret"></b>-->
                     </span>
                     <ul class="dropdown-menu dropdown-menu-right" style="margin-top: -10px;">

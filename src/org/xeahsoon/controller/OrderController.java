@@ -44,6 +44,17 @@ public class OrderController {
 		return "orderDetail";
 	}
 	
+	//销售退货
+	@RequestMapping("/returnGood/{order_id}")
+	public String listReturnGoods(
+			@PathVariable(value="order_id")int order_id,
+			Model model) {
+		Order order = orderService.findOrderById(order_id);
+		model.addAttribute("order", order);
+		
+		return "returnGood";
+	}
+	
 	@RequestMapping("/searchOrder")
 	public String searchOrder(String order_id,
 			Model model) {
@@ -69,22 +80,12 @@ public class OrderController {
 	}
 	
 	//添加订单备注
-	@RequestMapping("/addOrderRemark/{order_id}")
-	public String addOrderRemark(@PathVariable("order_id")int order_id,
-			Model model) {
-		
-		Order order = orderService.findOrderById(order_id);
-		model.addAttribute("order", order);
-		
-		return "addOrderRemark";
-	}
-	
 	@RequestMapping("/addRemark")
 	public String addRemark(int order_id, String remark) {
-		System.out.println("I am here to add remark!!!!!!!");
-		
+		System.out.println("I am here to add remark!!!!!!!: " + remark);
+		   
 		orderService.addOrderRemark(remark, order_id);
 		
-		return "orderDetail/{order_id}";
+		return "main";
 	}
 }

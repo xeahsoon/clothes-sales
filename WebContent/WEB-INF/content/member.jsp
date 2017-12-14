@@ -51,7 +51,7 @@
                         cursor: pointer;
                     }
                 </style>
-                <span id="symbol" class="glyphicon glyphicon-plus" title="新增会员"></span>
+                <span id="symbol" class="glyphicon glyphicon-plus operator" title="新增会员"></span>
             </div>
             <form action="add_member" method="get" id="addForm" style="display: none">
                 <div class="input-group col-md-3 pull-left">

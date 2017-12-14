@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <form action="searchOrder" class="form-controll">
+            <form action="searchOrderDetail" class="form-controll">
                 <div class="input-group pull-left">
                     <span class="input-group-addon">单号：</span>
                     <input type="text" name="order_id" class="form-control" placeholder="请输入流水单号..">
@@ -24,7 +24,7 @@
         </div>
     </div>
     
-    <div class="table-responsive" style="margin-top: 30px" id="test">
+    <div class="table-responsive" style="margin-top: 30px">
         <h3 class="page-header">清单明细</h3>
         <table class="table table-striped" id="info">
             <style>
@@ -43,7 +43,7 @@
                 </td><td>/</td>
                 <td>支付：</td><td>
                 	<c:if test="${order.pay_mode == 1 }">银行卡</c:if>
-					<c:if test="${order.pay_mode == 2 }">支付宝</td></c:if>
+					<c:if test="${order.pay_mode == 2 }">支付宝</c:if>
 					<c:if test="${order.pay_mode == 3 }">微信</c:if>
 					<c:if test="${order.pay_mode == 4 }">现金</c:if>
                 </td>
@@ -81,19 +81,17 @@
             
             <tr style="border-bottom: 2px solid #ddd">
                 <td colspan="4">
-                    <label>备注：&nbsp;&nbsp;</label>
-                    <marquee behavior="scroll" direction="left" style="width: 88%; height: 16px">
+                    <label>备注：&nbsp;&nbsp;</label>${order.remark }
+                    <!-- 
+                    <marquee behavior="scroll" direction="left" style="width: 88%; height:16px;">
                         ${order.remark }
                     </marquee>
+                    -->
                 </td>
-                <style>
-                    #send:hover {
-                        color: #337ab7;
-                        cursor: pointer;
-                    }
-                </style>
                 <td>
-                    <span id="send" class="glyphicon glyphicon-print" data-toggle="modal" data-target="#print"></span>
+                	<span class="glyphicon glyphicon-edit operator" title="详细" data-toggle="modal" data-target="#remarkModal" onclick="setModalContent('<fmt:formatNumber value="${order.id }" pattern="00000000"/>', '${order.remark }')"></span>
+                	<span style="color: #ddd;">/</span>
+                    <span class="glyphicon glyphicon-print operator" title="打印" data-toggle="modal" data-target="#printModal"></span>
                 </td>
                 <td>合计</td>
                 <td>${order.nums }件</td>
@@ -101,77 +99,40 @@
             </tr>
             </tbody>
         </table>
-        <!--modal-->
-        <div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog"  style="width: 28%; font-size: 12px">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">打印</h4>
-                    </div>
-                    <!--modal body-->
-                    <div class="modal-body form-controll" id="div_print">
-                        <h4 style="text-align: center">
-                            <i>MyClothes</i>商品销售单
-                        </h4>
-                        <br>
-                        <p>销售单号：<fmt:formatNumber value="${order.id }" pattern="00000000"/></p>
-                        <p>日期：<fmt:formatDate value="${order.create_date }" type="both"/></p>
-                        <p>打印次数：${order.print_count }</p>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>商品</th><th>原价</th><th>折扣</th><th>合计</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${order.details }" var="detail">
-                                	<tr>
-                                	<td>
-                                		<fmt:formatNumber value="${detail.good_id }" pattern="00000000"/>/
-                                		${detail.color }/${detail.size }
-                                	</td>
-                                	<td>${detail.price }</td>
-                                	<td><fmt:formatNumber value="${detail.discount }" pattern="0.00"/></td>
-                                	<td>${detail.dis_price }</td>
-                                	</tr>
-                                </c:forEach>
-                             
-                                <tr style="border-bottom: 2px solid #ddd">
-                                    <td colspan="2">合计</td>
-                                    <td>${order.nums }</td>
-                                    <td>${order.sum_money }</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <p>收银：<span>${order.user.name }</span></p>
-                        <p>导购：
-                        	<c:forEach items="${order.staffs }" var="staff">
-                        		<span>${staff.staff.name }</span>
-                        	</c:forEach>
-                        </p>
-                        <p>银行卡付款：
-                            <span>${order.sum_money }</span>
-                        </p>
-                        <p>备注：${order.remark }</p>
-                    </div>
-                    <div class="modal-footer" id="footer">
-                        <script>
-                            $(document).ready(function() {
-                                $("#printButton").click(function(){
-                                    $("#div_print").jqprint();
-                                });
-                            });
-                        </script>
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="关闭">
-                        <input id="printButton" type="button" class="btn btn-primary" value="打印">
-                    </div>
-            	</div>
-        	</div>
-    	</div>
+        <!-- add remark modal -->
+		<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form action="addRemark" method="post">
+						<!-- 提交方式必须为post，否则中文会乱码，原因不清 -->
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">添加备注</h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								<span>备注信息：</span> <span class="pull-right"> 单号： <input
+									id="order_id" name="order_id" type="text"
+									style="height: 20px; width: 62px; background-color: transparent; border: none;" />
+								</span>
+							</p>
+							<textarea id="remark" name="remark" class="form-control"
+								rows="3" style="width: 100%; resize: none"></textarea>
+						</div>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-default"
+								data-dismiss="modal" value="关闭">
+							<input type="submit" class="btn btn-primary"
+							 value="保存">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- printing modal -->
+        <c:import url="printModal.jsp"></c:import>
     </div>
 </div>
 </body>

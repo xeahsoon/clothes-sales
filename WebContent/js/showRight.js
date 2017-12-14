@@ -66,7 +66,7 @@ function showAtRight(url) {
         //onreadystatechange — 当readystate变化时调用后面的方法
 
         if (xmlHttp.readyState == 4) {
-            //xmlHttp.readyState == 4	——	finished downloading response
+            //xmlHttp.readyState == 4	——	请求完成，响应就绪
 
             if (xmlHttp.status == 200) {
                 //xmlHttp.status == 200		——	服务器反馈正常

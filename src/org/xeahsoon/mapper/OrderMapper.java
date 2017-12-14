@@ -72,6 +72,6 @@ public interface OrderMapper {
 	})
 	List<Order> listAllOrders();
 
-	@Update("update `order` set remark = #{remark} where order_id = #{order_id}")
+	@Update("update `order` set remark = #{remark} where id = #{order_id}")
 	int addRemark(@Param("remark")String remark, @Param("order_id")int order_id);
 }

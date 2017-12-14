@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
@@ -115,7 +114,7 @@
                             <td>红色</td>
                             <td>S</td>
                             <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
                             <td>90</td>
                         </tr>
                         <tr>
@@ -171,8 +170,8 @@
                         </tr>
                         <tr style="border-bottom: 2px solid #ddd">
                         	<td colspan="5">
-                        		<span class="pull-left">备注：&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        		<input type="text" name="remark" class="form-control" style="height:20px; width:78%; background-color:#f9f9f9;"/>
+                        		<span class="pull-left">备注：&nbsp;&nbsp;</span>
+                        		<input type="text" name="remark" style="height:20px; width:78%; background-color:transparent; border:none"/>
                         	</td>
                             <td>合计</td>
                             <td>9件</td>
