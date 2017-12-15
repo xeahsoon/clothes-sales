@@ -48,7 +48,8 @@ public interface OrderMapper {
 	})
 	Order findOrderById(@Param("id")int id);
 	
-	@Select("select * from `order` order by create_date")
+	//按时间降序得到所有订单
+	@Select("select * from `order` order by create_date desc")
 	@Results({
 		@Result(id=true, column="id", property="id"),
 		@Result(column="create_date", property="create_date"),
@@ -71,7 +72,8 @@ public interface OrderMapper {
 			select = "org.xeahsoon.mapper.OrderDetailMapper.listAllDetailsByID"))
 	})
 	List<Order> listAllOrders();
-
+	
+	//更新订单备注
 	@Update("update `order` set remark = #{remark} where id = #{order_id}")
 	int addRemark(@Param("remark")String remark, @Param("order_id")int order_id);
 }

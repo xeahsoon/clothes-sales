@@ -25,6 +25,16 @@
     <link rel="stylesheet" href="css/base.css">
     <script type="text/javascript" src="js/showRight.js"></script>
     <script>
+    	function search() {
+    		var name = document.getElementById("search_name").value;
+    		var id = document.getElementById("search_id").value;
+    		if(id.length == 0) {
+    			alert("请输入有效的单号！");
+    		} else {
+    			showAtRight(name + '/' + id);
+    		}
+    	}
+    
     	function setModalContent(id, remark) {
     		$("#order_id").val(id);
     		/* 不可设为disabled，否则表单无法提交order_id */
@@ -42,6 +52,15 @@
 		color: #337ab7;
 	    cursor: pointer;
 	}
+	
+	.searcher {
+		color: #666;
+	}
+	
+	.searcher:hover {
+		font-weight: 700;
+		cursor: pointer;
+	}
   </style>
   
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -54,7 +73,7 @@
             <span class="icon-bar"></span>
           </button>
           <img src="images/icon.png" class="pull-left" style="height: 36px; margin: 7px;" alt="icon">
-          <a class="navbar-brand" href="">MyClothes</a>
+          <a class="navbar-brand" href="main">MyClothes</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -78,8 +97,7 @@
           <div id="list1" class="collapse in">
             <ul class="nav nav-sidebar">
               <li><a onclick="showAtRight('makeOrder')">销售打单</a></li>
-              <li><a onclick="showAtRight('orderDetail')">销售单查询</a></li>
-              <li><a onclick="showAtRight('returnGood')">销售退换货</a></li>
+              <li><a onclick="showAtRight('orderDetail')">销售单管理</a></li>
             </ul>
           </div>
 
@@ -112,7 +130,6 @@
             <ul class="nav nav-sidebar">
               <li><a href="#" onclick="showAtRight('member')">会员管理</a></li>
               <li><a href="#" onclick="showAtRight('staff')">导购员管理</a></li>
-              <li><a href="#" onclick="showAtRight('test')">test</a></li>
             </ul>
           </div>
         </div>
@@ -174,9 +191,8 @@
 						<c:if test="${order.pay_mode == 4 }"><td>现金</td></c:if>
 						<td>
 						<!-- <span class="glyphicon glyphicon-share operator" title="详细" data-toggle="modal" data-target="#remark" onclick="setID('<fmt:formatNumber value="${order.id }" pattern="00000000"/>')"></span> -->
+						<span style="color: transparent">/</span>
 						<span class="glyphicon glyphicon-share operator" title="详细" onclick="showAtRight('orderDetail/${order.id}')"></span>
-						<span style="color: #ddd;">/</span>
-						<span class="glyphicon glyphicon-edit operator" title="退换货" onclick="showAtRight('returnGood/${order.id}')"></span>
 						</td>
 					</tr>
 				</c:forEach>

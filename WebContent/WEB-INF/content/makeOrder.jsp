@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="input-group col-md-3 pull-left">
                         <span class="input-group-addon">收银：</span>
-                        <input type="text" class="form-control" value="九江万达店"disabled="disabled" style="width: 120px;">
+                        <input type="text" class="form-control" value="九江万达店" readOnly="readonly" style="width: 120px;">
                     </div>
                     <div class="input-group col-md-3 pull-left">
                         <span class="input-group-addon">导购：</span>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="input-group col-md-3 pull-left">
                         <!--<span class="input-group-addon">支付：</span>-->
-                        <input type="text" value="98.9" class="form-control" style="font-weight: 600" disabled="disabled">
+                        <input type="text" value="98.9" class="form-control" style="font-weight: 600" readOnly="readonly">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default" data-toggle="dropdown">
                                 <span class="caret"></span>

@@ -32,6 +32,7 @@
 						<thead>
 							<tr>
 								<th>商品</th>
+								<th>类型</th>
 								<th>原价</th>
 								<th>折扣</th>
 								<th>合计</th>
@@ -40,8 +41,9 @@
 						<tbody>
 							<c:forEach items="${order.details }" var="detail">
 								<tr>
-									<td><fmt:formatNumber value="${detail.good_id }"
+									<td><fmt:formatNumber value="${detail.good.id }"
 											pattern="00000000" />/ ${detail.color }/${detail.size }</td>
+									<td>${detail.good.type }</td>
 									<td>${detail.price }</td>
 									<td><fmt:formatNumber value="${detail.discount }"
 											pattern="0.00" /></td>
@@ -50,8 +52,8 @@
 							</c:forEach>
 
 							<tr style="border-bottom: 2px solid #ddd">
-								<td colspan="2">合计</td>
-								<td>${order.nums }</td>
+								<td colspan="3">合计</td>
+								<td>${order.nums }件</td>
 								<td>${order.sum_money }</td>
 							</tr>
 						</tbody>

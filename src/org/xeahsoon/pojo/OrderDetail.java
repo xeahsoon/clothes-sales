@@ -25,7 +25,8 @@ public class OrderDetail implements Serializable{
 	private int id;			//明细编号
 	private int order_id;			//销售单编号
 	private int storage_id;			//商品编号
-	private int good_id;
+	//private int good_id;
+	private Good good;
 	private String color;
 	private String size;
 	private double discount;		//折扣
@@ -50,11 +51,11 @@ public class OrderDetail implements Serializable{
 	public void setStorage_id(int storage_id) {
 		this.storage_id = storage_id;
 	}
-	public int getGood_id() {
-		return good_id;
+	public Good getGood() {
+		return good;
 	}
-	public void setGood_id(int good_id) {
-		this.good_id = good_id;
+	public void setGood(Good good) {
+		this.good = good;
 	}
 	public String getColor() {
 		return color;
@@ -89,8 +90,8 @@ public class OrderDetail implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", order_id=" + order_id + ", storage_id=" + storage_id + ", good_id="
-				+ good_id + ", color=" + color + ", size=" + size + ", discount=" + discount + ", price=" + price
-				+ ", dis_price=" + dis_price + "]";
+		return "OrderDetail [id=" + id + ", order_id=" + order_id + ", storage_id=" + storage_id + ", good=" + good
+				+ ", color=" + color + ", size=" + size + ", discount=" + discount + ", price=" + price + ", dis_price="
+				+ dis_price + "]";
 	}
 }

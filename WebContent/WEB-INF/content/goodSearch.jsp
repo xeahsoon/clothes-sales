@@ -120,7 +120,7 @@
                         </tbody>
                     </table>
                 </div>
-                <img class="thumbnail pull-right" style="height: 195px;" src="images/background2.jpg" alt="">
+                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon_blue.jpg" alt="Good picture has gone">
             </div>
         </div>
         <div class="table-responsive">

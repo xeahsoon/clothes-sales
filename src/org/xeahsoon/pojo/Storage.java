@@ -20,6 +20,7 @@ public class Storage implements Serializable{
 	private int good_id;			//款号、外键
 	private String color;			//颜色
 	private String size;
+	private Good good;
 	
 	public int getId() {
 		return id;
@@ -45,9 +46,16 @@ public class Storage implements Serializable{
 	public void setSize(String size) {
 		this.size = size;
 	}
+	public Good getGood() {
+		return good;
+	}
+	public void setGood(Good good) {
+		this.good = good;
+	}
 	
 	@Override
 	public String toString() {
-		return "Storage [id=" + id + ", good_id=" + good_id + ", color=" + color + ", size=" + size + "]";
+		return "Storage [id=" + id + ", good_id=" + good_id + ", color=" + color + ", size=" + size + ", good=" + good
+				+ "]";
 	}
 }

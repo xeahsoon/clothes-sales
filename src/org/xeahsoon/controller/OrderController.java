@@ -28,8 +28,17 @@ public class OrderController {
 		
 		List<Order> order_list = orderService.listAllOrders();
 		model.addAttribute("order_list", order_list);
-		
 		return "main";
+	}
+	
+	//明细主页，默认显示最近一笔订单
+	@RequestMapping("/orderDetail")
+	public String orderDetailPage(Model model) {
+
+		List<Order> order_list = orderService.listAllOrders();
+		model.addAttribute("order", order_list.get(0));
+		
+		return "orderDetail";
 	}
 	
 	//销售单明细
@@ -37,22 +46,11 @@ public class OrderController {
 	public String listOrderDetails(
 			@PathVariable(value="order_id") int order_id,
 			Model model) {
-		Order order = orderService.findOrderById(order_id);
 		
+		Order order = orderService.findOrderById(order_id);
 		model.addAttribute("order", order);
 		
 		return "orderDetail";
-	}
-	
-	//销售退货
-	@RequestMapping("/returnGood/{order_id}")
-	public String listReturnGoods(
-			@PathVariable(value="order_id")int order_id,
-			Model model) {
-		Order order = orderService.findOrderById(order_id);
-		model.addAttribute("order", order);
-		
-		return "returnGood";
 	}
 	
 	@RequestMapping("/searchOrder")

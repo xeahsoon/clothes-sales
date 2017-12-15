@@ -91,8 +91,8 @@
             <c:forEach items="${order.details }" var="detail">
             	<tr>
             		<td><fmt:formatNumber value="${detail.storage_id }" pattern="00000000000"/></td>
-            		<td><fmt:formatNumber value="${detail.good_id }" pattern="00000000"/></td>
-            		<td></td>
+            		<td><fmt:formatNumber value="${detail.good.id }" pattern="00000000"/></td>
+            		<td>${detail.good.type }</td>
             		<td>${detail.color }</td>
             		<td>${detail.size }</td>
             		<td>${detail.price }</td>
