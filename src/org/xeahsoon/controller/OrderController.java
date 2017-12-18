@@ -2,17 +2,14 @@ package org.xeahsoon.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
-import org.xeahsoon.pojo.OrderDetail;
-import org.xeahsoon.pojo.Staff;
 import org.xeahsoon.service.OrderService;
 
 @Controller
@@ -65,25 +62,25 @@ public class OrderController {
 	
 	//打印销售单
 	@RequestMapping("/printOrder/{order_id}")
-	public String printOrder(
-			@PathVariable(value="order_id") int order_id,
-			Model model) {
-		
-		Order order = orderService.findOrderById(order_id);
-		System.out.println(order.getUser());
-		
-		model.addAttribute("order", order);
-		
-		return "printOrder";
+	public void printOrder(
+			@PathVariable(value="order_id") int order_id) {
+		int result = orderService.printOrder(order_id);
+		if(result == 1) {
+			System.out.println("Printing!!! " + order_id);
+		} else {
+			System.out.println("Printing failed!!!");
+		}
 	}
 	
 	//添加订单备注
-	@RequestMapping("/addRemark")
-	public String addRemark(int order_id, String remark) {
-		System.out.println("I am here to add remark!!!!!!!: " + remark);
+	@RequestMapping(value="/addRemark")
+	@ResponseBody 
+	public Order addRemark(int order_id, String remark_content) {
+		System.out.println("I am here to add remark!!!!!!!: " + remark_content);
 		   
-		orderService.addOrderRemark(remark, order_id);
+		orderService.addOrderRemark(remark_content, order_id);
+		Order order = orderService.findOrderById(order_id);
 		
-		return "main";
+		return order;
 	}
 }

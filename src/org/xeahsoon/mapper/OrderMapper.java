@@ -76,4 +76,7 @@ public interface OrderMapper {
 	//更新订单备注
 	@Update("update `order` set remark = #{remark} where id = #{order_id}")
 	int addRemark(@Param("remark")String remark, @Param("order_id")int order_id);
+	
+	@Update("update `order` set print_count = print_count + 1 where id = #{order_id}")
+	int printOrder(@Param("order_id")int order_id);
 }

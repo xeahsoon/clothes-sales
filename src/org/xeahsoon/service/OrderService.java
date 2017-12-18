@@ -12,9 +12,9 @@ public interface OrderService {
 	
 	List<Order> listAllOrders();
 	
-	/*List<OrderDetail> listOrderDetails(int order_id);
-	
-	List<Staff> listOrderStaffs(int order_id);*/
-	
 	int addOrderRemark(String remark, int order_id);
+	
+	int printOrder(int order_id);
+	
+	List<Staff> getVerifiedStaffs();
 }

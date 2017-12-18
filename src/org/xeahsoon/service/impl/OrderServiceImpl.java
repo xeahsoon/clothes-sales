@@ -34,23 +34,18 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.listAllOrders();
 	}
 
-	/*@Override
-	public List<OrderDetail> listOrderDetails(int order_id) {
-		return orderDetailMapper.listAllDetailsByID(order_id);
-	}
-
-	@Override
-	public List<Staff> listOrderStaffs(int order_id) {
-		List<Staff> staffs = new ArrayList<Staff>();
-		for(OrderStaff os : orderStaffMapper.listOrderStaffs(order_id)) {
-			staffs.add(staffMapper.getStaffById(os.getId()));
-		}
-		return staffs;
-	}*/
-
 	@Override
 	public int addOrderRemark(String remark, int order_id) {
 		return orderMapper.addRemark(remark, order_id);
 	}
 
+	@Override
+	public int printOrder(int order_id) {
+		return orderMapper.printOrder(order_id);
+	}
+	
+	@Override
+	public List<Staff> getVerifiedStaffs() {
+		return staffMapper.listVerifiedStaffs();
+	}
 }

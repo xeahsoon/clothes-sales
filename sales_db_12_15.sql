@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-14 16:25:22
+Date: 2017-12-15 10:06:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `good` (
   `price` double(6,2) NOT NULL COMMENT '价格',
   `picture` varchar(15) DEFAULT NULL COMMENT '图片',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17021202 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17207004 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of good
@@ -36,6 +36,8 @@ INSERT INTO `good` VALUES ('17020201', '衬衫', '125.00', '17020201.jpg');
 INSERT INTO `good` VALUES ('17021101', '短裤', '110.00', '17021101.jpg');
 INSERT INTO `good` VALUES ('17021102', '短裤', '105.00', '17021102.jpg');
 INSERT INTO `good` VALUES ('17021201', '长裤', '199.00', '17021201.jpg');
+INSERT INTO `good` VALUES ('17202010', '长裤', '225.00', '17202010.jpg');
+INSERT INTO `good` VALUES ('17207003', '短袖T恤', '99.00', '17207003.jpg');
 
 -- ----------------------------
 -- Table structure for `manager`
@@ -118,6 +120,8 @@ CREATE TABLE `order_detail` (
   PRIMARY KEY (`id`),
   KEY `fk_od_order` (`order_id`),
   KEY `uq_code` (`storage_id`) USING BTREE,
+  KEY `fk_od_good` (`good_id`),
+  CONSTRAINT `fk_od_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`),
   CONSTRAINT `fk_od_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -125,8 +129,8 @@ CREATE TABLE `order_detail` (
 -- Records of order_detail
 -- ----------------------------
 INSERT INTO `order_detail` VALUES ('1', '00000001', '00000000001', '17207003', '黑色', 'M', '1.00', '99.00', '99.00');
-INSERT INTO `order_detail` VALUES ('2', '00000001', '00000000003', '17202010', '卡其色', 'S', '1.00', '225.00', '225.00');
-INSERT INTO `order_detail` VALUES ('3', '00000002', '00000000002', '17200101', '红色', 'XL', '1.00', '99.00', '99.00');
+INSERT INTO `order_detail` VALUES ('2', '00000001', '00000000003', '17202010', '卡其色', '28', '1.00', '225.00', '225.00');
+INSERT INTO `order_detail` VALUES ('3', '00000002', '00000000002', '17020101', '红色', 'XL', '1.00', '99.00', '99.00');
 
 -- ----------------------------
 -- Table structure for `order_staff`

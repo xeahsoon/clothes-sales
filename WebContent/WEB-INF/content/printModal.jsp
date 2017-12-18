@@ -78,13 +78,16 @@
 				<script>
                     $(document).ready(function() {
                         $("#printButton").click(function(){
+                        	//$("#printForm").submit();
                             $("#div_print").jqprint();
                         });
                     });
                 </script>
+                <!-- 打印计数 -->
+                <form id="printForm" action="printOrder/${order.id }" method="post"></form>
 				<input type="button" class="btn btn-default" data-dismiss="modal"
 					value="关闭"> <input id="printButton" type="button"
-					class="btn btn-primary" value="打印">
+					class="btn btn-primary" value="打印"/>
 			</div>
 		</div>
 	</div>

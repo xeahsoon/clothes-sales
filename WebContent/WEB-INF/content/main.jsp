@@ -39,7 +39,15 @@
     		$("#order_id").val(id);
     		/* 不可设为disabled，否则表单无法提交order_id */
     		document.getElementById("order_id").readOnly="readOnly";
-    		$("#remark").val(remark);
+    		$("#remark_content").val(remark);
+    	}
+    	
+    	function addRemark() {
+    		var id = document.getElementById("order_id").value;
+    		var remark = document.getElementById("remark_content").value;
+
+    		alert('addRemark/?order_id=' + id + '?remark=' + remark);
+    		showAtRight('addRemark/?order_id=' + id + '?remark=' + remark);
     	}
     </script>
 </head>

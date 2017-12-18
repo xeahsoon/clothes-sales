@@ -149,7 +149,7 @@
 									style="height: 20px; width: 62px; background-color: transparent; border: none;" />
 								</span>
 							</p>
-							<textarea id="remark" name="remark" class="form-control"
+							<textarea id="remark_content" name="remark_content" class="form-control"
 								rows="3" style="width: 100%; resize: none"></textarea>
 						</div>
 						<div class="modal-footer">
