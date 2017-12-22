@@ -73,13 +73,13 @@ public class OrderController {
 	}
 	
 	//添加订单备注
-	@RequestMapping(value="/addRemark")
 	@ResponseBody 
-	public Order addRemark(int order_id, String remark_content) {
-		System.out.println("I am here to add remark!!!!!!!: " + remark_content);
+	@RequestMapping(value="/addRemark")
+	public Order addRemark(int id, String remark) {
+		System.out.println("I am here to add remark!!!!!!!: " + remark);
 		   
-		orderService.addOrderRemark(remark_content, order_id);
-		Order order = orderService.findOrderById(order_id);
+		orderService.addOrderRemark(remark, id);
+		Order order = orderService.findOrderById(id);
 		
 		return order;
 	}

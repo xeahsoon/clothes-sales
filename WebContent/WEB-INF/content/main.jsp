@@ -19,11 +19,23 @@
     <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap-multiselect.css">
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <script type="text/javascript" src="js/showRight.js"></script>
+    
+    <script type="text/javascript" class="init">
+        $(document).ready(function() {
+            $('#allData').DataTable( {
+                "language": {
+                    "url": "plug-ins/Chinese.json"
+                }
+            } );
+        } );
+    </script>
+        
     <script>
     	function search() {
     		var name = document.getElementById("search_name").value;
@@ -42,13 +54,25 @@
     		$("#remark_content").val(remark);
     	}
     	
-    	function addRemark() {
-    		var id = document.getElementById("order_id").value;
-    		var remark = document.getElementById("remark_content").value;
-
-    		alert('addRemark/?order_id=' + id + '?remark=' + remark);
-    		showAtRight('addRemark/?order_id=' + id + '?remark=' + remark);
-    	}
+        function sendRemark() {
+       		$.ajax({
+       			type: "POST",
+       			url: "addRemark",
+       			data: {
+       				id: "2",
+       				remark: "This is a test content."
+       			},
+       			dataType: "json",
+       			success: function(data) {
+       				//window.location.reload();
+       				alert(data.id + "  " + data.remark);
+       				//$("remark_content").val(${data.remark}));
+       			},
+       			error: function(jqXHR) {
+       				alert("发生错误: " + jqXHR.status);
+       			}
+       		});
+       	}
     </script>
 </head>
   <body>
@@ -138,6 +162,7 @@
             <ul class="nav nav-sidebar">
               <li><a href="#" onclick="showAtRight('member')">会员管理</a></li>
               <li><a href="#" onclick="showAtRight('staff')">导购员管理</a></li>
+              <li><a href="#" onclick="showAtRight('test')">测试页面</a></li>
             </ul>
           </div>
         </div>
@@ -167,7 +192,7 @@
 
             <h2 class="sub-header">清单</h2>
             <div class="table-responsive">
-              <table class="table table-striped">
+              <table id="allData" class="table table-striped">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -219,14 +244,17 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="css/bootstrap/js/jquery.min.js"></script>
+    <!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
+    <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+    
     <script src="css/bootstrap/js/bootstrap.min.js"></script>
     <script src="css/bootstrap/js/bootstrap-multiselect.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/dataTables.bootstrap.js"></script>
     <script src="js/echarts.js"></script>
     
-    <!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
-    <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
     <script src="js/jquery.jqprint-0.3.js"></script>
     
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->

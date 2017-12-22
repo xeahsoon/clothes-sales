@@ -31,7 +31,7 @@
         <h2 class="page-header">销售清单查询</h2>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
 	        <div class="input-group pull-left">
 	            <input type="text" id="search_id" name="search_id" class="form-control" placeholder="请输入流水单号..">
 	        	<input type="hidden" id="search_name" value="orderDetail"/>
@@ -42,7 +42,7 @@
     
     <div class="table-responsive" style="margin-top: 30px">
         <h3 class="page-header">清单明细</h3>
-        <table class="table table-striped" id="info">
+        <table class="table table-striped table-condensed" id="info">
             <style>
                #info td:nth-child(3n) {
                     color: #dddddd;
@@ -155,8 +155,8 @@
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default"
 								data-dismiss="modal" value="关闭">
-							<input type="submit" class="btn btn-primary"
-							 value="保存">
+							<input type="button" class="btn btn-primary"
+							 	id="saveButton"	onclick="sendRemark()" value="保存">
 						</div>
 					</form>
 				</div>
