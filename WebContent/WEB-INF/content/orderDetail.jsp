@@ -102,7 +102,8 @@
             
             <tr style="border-bottom: 2px solid #ddd">
                 <td colspan="4">
-                    <label>备注：&nbsp;&nbsp;</label>${order.remark }
+                    <label>备注：&nbsp;&nbsp;</label>
+                    <span id="table_remark">${order.remark }</span>
                     <!-- 
                     <marquee behavior="scroll" direction="left" style="width: 88%; height:16px;">
                         ${order.remark }
@@ -154,7 +155,7 @@
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default"
-								data-dismiss="modal" value="关闭">
+								id="dismissButton" data-dismiss="modal" value="关闭">
 							<input type="button" class="btn btn-primary"
 							 	id="saveButton"	onclick="sendRemark()" value="保存">
 						</div>

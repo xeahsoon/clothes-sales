@@ -59,14 +59,14 @@
        			type: "POST",
        			url: "addRemark",
        			data: {
-       				id: "2",
-       				remark: "This is a test content."
+       				id: document.getElementById("order_id").value,
+       				remark: document.getElementById("remark_content").value
        			},
        			dataType: "json",
        			success: function(data) {
+       				$("#dismissButton").click();
        				//window.location.reload();
-       				alert(data.id + "  " + data.remark);
-       				//$("remark_content").val(${data.remark}));
+       				document.getElementById("table_remark").innerHTML = data.remark;
        			},
        			error: function(jqXHR) {
        				alert("发生错误: " + jqXHR.status);
