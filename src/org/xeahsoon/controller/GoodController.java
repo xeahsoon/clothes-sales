@@ -23,14 +23,14 @@ public class GoodController {
 	/**
 	 * 处理/main请求
 	 * */
-	@RequestMapping(value="/goods")
-	 public String main(Model model){
+	@RequestMapping(value="/test")
+	 public String listGoods(Model model){
 		
 		List<Good> good_list = goodService.listAllGoods();
 		
 		model.addAttribute("good_list", good_list);
 		// 跳转到main页面
-		return "main";
+		return "test";
 	}
 	
 }

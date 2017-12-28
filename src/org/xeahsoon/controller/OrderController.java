@@ -50,6 +50,18 @@ public class OrderController {
 		return "orderDetail";
 	}
 	
+	//后台检索单号是否存在
+	@ResponseBody
+	@RequestMapping("/checkOrderID")
+	public int checkOrderID(int id) {
+		Order order = orderService.findOrderById(id);
+		if(order != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	//搜索订单返回前台
 	@RequestMapping("/searchOrder")
 	public String searchOrder(String order_id,
 			Model model) {
@@ -76,7 +88,6 @@ public class OrderController {
 	@ResponseBody 
 	@RequestMapping(value="/addRemark")
 	public Order addRemark(int id, String remark) {
-		System.out.println("I am here to add remark!!!!!!!: " + remark);
 		   
 		orderService.addOrderRemark(remark, id);
 		Order order = orderService.findOrderById(id);

@@ -34,6 +34,7 @@
         <div class="col-md-3">
 	        <div class="input-group pull-left">
 	            <input type="text" id="search_id" name="search_id" class="form-control" placeholder="请输入流水单号..">
+	        	<input type="hidden" id="search_url" value="checkOrderID"/>
 	        	<input type="hidden" id="search_name" value="orderDetail"/>
 	            <span class="input-group-addon searcher" onclick="search()">查询</span>
 	        </div>
@@ -136,7 +137,7 @@
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="addRemark" method="post">
+					<form method="post">
 						<!-- 提交方式必须为post，否则中文会乱码，原因不清 -->
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"

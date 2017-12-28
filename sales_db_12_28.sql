@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-15 10:06:55
+Date: 2017-12-28 11:55:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,16 +65,32 @@ CREATE TABLE `member` (
   `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '主键',
   `phone` varchar(13) NOT NULL COMMENT '会员卡号',
   `name` varchar(20) NOT NULL COMMENT '会员姓名',
-  `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '会员生日',
+  `birthday` date NOT NULL COMMENT '会员生日',
+  `discount` double(4,2) NOT NULL DEFAULT '1.00' COMMENT '会员折扣',
+  `score` int(11) NOT NULL DEFAULT '0' COMMENT '会员积分',
+  `intime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '入会时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_phone` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uq_phone` (`phone`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES ('00000000001', '13257453246', '张三', '2017-12-12 11:25:58');
-INSERT INTO `member` VALUES ('00000000002', '13578907894', '李四', '2017-12-12 11:26:21');
+INSERT INTO `member` VALUES ('00000000001', '13257453246', '张三', '2017-12-12', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000002', '13578907894', '李四', '2017-12-12', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000003', '13213414143', '王五', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000004', '15270926232', '谢松', '1996-07-11', '0.75', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000005', '17234245234', '熊铨叙', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000006', '15521342349', '吴超忠', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000007', '18624242234', '许建雄', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000008', '13223535643', '占柳剑', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000009', '15290734505', '胡竞宇', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000010', '15723452890', '余文涛', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000011', '18529004523', '饶海明', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000012', '13804562356', '卢从发', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
+INSERT INTO `member` VALUES ('00000000013', '12345678909', 'test member', '1959-07-23', '0.85', '0', '2017-12-26 09:45:37');
+INSERT INTO `member` VALUES ('00000000018', '123141231', '测试', '2017-12-28', '0.95', '0', '2017-12-26 14:24:34');
+INSERT INTO `member` VALUES ('00000000020', '18879695997', '尹婷', '1999-04-24', '0.75', '0', '2017-12-28 11:18:13');
 
 -- ----------------------------
 -- Table structure for `order`
@@ -100,8 +116,8 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('00000001', '2017-11-23 13:23:29', '0', '2', '324.00', '1', '顾客明天早上至店里自取，请留意', '0001', '1');
-INSERT INTO `order` VALUES ('00000002', '2017-11-23 13:27:32', '0', '1', '99.00', '3', '邮寄至顾客家，地址及联系方式见记事簿，经手人：松子', '0003', '2');
+INSERT INTO `order` VALUES ('00000001', '2017-11-23 13:23:29', '0', '2', '324.00', '1', '邮寄至顾客家，地址见记事本，邮寄完成记得回馈单号给客户', '0001', '1');
+INSERT INTO `order` VALUES ('00000002', '2017-11-23 13:27:32', '1', '1', '99.00', '3', '顾客明天下午四点到店自提，经手人：景云', '0003', '2');
 
 -- ----------------------------
 -- Table structure for `order_detail`

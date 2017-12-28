@@ -1,5 +1,6 @@
 package org.xeahsoon.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> listAllMembers() {
 		return memberMapper.showMembers();
+	}
+
+	@Override
+	public int checkPhoneIfExist(String phone) {
+		return memberMapper.countPhone(phone);
+	}
+
+	@Override
+	public int addMember(String phone, String name, String birth) {
+		return memberMapper.addMember(phone, name, birth);
+	}
+
+	@Override
+	public int deleteMember(int id) {
+		return memberMapper.deleteMember(id);
+	}
+
+	@Override
+	public int updateMemberInfo(String name, Date birth, Double discount, String phone) {
+		return memberMapper.updataMemberByPhone(name, birth, discount, phone);
 	}
 
 }

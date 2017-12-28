@@ -101,12 +101,12 @@ table.dataTable thead .sorting:after {
   /* sort */
 }
 table.dataTable thead .sorting_asc:after {
-  content: "\e155";
-  /* sort-by-attributes */
+  content: "\e093"; 
+  /* sort-by-attributes \e155 */
 }
 table.dataTable thead .sorting_desc:after {
-  content: "\e156";
-  /* sort-by-attributes-alt */
+  content: "\e094";
+  /* sort-by-attributes-alt \e156 */
 }
 table.dataTable thead .sorting_asc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:after {

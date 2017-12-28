@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Test DataTable</title>
-    
+
     <script type="text/javascript" class="init">
         $(document).ready(function() {
-            $('#example').DataTable( {
+            $('#test').DataTable( {
                 "language": {
                     "url": "plug-ins/Chinese.json"
                 }
-            } );
-        } );
+            });
+        });
     </script>
 </head>
 <body>
@@ -23,29 +24,28 @@
         <span class="fa fa-facebook"></span>
     </div>
     <div class="table-responsive">
-        <table id="example" class="table table-striped">
+        <table id="test" class="table table-striped">
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Position</th>
                 <th>Office</th>
                 <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <!-- <th>Start date</th>
+                <th>Salary</th> -->
             </tr>
             </thead>
-            <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-            </tfoot>
             <tbody>
-            <tr>
+            <c:forEach items="${requestScope.good_list }" var="good">
+            	<tr>
+            		<td>${good.id }</td>
+            		<td>${good.type }</td>
+            		<td>${good.price }</td>
+            		<td>${good.picture }</td>
+            	</tr>
+            </c:forEach>
+            
+            <!-- <tr>
                 <td>Tiger Nixon</td>
                 <td>System Architect</td>
                 <td>Edinburgh</td>
@@ -500,7 +500,7 @@
                 <td>27</td>
                 <td>2011/01/25</td>
                 <td>$112,000</td>
-            </tr>
+            </tr> -->
             </tbody>
         </table>
     </div>

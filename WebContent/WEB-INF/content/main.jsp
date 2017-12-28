@@ -20,11 +20,13 @@
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap-multiselect.css">
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/buttons.bootstrap.css">
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <script type="text/javascript" src="js/showRight.js"></script>
+    <script src="js/base.js"></script>
     
     <script type="text/javascript" class="init">
         $(document).ready(function() {
@@ -32,48 +34,10 @@
                 "language": {
                     "url": "plug-ins/Chinese.json"
                 }
-            } );
-        } );
+            });
+        });
     </script>
-        
-    <script>
-    	function search() {
-    		var name = document.getElementById("search_name").value;
-    		var id = document.getElementById("search_id").value;
-    		if(id.length == 0) {
-    			alert("请输入有效的单号！");
-    		} else {
-    			showAtRight(name + '/' + id);
-    		}
-    	}
     
-    	function setModalContent(id, remark) {
-    		$("#order_id").val(id);
-    		/* 不可设为disabled，否则表单无法提交order_id */
-    		document.getElementById("order_id").readOnly="readOnly";
-    		$("#remark_content").val(remark);
-    	}
-    	
-        function sendRemark() {
-       		$.ajax({
-       			type: "POST",
-       			url: "addRemark",
-       			data: {
-       				id: document.getElementById("order_id").value,
-       				remark: document.getElementById("remark_content").value
-       			},
-       			dataType: "json",
-       			success: function(data) {
-       				$("#dismissButton").click();
-       				//window.location.reload();
-       				document.getElementById("table_remark").innerHTML = data.remark;
-       			},
-       			error: function(jqXHR) {
-       				alert("发生错误: " + jqXHR.status);
-       			}
-       		});
-       	}
-    </script>
 </head>
   <body>
   <style>
@@ -205,8 +169,17 @@
                     <th>操作</th>
                   </tr>
                 </thead>
-                <tbody>
-                <c:forEach items="${requestScope.order_list }" var="order">
+                <tbody><tr>
+                    <td>#</td>
+                    <td>单号</td>
+                    <td>金额</td>
+                    <td>收银员</td>
+                    <td>导购员</td>
+                    <td>会员卡号</td>
+                    <td>支付方式</td>
+                    <td>操作</td>
+                  </tr>
+                <!-- <c:forEach items="${requestScope.order_list }" var="order">
 					<tr>
 						<td><fmt:formatDate value="${order.create_date }" type="both"/></td>
 						<td><fmt:formatNumber value="${order.id }" pattern="00000000"/></td>
@@ -223,13 +196,12 @@
 						<c:if test="${order.pay_mode == 3 }"><td>微信</td></c:if>
 						<c:if test="${order.pay_mode == 4 }"><td>现金</td></c:if>
 						<td>
-						<!-- <span class="glyphicon glyphicon-share operator" title="详细" data-toggle="modal" data-target="#remark" onclick="setID('<fmt:formatNumber value="${order.id }" pattern="00000000"/>')"></span> -->
 						<span style="color: transparent">/</span>
 						<span class="glyphicon glyphicon-share operator" title="详细" onclick="showAtRight('orderDetail/${order.id}')"></span>
 						</td>
 					</tr>
-				</c:forEach>
-              </tbody>
+				</c:forEach> -->
+                </tbody>
               </table>  
 
             </div>
@@ -245,14 +217,19 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="css/bootstrap/js/jquery.min.js"></script>
     <!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
-    <script src="http://www.jq22.com/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
     
     <script src="css/bootstrap/js/bootstrap.min.js"></script>
     <script src="css/bootstrap/js/bootstrap-multiselect.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.js"></script>
     <script src="css/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    
     <script src="js/jquery.dataTables.js"></script>
     <script src="js/dataTables.bootstrap.js"></script>
+    
+    <script src="js/dataTables.buttons.js"></script>
+    <script src="js/buttons.bootstrap.js"></script>
+    
     <script src="js/echarts.js"></script>
     
     <script src="js/jquery.jqprint-0.3.js"></script>
