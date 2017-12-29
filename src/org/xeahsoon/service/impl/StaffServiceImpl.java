@@ -19,4 +19,24 @@ public class StaffServiceImpl implements StaffService {
 		return staffMapper.listAllStaffs();
 	}
 
+	@Override
+	public List<Staff> listVerifiedStaffs() {
+		return staffMapper.listVerifiedStaffs();
+	}
+
+	@Override
+	public int checkStaff(int id) {
+		return staffMapper.checkStaff(id);
+	}
+
+	@Override
+	public int editStaff(String name, String phone, String idcard, String address) {
+		return staffMapper.editStaff(phone, idcard, address, name);
+	}
+
+	@Override
+	public int addStaff(String name, String phone, String idcard, String address) {
+		return staffMapper.addStaff(name, phone, idcard, address);
+	}
+
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-28 11:55:54
+Date: 2017-12-29 13:37:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -88,8 +88,7 @@ INSERT INTO `member` VALUES ('00000000009', '15290734505', '胡竞宇', '2017-12
 INSERT INTO `member` VALUES ('00000000010', '15723452890', '余文涛', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
 INSERT INTO `member` VALUES ('00000000011', '18529004523', '饶海明', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
 INSERT INTO `member` VALUES ('00000000012', '13804562356', '卢从发', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
-INSERT INTO `member` VALUES ('00000000013', '12345678909', 'test member', '1959-07-23', '0.85', '0', '2017-12-26 09:45:37');
-INSERT INTO `member` VALUES ('00000000018', '123141231', '测试', '2017-12-28', '0.95', '0', '2017-12-26 14:24:34');
+INSERT INTO `member` VALUES ('00000000018', '123141231', '测试', '1994-07-13', '0.95', '0', '2017-12-26 14:24:34');
 INSERT INTO `member` VALUES ('00000000020', '18879695997', '尹婷', '1999-04-24', '0.75', '0', '2017-12-28 11:18:13');
 
 -- ----------------------------
@@ -180,20 +179,26 @@ CREATE TABLE `staff` (
   `id` int(4) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(10) NOT NULL COMMENT '员工姓名',
   `phone` varchar(12) DEFAULT NULL COMMENT '手机号码',
-  `status` int(11) DEFAULT '0' COMMENT '审核状态（0/待审核 1/已审核）',
+  `idcard` varchar(18) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态（0/待审核 1/已审核）',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of staff
 -- ----------------------------
-INSERT INTO `staff` VALUES ('0001', '小黑', null, '0');
-INSERT INTO `staff` VALUES ('0002', '倩倩', null, '0');
-INSERT INTO `staff` VALUES ('0003', '松子', null, '1');
-INSERT INTO `staff` VALUES ('0004', '景云', null, '1');
-INSERT INTO `staff` VALUES ('0005', '小霞', null, '1');
-INSERT INTO `staff` VALUES ('0006', '婷婷', null, '1');
+INSERT INTO `staff` VALUES ('0001', '小黑', '13279475234', '368729199211084328', '江西省九江市浔阳区沿江路***小区18栋1502', '0');
+INSERT INTO `staff` VALUES ('0002', '倩倩', '15279475235', '328729198806234327', '江西省九江市浔阳区沿江路***小区16栋1502', '0');
+INSERT INTO `staff` VALUES ('0003', '松子', '13279475236', '468729199302134326', '江西省九江市浔阳区沿江路***小区14栋1502', '1');
+INSERT INTO `staff` VALUES ('0004', '景云', '15279475237', '358729199012254325', '江西省九江市浔阳区沿江路***小区14栋1502', '1');
+INSERT INTO `staff` VALUES ('0005', '小霞', '18279475238', '228729199411244324', '江西省九江市浔阳区沿江路***小区12栋1502', '0');
+INSERT INTO `staff` VALUES ('0006', '婷婷', '17279475234', '348729199504244323', '江西省九江市浔阳区沿江路***小区10栋1101', '1');
+INSERT INTO `staff` VALUES ('0007', 'test', '13257028730', '', '', '1');
+INSERT INTO `staff` VALUES ('0008', '测试1', '123', '132511', '电费根深蒂固', '1');
+INSERT INTO `staff` VALUES ('0009', '测试2', '123', '', '', '1');
+INSERT INTO `staff` VALUES ('0011', '测试23', '1234', '', '', '0');
 
 -- ----------------------------
 -- Table structure for `storage`
