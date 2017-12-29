@@ -9,3 +9,6 @@ bootstrap-datetimepicker bootstrap时间选择器<br>
 jqprint 打印指定区域<br>
 dataTables 创建自带分页以及搜索的表格<br>
 echarts 画圆形比例图用的插件<br>
+## 预览
+#### 商品信息
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/good_detail.png)
