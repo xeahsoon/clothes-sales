@@ -29,12 +29,11 @@
                 "columnDefs": [
                     { "orderable": false, "targets": 7 }
                   ],
-                "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "全部"]],
+                "lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]],
                 buttons: [
                     'copy', 'excel', 'pdf'
                 ]
             });
-
         });
     </script>
     
@@ -69,7 +68,7 @@
                     -o-transition: All 0.2s ease-in-out;
                 }
 
-                #symbol {
+                #symbol:hover {
                     cursor: pointer;
                 }
             </style>

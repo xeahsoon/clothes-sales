@@ -73,9 +73,54 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">${sessionScope.user.name }</a></li>
+            <li>
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales</a>
+            	<ul class="dropdown-menu">
+            		<li><a onclick="showAtRight('makeOrder')">销售打单</a></li>
+              		<li><a onclick="showAtRight('orderDetail')">销售单管理</a></li>
+            	</ul>
+            </li>
+            <li>
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Statics</a>
+            	<ul class="dropdown-menu">
+            		<li><a href="#" onclick="showAtRight('staffsales')">导购员业绩统计</a></li>
+              		<li><a href="#" onclick="showAtRight('statics')">销售统计</a></li>
+            	</ul>
+            </li>
+            <li>
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Storages</a>
+            	<ul class="dropdown-menu">
+            		<li><a href="#" onclick="showAtRight('searchGood')">商品资料查询</a></li>
+	                <li><a href="#">库存进货</a></li>
+	                <li><a href="#">库存出货</a></li>
+	                <li><a href="#">库存盘点</a></li>
+            	</ul>
+            </li>
+            <li>
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">System</a>
+            	<ul class="dropdown-menu">
+            		<li><a href="#" onclick="showAtRight('member')">会员管理</a></li>
+		            <li><a href="#" onclick="showAtRight('staff')">导购员管理</a></li>
+		            <li><a href="#" onclick="showAtRight('test')">测试页面</a></li>
+            	</ul>
+            </li>
+            <li class="dropdown">
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            		${sessionScope.user.loginname }
+            	</a>
+            	<ul class="dropdown-menu">
+            		<li>
+						<a><span class="glyphicon glyphicon-user" style="width:25px">
+						</span>${sessionScope.user.name }</a>
+					</li>
+            		<li>
+            			<a><span class="glyphicon glyphicon-phone" style="width:25px">
+						</span>${sessionScope.user.phone }</a>
+					</li>
+            	</ul>
+            </li>
+            <li><a href="#">Logout</a></li>
+            
           </ul>
           <!--<form action="searchOrder" class="navbar-form navbar-right">
             <input type="text" name="search" class="form-control" placeholder="请输入销售单号...">

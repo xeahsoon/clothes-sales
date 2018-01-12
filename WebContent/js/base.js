@@ -58,6 +58,7 @@ function sendRemark() {
 			document.getElementById("table_remark").innerHTML = data.remark;
 		},
 		error: function(jqXHR) {
+			$("#dismissButton").click();
 			alert("发生错误: " + jqXHR.status);
 		}
 	});
@@ -98,7 +99,7 @@ function addMember() {
 
 //ajax删除会员信息
 function deleteMember(id, name, phone) {
-	if(confirm("确定删除该条信息?\n会员姓名："+name+"\n手机号码："+phone)) {
+	if(confirm("确定删除该条信息?且删除后不可恢复！\n会员姓名："+name+"\n手机号码："+phone)) {
 		$.ajax({
 			type: "POST",
 			url: "deleteMember",
@@ -144,9 +145,7 @@ function editMember() {
 	var birth = document.getElementById("modal_birth").value;
 	var discount = document.getElementById("modal_discount").value;
 	
-	if(!$("#modal_phone").change()) {
-		return;
-	}
+	/*此处应有表单内容未作出改变的时候 函数return*/
 	
 	if(name.length == 0 || birth.length == 0 || discount.length == 0) {
 		alert("请将信息填写完整！");
@@ -175,4 +174,125 @@ function editMember() {
 			}
 		});	
 	}
+}
+
+//ajax审核/反审核员工信息
+function checkStaff(id) {
+	$.ajax({
+		type: "POST",
+		url: "checkStaff",
+		data: {
+			id : id
+		},
+		dataType: "json",
+		success: function(data) {
+			if(data == 0) {
+				alert("操作失败！");
+			} else {
+				showAtRight('staff');
+			}
+		},
+		error: function(jqXHR) {
+			alert("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+//设置staff模态框内容
+function setStaffModal(name, phone, idcard, address) {
+	//alert("haha " + name + " " + idcard);
+	$("#modal_name").val(name);
+	$("#modal_phone").val(phone);
+	$("#modal_idcard").val(idcard);
+	if(idcard.length != 0) {
+		document.getElementById("modal_idcard").readOnly= true;
+	} else {
+		//else必不可少 否则多次点击已为readOnly的始终为readOnly
+		document.getElementById("modal_idcard").readOnly= false;
+	}
+	
+	$("#modal_address").val(address);
+}
+
+//ajax修改导购员信息
+function editStaff() {
+
+	var name = document.getElementById("modal_name").value;
+	var phone = document.getElementById("modal_phone").value;
+	var idcard = document.getElementById("modal_idcard").value;
+	var address = document.getElementById("modal_address").value;
+	
+	/*此处应有表单内容未作出改变的时候 函数return*/
+	
+	$.ajax({
+		type: "POST",
+		url: "editStaff",
+		data: {
+			name: name,
+			phone: phone,
+			idcard: idcard,
+			address: address
+		},
+		dataType: "json",
+		success: function(data) {
+			$("#dismissButton").click();
+			if(data == 1) {
+				alert("修改员工信息成功！");
+				showAtRight('staff');
+			} else{
+				alert("修改信息失败！");
+			}
+		},
+		error: function(jqXHR) {
+			alert("发生错误： " + jqXHR.status);
+		}
+	});	
+}
+//设置添加员工信息模态框内容
+function setStaffDetailModal() {
+	//alert("setStaffDetailModal");
+	var name = document.getElementById("staff_name").value;
+	var phone = document.getElementById("staff_phone").value;
+	
+	$("#detail_name").val(name);
+	$("#detail_phone").val(phone);
+}
+
+//简单添加员工信息
+function addSimpleStaff() {
+	setStaffDetailModal();
+	addStaff();
+}
+
+//ajax增加导购员
+function addStaff() {
+	//alert("I'm here to add a staff!");
+	var name = document.getElementById("detail_name").value;
+	var phone = document.getElementById("detail_phone").value;
+	var idcard = document.getElementById("detail_idcard").value;
+	var address = document.getElementById("detail_address").value;
+	
+	$.ajax({
+		type: "POST",
+		url: "addStaff",
+		data: {
+			name: name,
+			phone: phone,
+			idcard: idcard,
+			address: address
+		},
+		dataType: "json",
+		success: function(data) {
+			if(data == 1) {
+				alert("添加导购员成功！");
+				showAtRight('staff');
+			} else{
+				alert("添加导购员失败，姓名已经存在！");
+			}
+		},
+		error: function(jqXHR) {
+			$("#dismissButton").click();
+			alert("发生错误： " + jqXHR.status);
+		}
+	});
 }
