@@ -15,7 +15,7 @@ import org.xeahsoon.pojo.Member;
  * */
 public interface MemberMapper {
 	
-	@Select("select * from member where phone=#{id}")
+	@Select("select * from member where id=#{id}")
 	Member selectMemberById(@Param("id")int id);
 	
 	@Select("select * from member")
