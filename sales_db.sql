@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-29 13:37:45
+Date: 2018-01-15 16:21:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS `good`;
 CREATE TABLE `good` (
   `id` int(8) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '款号',
   `type` varchar(10) NOT NULL COMMENT '类型',
+  `fabric` varchar(20) NOT NULL,
   `price` double(6,2) NOT NULL COMMENT '价格',
   `picture` varchar(15) DEFAULT NULL COMMENT '图片',
   PRIMARY KEY (`id`)
@@ -30,14 +31,48 @@ CREATE TABLE `good` (
 -- ----------------------------
 -- Records of good
 -- ----------------------------
-INSERT INTO `good` VALUES ('17020101', 'T恤', '99.00', '17020101.jpg');
-INSERT INTO `good` VALUES ('17020102', 'T恤', '145.00', '17020102.jpg');
-INSERT INTO `good` VALUES ('17020201', '衬衫', '125.00', '17020201.jpg');
-INSERT INTO `good` VALUES ('17021101', '短裤', '110.00', '17021101.jpg');
-INSERT INTO `good` VALUES ('17021102', '短裤', '105.00', '17021102.jpg');
-INSERT INTO `good` VALUES ('17021201', '长裤', '199.00', '17021201.jpg');
-INSERT INTO `good` VALUES ('17202010', '长裤', '225.00', '17202010.jpg');
-INSERT INTO `good` VALUES ('17207003', '短袖T恤', '99.00', '17207003.jpg');
+INSERT INTO `good` VALUES ('17020101', 'T恤', '95%棉+5%氨纶', '99.00', '17020101.jpg');
+INSERT INTO `good` VALUES ('17020102', 'T恤', '100%棉', '145.00', '17020102.jpg');
+INSERT INTO `good` VALUES ('17020201', '衬衫', '100%棉', '125.00', '17020201.jpg');
+INSERT INTO `good` VALUES ('17021101', '短裤', '100%棉', '110.00', '17021101.jpg');
+INSERT INTO `good` VALUES ('17021102', '短裤', '100%棉', '105.00', '17021102.jpg');
+INSERT INTO `good` VALUES ('17021201', '长裤', '100%棉', '199.00', '17021201.jpg');
+INSERT INTO `good` VALUES ('17202010', '长裤', '100%棉', '225.00', '17202010.jpg');
+INSERT INTO `good` VALUES ('17207003', '短袖T恤', '100%棉', '99.00', '17207003.jpg');
+
+-- ----------------------------
+-- Table structure for `good_color`
+-- ----------------------------
+DROP TABLE IF EXISTS `good_color`;
+CREATE TABLE `good_color` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `good_id` int(8) unsigned zerofill NOT NULL COMMENT '商品编号',
+  `good_color` varchar(8) NOT NULL COMMENT '商品颜色',
+  PRIMARY KEY (`id`),
+  KEY `fk_gc_good` (`good_id`),
+  CONSTRAINT `fk_gc_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of good_color
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `good_size`
+-- ----------------------------
+DROP TABLE IF EXISTS `good_size`;
+CREATE TABLE `good_size` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `good_id` int(8) unsigned zerofill NOT NULL COMMENT '商品编号',
+  `good_size` varchar(4) NOT NULL COMMENT '商品尺码',
+  PRIMARY KEY (`id`),
+  KEY `good_id` (`good_id`),
+  CONSTRAINT `fk_gs_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of good_size
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `manager`
@@ -88,8 +123,8 @@ INSERT INTO `member` VALUES ('00000000009', '15290734505', '胡竞宇', '2017-12
 INSERT INTO `member` VALUES ('00000000010', '15723452890', '余文涛', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
 INSERT INTO `member` VALUES ('00000000011', '18529004523', '饶海明', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
 INSERT INTO `member` VALUES ('00000000012', '13804562356', '卢从发', '2017-12-25', '1.00', '0', '2017-12-26 08:41:45');
-INSERT INTO `member` VALUES ('00000000018', '123141231', '测试', '1994-07-13', '0.95', '0', '2017-12-26 14:24:34');
-INSERT INTO `member` VALUES ('00000000020', '18879695997', '尹婷', '1999-04-24', '0.75', '0', '2017-12-28 11:18:13');
+INSERT INTO `member` VALUES ('00000000018', '12314123132', '测试', '1994-07-13', '0.95', '0', '2017-12-26 14:24:34');
+INSERT INTO `member` VALUES ('00000000020', '18812386791', '尹婷', '2009-01-15', '0.75', '0', '2017-12-28 11:18:13');
 
 -- ----------------------------
 -- Table structure for `order`
@@ -184,7 +219,7 @@ CREATE TABLE `staff` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态（0/待审核 1/已审核）',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of staff
@@ -195,8 +230,8 @@ INSERT INTO `staff` VALUES ('0003', '松子', '13279475236', '468729199302134326
 INSERT INTO `staff` VALUES ('0004', '景云', '15279475237', '358729199012254325', '江西省九江市浔阳区沿江路***小区14栋1502', '1');
 INSERT INTO `staff` VALUES ('0005', '小霞', '18279475238', '228729199411244324', '江西省九江市浔阳区沿江路***小区12栋1502', '0');
 INSERT INTO `staff` VALUES ('0006', '婷婷', '17279475234', '348729199504244323', '江西省九江市浔阳区沿江路***小区10栋1101', '1');
-INSERT INTO `staff` VALUES ('0007', 'test', '13257028730', '', '', '1');
-INSERT INTO `staff` VALUES ('0008', '测试1', '123', '132511', '电费根深蒂固', '1');
+INSERT INTO `staff` VALUES ('0007', 'test', '13257028730', '1231123', 'City.Test Road.Test', '1');
+INSERT INTO `staff` VALUES ('0008', '测试1', '123', '132511', '电费根深蒂固', '0');
 INSERT INTO `staff` VALUES ('0009', '测试2', '123', '', '', '1');
 INSERT INTO `staff` VALUES ('0011', '测试23', '1234', '', '', '0');
 
@@ -241,4 +276,4 @@ CREATE TABLE `user` (
 INSERT INTO `user` VALUES ('0001', 'J001', '123123', '店长1', '0792-8316800', '0');
 INSERT INTO `user` VALUES ('0002', 'J002', '123123', '店长2', '0792-8968366', '0');
 INSERT INTO `user` VALUES ('0003', 'J003', '123123', '店长3', '0792-8135800', '1');
-INSERT INTO `user` VALUES ('0004', 'test', 'test', '测试用户', null, '1');
+INSERT INTO `user` VALUES ('0004', 'test', 'test', '测试用户', '123123', '1');

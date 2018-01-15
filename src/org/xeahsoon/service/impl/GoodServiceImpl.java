@@ -34,4 +34,9 @@ public class GoodServiceImpl implements GoodService {
 	public List<Good> listAllGoods() {
 		return goodMapper.listAllGoods();
 	}
+
+	@Override
+	public Good findLastGood() {
+		return goodMapper.findLastGood();
+	}
 }

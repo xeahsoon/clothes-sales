@@ -52,4 +52,10 @@ public class UserController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "loginForm";
+	}
 }

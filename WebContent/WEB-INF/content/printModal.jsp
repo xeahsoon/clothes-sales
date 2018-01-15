@@ -86,7 +86,7 @@
                 <!-- 打印计数 -->
                 <form id="printForm" action="printOrder/${order.id }" method="post"></form>
 				<input type="button" class="btn btn-default" data-dismiss="modal"
-					value="关闭"> <input id="printButton" type="button"
+					value="关闭"> <input id="printButton" type="submit"
 					class="btn btn-primary" value="打印"/>
 			</div>
 		</div>

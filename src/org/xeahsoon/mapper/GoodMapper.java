@@ -18,5 +18,8 @@ public interface GoodMapper {
 	//查看所有商品信息
 	@Select("select * from good")
 	List<Good> listAllGoods();
+	
+	@Select("select * from good order by id desc LIMIT 1;")
+	Good findLastGood();
 
 }

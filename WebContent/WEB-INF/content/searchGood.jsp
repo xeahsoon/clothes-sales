@@ -1,10 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
+    <script type="text/javascript" class="init">
+        $(document).ready(function() {
+        	$('#goods_table').DataTable( {
+            	"lengthChange": false,
+            	"dom": 'lrtip',
+            	//设置操作栏 排序为 false
+                "columnDefs": [
+                    { "orderable": false, "targets": 6 }
+                  ],
+            	"language": {
+                    "url": "plug-ins/Chinese.json"
+                }
+            });
+        });
+        
+        var table = $('#goods_table').DataTable();
+        
+        $('#keyword').on( 'keyup', function () {
+            table.search( this.value ).draw();
+        } );
+    </script>
+    
 </head>
 <body>
     <div class="container col-md-12">
@@ -13,26 +40,32 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <form action="search_good" class="form-controll">
-                    <div class="input-group ">
-                        <span class="input-group-addon">款号：</span>
-                        <input type="text" class="form-control">
-                    </div>
-                </form>
+                <div class="input-group col-md-8">
+                	<span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
+		        	<input type="hidden" id="search_url" value="checkGoodID"/>
+		        	<input type="hidden" id="search_name" value="searchGood"/>
+		            <input id="keyword" type="text" class="form-control" placeholder="请输入搜索关键字..">
+		        </div>
+                
                 <div style="margin-top: 30px">
                     <table class="table col-md-6 table-condensed">
                         <tr>
-                            <th>款号</th><td>17202201</td>
+                            <th>款号</th><td>${requestScope.good.id }</td>
                             <td style="color: #ddd">/</td>
-                            <th>价格</th><td>109.00</td>
+                            <th>价格</th><td><fmt:formatNumber value="${requestScope.good.price }" pattern=".00" /></td>
                         </tr>
                         <tr>
-                            <th>类型</th><td>长袖T恤</td>
+                            <th>类型</th><td>${requestScope.good.type }</td>
                             <td style="color: #ddd">/</td>
-                            <th>年份</th><td>2017</td>
+                            <th>年份</th>
+                            <td>
+                            	<!-- 截取款号id前两位为上新年份 -->
+                            	<c:set var="string_id" value="${requestScope.good.id }" />
+                            	20${fn:substring(string_id, 0, 2)}
+                            </td>
                         </tr>
                         <tr style="border-bottom: 1px solid #ddd">
-                            <th>面料</th><td>95%棉+5%氨纶</td>
+                            <th>面料</th><td>${requestScope.good.fabric }</td>
                             <td style="color: #ddd">/</td>
                             <th>库存</th><td>52</td>
                         </tr>
@@ -120,11 +153,12 @@
                         </tbody>
                     </table>
                 </div>
-                <img class="thumbnail pull-right" style="height: 195px;" src="images/background2.jpg" alt="">
+                <img class="thumbnail pull-right" style="height: 195px;" 
+                	src="images/${requestScope.good.picture }" onerror="this.src='images/icon_blue.png'" alt="Good Picture Has Gone">
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="goods_table" class="table table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
@@ -136,103 +170,35 @@
                     <th>操作</th>
                 </tr>
                 </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>类型</th>
+                    <th>颜色</th>
+                    <th>尺码</th>
+                    <th>库存</th>
+                    <th>价格</th>
+                    <th>操作</th>
+                </tr>
+                </tfoot>
                 <tbody>
-                <tr>
-                    <td>17201632</td>
-                    <td>外套</td>
-                    <td>白色 黑色 蓝色 深绿色</td>
-                    <td>S M L XL XXL XXXL</td>
-                    <td>10</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr>
-                    <td>17201232</td>
-                    <td>外套</td>
-                    <td>白色 黑色</td>
-                    <td>S M L</td>
-                    <td>9</td>
-                    <td>145.00</td>
-                    <td><a href="">查看详细</a></td>
-                </tr>
-                <tr style="border-bottom: 2px solid #ddd">
-                    <td colspan="4">合计</td>
-                    <td>12</td>
-                    <td>1998.00</td>
-                    <td style="color:#ddd;">&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-                </tr>
+                
+                <c:forEach items="${requestScope.good_list }" var="good">
+	            	<tr>
+	            		<td><fmt:formatNumber value="${good.id }" pattern="00000000" /></td>
+	            		<td>${good.type }</td>
+	            		<td>白色 黑色 蓝色 深绿色</td>
+	            		<td>S M L XL XXL XXXL</td>
+	            		<td>10</td>
+	            		<td><fmt:formatNumber value="${good.price }" pattern=".00" /></td>
+	            		<td>
+				        	<input type="hidden" id="search_id" value="${good.id}"/>
+	            			<span style="color: transparent;">/</span>
+	            			<span class="glyphicon glyphicon-share operator" onclick="search('${good.id }')"></span>
+	            		</td>
+	            	</tr>
+	            </c:forEach>
+	            
                 </tbody>
             </table>
         </div>

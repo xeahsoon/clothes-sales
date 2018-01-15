@@ -76,32 +76,54 @@
             <li>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales</a>
             	<ul class="dropdown-menu">
-            		<li><a onclick="showAtRight('makeOrder')">销售打单</a></li>
-              		<li><a onclick="showAtRight('orderDetail')">销售单管理</a></li>
+            		<li>
+            			<a onclick="showAtRight('makeOrder')">
+            			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>销售打单</a></li>
+              		<li>
+              			<a onclick="showAtRight('orderDetail')">
+              			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>销售单管理</a></li>
             	</ul>
             </li>
             <li>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Statics</a>
             	<ul class="dropdown-menu">
-            		<li><a href="#" onclick="showAtRight('staffsales')">导购员业绩统计</a></li>
-              		<li><a href="#" onclick="showAtRight('statics')">销售统计</a></li>
+            		<li>
+            			<a href="#" onclick="showAtRight('staffsales')">
+            			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>导购员业绩统计</a></li>
+              		<li>
+              			<a href="#" onclick="showAtRight('statics')">
+              			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>销售统计</a></li>
             	</ul>
             </li>
             <li>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Storages</a>
             	<ul class="dropdown-menu">
-            		<li><a href="#" onclick="showAtRight('searchGood')">商品资料查询</a></li>
-	                <li><a href="#">库存进货</a></li>
-	                <li><a href="#">库存出货</a></li>
-	                <li><a href="#">库存盘点</a></li>
+            		<li>
+            			<a href="#" onclick="showAtRight('searchGood')">
+            			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>商品资料查询</a></li>
+	                <li>
+	                	<a href="#">
+	                	<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>库存进货</a></li>
+	                <li>
+	                	<a href="#">
+	                	<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>库存出货</a></li>
+	                <li>
+	                	<a href="#">
+	                	<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>库存盘点</a></li>
             	</ul>
             </li>
             <li>
             	<a href="#" class="dropdown-toggle" data-toggle="dropdown">System</a>
             	<ul class="dropdown-menu">
-            		<li><a href="#" onclick="showAtRight('member')">会员管理</a></li>
-		            <li><a href="#" onclick="showAtRight('staff')">导购员管理</a></li>
-		            <li><a href="#" onclick="showAtRight('test')">测试页面</a></li>
+            		<li>
+            			<a href="#" onclick="showAtRight('member')">
+            			<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>会员管理</a></li>
+		            <li>
+		            	<a href="#" onclick="showAtRight('staff')">
+		            	<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>导购员管理</a></li>
+		            <li>
+		            	<a href="#" onclick="showAtRight('test')">
+		            	<span class="glyphicon glyphicon-chevron-right" style="width:25px"></span>测试页面</a></li>
             	</ul>
             </li>
             <li class="dropdown">
@@ -117,9 +139,14 @@
             			<a><span class="glyphicon glyphicon-phone" style="width:25px">
 						</span>${sessionScope.user.phone }</a>
 					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="logout">
+							<span class="glyphicon glyphicon-log-out" style="width:25px"></span>注销登录
+						</a>
+					</li>
             	</ul>
             </li>
-            <li><a href="#">Logout</a></li>
             
           </ul>
           <!--<form action="searchOrder" class="navbar-form navbar-right">

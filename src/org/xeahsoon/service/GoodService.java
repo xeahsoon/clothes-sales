@@ -14,5 +14,7 @@ public interface GoodService {
 	Good findGoodInfoWithID(int id);
 	
 	List<Good> listAllGoods();
+	
+	Good findLastGood();
 
 }

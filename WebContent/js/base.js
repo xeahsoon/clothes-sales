@@ -1,8 +1,13 @@
 //搜索函数
-function search() {
+function search(id) {
 	var url = document.getElementById("search_url").value;
 	var name = document.getElementById("search_name").value;
-	var id = document.getElementById("search_id").value;
+	
+	//如果没有传id进来，则从输入文本域获取
+	if(!id) {
+		id = document.getElementById("search_id").value;
+	}
+	
 	if(id.length == 0) {
 		alert("参数不能为空！");
 	} else {
@@ -295,4 +300,8 @@ function addStaff() {
 			alert("发生错误： " + jqXHR.status);
 		}
 	});
+}
+
+function getGoodById(id) {
+	alert("id = "+id);
 }

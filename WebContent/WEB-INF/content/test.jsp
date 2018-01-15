@@ -31,8 +31,8 @@
                 <th>Position</th>
                 <th>Office</th>
                 <th>Age</th>
-                <!-- <th>Start date</th>
-                <th>Salary</th> -->
+                <th>Start date</th>
+                <!-- <th>Salary</th> -->
             </tr>
             </thead>
             <tbody>
@@ -40,6 +40,7 @@
             	<tr>
             		<td>${good.id }</td>
             		<td>${good.type }</td>
+            		<td>${good.fabric }</td>
             		<td>${good.price }</td>
             		<td>${good.picture }</td>
             	</tr>
