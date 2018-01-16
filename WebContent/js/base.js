@@ -1,3 +1,7 @@
+/**
+ * Created by xeahsoon on 2018/11/8.
+ */
+
 //搜索函数
 function search(id) {
 	var url = document.getElementById("search_url").value;

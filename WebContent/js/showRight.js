@@ -2,19 +2,6 @@
  * Created by Administrator on 2017/11/8.
  */
 
-
-        /*
-         * 对选中的标签激活active状态，对先前处于active状态但之后未被选中的标签取消active
-         * （实现左侧菜单中的标签点击后变色的效果）
-         */
-    $(document).ready(function () {
-        $('ul.nav > li').click(function (e) {
-            //e.preventDefault();	加上这句则导航的<a>标签会失效
-            $('ul.nav > li').removeClass('active');
-            $(this).addClass('active');
-        });
-    });
-
 /*
  * 解决ajax返回的页面中含有javascript的办法：
  * 把xmlHttp.responseText中的脚本都抽取出来，不管AJAX加载的HTML包含多少个脚本块，我们对找出来的脚本块都调用eval方法执行它即可

@@ -12,6 +12,7 @@
     
     <script type="text/javascript" class="init">
         $(document).ready(function() {
+        	//创建goods dataTable
         	$('#goods_table').DataTable( {
             	"lengthChange": false,
             	"dom": 'lrtip',
@@ -133,7 +134,7 @@
 	            		<td>
 				        	<input type="hidden" id="search_id" value="${good.id}"/>
 	            			<span style="color: transparent;">/</span>
-	            			<span class="glyphicon glyphicon-open operator" onclick="search('${good.id }')"></span>
+	            			<span class="glyphicon glyphicon-export operator" title="导出" onclick="search('${good.id }')"></span>
 	            		</td>
 	            	</tr>
 	            </c:forEach>

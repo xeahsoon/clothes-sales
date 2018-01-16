@@ -1,13 +1,31 @@
 @charset "UTF-8";
 
 .move {
-    margin-left: 20px;
+	margin-left: 20px;
 }
 
 .tdinput {
-    padding:2px;
-    height: 20px;
-    width: 40px;
-    background-color:transparent;
-    border: none;
+	padding: 2px;
+	height: 20px;
+	width: 40px;
+	background-color: transparent;
+	border: none;
+}
+
+.operator {
+	color: #666;
+}
+
+.operator:hover {
+	color: #337ab7;
+	cursor: pointer;
+}
+
+.searcher {
+	color: #666;
+}
+
+.searcher:hover {
+	font-weight: 700;
+	cursor: pointer;
 }
