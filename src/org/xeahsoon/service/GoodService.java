@@ -2,8 +2,6 @@ package org.xeahsoon.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.xeahsoon.pojo.Good;
 
 /**
@@ -11,10 +9,20 @@ import org.xeahsoon.pojo.Good;
  * */
 public interface GoodService {
 	
+	/**
+	 * @param id 商品ID
+	 * @return 商品信息
+	 */
 	Good findGoodInfoWithID(int id);
 	
+	/**
+	 * @return 所有商品
+	 */
 	List<Good> listAllGoods();
 	
+	/**
+	 * @return 新进商品
+	 */
 	Good findLastGood();
 
 }

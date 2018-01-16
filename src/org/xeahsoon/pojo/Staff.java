@@ -17,6 +17,8 @@ CREATE TABLE `staff` (
  */
 public class Staff implements Serializable{
 	
+	private static final long serialVersionUID = -6628512740216492855L;
+	
 	private int id;			//导购员编号
 	private String name;			//导购员姓名
 	private String phone;			//联系方式

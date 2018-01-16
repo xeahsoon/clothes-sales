@@ -72,84 +72,23 @@
                     </table>
                 </div>
             </div>
-            <div class="container col-md-8" style="height: 200px;">
-                <div class="table-responsive col-md-6" style="height: 195px; overflow: auto">
+            <div class="container col-md-8"style="height:200px;">
+                <div class="table-responsive col-md-6" style="height: 195px; overflow: auto;">
                     <table class="table table-condensed">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>S</th>
-                            <th>M</th>
-                            <th>L</th>
-                            <th>XL</th>
-                            <th>XXL</th>
-                            <th>XXXL</th>
+                        	<th>#</th>
+                        	<c:forEach items="${requestScope.good.good_size }" var="size">
+                        		<th>${size.good_size }</th>
+                        	</c:forEach>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th>黑色</th>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <th>白色</th>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th>绿色</th>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <th>蓝色</th>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <th>蓝色</th>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <th>蓝色</th>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <th>蓝色</th>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                        </tr>
+                        <c:forEach items="${requestScope.good.good_color }" var="color">
+                        	<tr>
+                        		<td>${color.good_color }</td>
+                        	</tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -194,7 +133,7 @@
 	            		<td>
 				        	<input type="hidden" id="search_id" value="${good.id}"/>
 	            			<span style="color: transparent;">/</span>
-	            			<span class="glyphicon glyphicon-share operator" onclick="search('${good.id }')"></span>
+	            			<span class="glyphicon glyphicon-open operator" onclick="search('${good.id }')"></span>
 	            		</td>
 	            	</tr>
 	            </c:forEach>

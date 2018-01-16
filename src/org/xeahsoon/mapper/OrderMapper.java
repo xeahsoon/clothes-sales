@@ -1,6 +1,5 @@
 package org.xeahsoon.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Many;
@@ -10,9 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.xeahsoon.pojo.Member;
 import org.xeahsoon.pojo.Order;
-import org.xeahsoon.pojo.User;
 
 public interface OrderMapper {
 /*	private int id;
@@ -24,6 +21,10 @@ public interface OrderMapper {
 	private String remark;
 	private User user;
 	private Member member;*/
+	/**
+	 * @param id 订单编号
+	 * @return 订单、会员、导购员信息、订单条目
+	 */
 	@Select("select * from `order` where id=#{id}")
 	@Results({
 		@Result(id=true, column="id", property="id"),
@@ -48,7 +49,9 @@ public interface OrderMapper {
 	})
 	Order findOrderById(@Param("id")int id);
 	
-	//按时间降序得到所有订单
+	/**
+	 * @return 按时间降序得到所有订单
+	 */
 	@Select("select * from `order` order by create_date desc")
 	@Results({
 		@Result(id=true, column="id", property="id"),
@@ -73,10 +76,18 @@ public interface OrderMapper {
 	})
 	List<Order> listAllOrders();
 	
-	//更新订单备注
+	/**
+	 * @param remark 备注内容
+	 * @param order_id 订单编号
+	 * @return 	更新订单备注影响条目数
+	 */
 	@Update("update `order` set remark = #{remark} where id = #{order_id}")
 	int addRemark(@Param("remark")String remark, @Param("order_id")int order_id);
 	
+	/**
+	 * @param order_id 订单编号
+	 * @return 执行打印统计加1，返回影响条目数
+	 */
 	@Update("update `order` set print_count = print_count + 1 where id = #{order_id}")
 	int printOrder(@Param("order_id")int order_id);
 }

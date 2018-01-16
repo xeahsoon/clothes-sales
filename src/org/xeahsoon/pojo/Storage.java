@@ -15,6 +15,8 @@ CREATE TABLE `storage` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
  */
 public class Storage implements Serializable{
+
+	private static final long serialVersionUID = 5406023629775665782L;
 	
 	private int id;			//商品条形码
 	private int good_id;			//款号、外键

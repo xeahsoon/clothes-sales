@@ -22,6 +22,8 @@ CREATE TABLE `order_detail` (
  */
 public class OrderDetail implements Serializable{
 	
+	private static final long serialVersionUID = -5406066064941013624L;
+	
 	private int id;			//明细编号
 	private int order_id;			//销售单编号
 	private int storage_id;			//商品编号

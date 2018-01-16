@@ -18,6 +18,8 @@ CREATE TABLE `member` (
  */
 public class Member implements Serializable{
 	
+	private static final long serialVersionUID = 7431580288717036005L;
+	
 	private int id;
 	private String phone;
 	private String name;

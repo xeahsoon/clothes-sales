@@ -34,10 +34,10 @@
       <input type="password" name="password" class="form-control" placeholder="Password" required>
     </div>
     <div class="checkbox">
-      <label>
+      <label class="col-md-5">
         <input type="checkbox" value="remember-me"> Remember me
       </label>
-      <a href="" class="pull-right">Registration</a>
+      <a href="" class="pull-right">Administration</a>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>

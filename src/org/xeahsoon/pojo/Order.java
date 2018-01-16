@@ -25,6 +25,8 @@ CREATE TABLE `order` (
  */
 public class Order implements Serializable{
 	
+	private static final long serialVersionUID = 7088146011091960082L;
+	
 	private int id;
 	private Date create_date;
 	private int print_count;

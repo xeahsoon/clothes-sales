@@ -16,6 +16,8 @@ CREATE TABLE `user` (
  **/
 public class User implements Serializable{
 
+	private static final long serialVersionUID = -7822388538354882618L;
+	
 	private int id;
 	private String loginname;
 	private String password;

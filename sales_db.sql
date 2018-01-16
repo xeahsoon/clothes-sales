@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-01-15 16:21:15
+Date: 2018-01-16 11:20:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `good` (
   `price` double(6,2) NOT NULL COMMENT '价格',
   `picture` varchar(15) DEFAULT NULL COMMENT '图片',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17207004 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18040002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of good
@@ -39,6 +39,7 @@ INSERT INTO `good` VALUES ('17021102', '短裤', '100%棉', '105.00', '17021102.
 INSERT INTO `good` VALUES ('17021201', '长裤', '100%棉', '199.00', '17021201.jpg');
 INSERT INTO `good` VALUES ('17202010', '长裤', '100%棉', '225.00', '17202010.jpg');
 INSERT INTO `good` VALUES ('17207003', '短袖T恤', '100%棉', '99.00', '17207003.jpg');
+INSERT INTO `good` VALUES ('18040001', '鞋子', '/', '439.00', null);
 
 -- ----------------------------
 -- Table structure for `good_color`
@@ -51,11 +52,22 @@ CREATE TABLE `good_color` (
   PRIMARY KEY (`id`),
   KEY `fk_gc_good` (`good_id`),
   CONSTRAINT `fk_gc_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of good_color
 -- ----------------------------
+INSERT INTO `good_color` VALUES ('1', '17020101', '黑色');
+INSERT INTO `good_color` VALUES ('2', '17020101', '白色');
+INSERT INTO `good_color` VALUES ('3', '17020101', '绿色');
+INSERT INTO `good_color` VALUES ('4', '17020101', '粉色');
+INSERT INTO `good_color` VALUES ('5', '17020101', '灰色');
+INSERT INTO `good_color` VALUES ('6', '17020102', '黑色');
+INSERT INTO `good_color` VALUES ('7', '17020102', '白色');
+INSERT INTO `good_color` VALUES ('8', '17020102', '灰色');
+INSERT INTO `good_color` VALUES ('9', '18040001', '黑色');
+INSERT INTO `good_color` VALUES ('10', '18040001', '白色');
+INSERT INTO `good_color` VALUES ('11', '18040001', '红色');
 
 -- ----------------------------
 -- Table structure for `good_size`
@@ -68,11 +80,28 @@ CREATE TABLE `good_size` (
   PRIMARY KEY (`id`),
   KEY `good_id` (`good_id`),
   CONSTRAINT `fk_gs_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of good_size
 -- ----------------------------
+INSERT INTO `good_size` VALUES ('1', '17020101', 'S');
+INSERT INTO `good_size` VALUES ('2', '17020101', 'M');
+INSERT INTO `good_size` VALUES ('3', '17020101', 'L');
+INSERT INTO `good_size` VALUES ('4', '17020101', 'XL');
+INSERT INTO `good_size` VALUES ('5', '17020101', 'XXL');
+INSERT INTO `good_size` VALUES ('6', '17020102', 'S');
+INSERT INTO `good_size` VALUES ('7', '17020102', 'M');
+INSERT INTO `good_size` VALUES ('8', '17020102', 'L');
+INSERT INTO `good_size` VALUES ('9', '17020102', 'XL');
+INSERT INTO `good_size` VALUES ('10', '17020102', 'XXL');
+INSERT INTO `good_size` VALUES ('11', '17020102', 'XXL');
+INSERT INTO `good_size` VALUES ('12', '18040001', '38');
+INSERT INTO `good_size` VALUES ('13', '18040001', '39');
+INSERT INTO `good_size` VALUES ('14', '18040001', '40');
+INSERT INTO `good_size` VALUES ('15', '18040001', '41');
+INSERT INTO `good_size` VALUES ('16', '18040001', '42');
+INSERT INTO `good_size` VALUES ('17', '18040001', '43');
 
 -- ----------------------------
 -- Table structure for `manager`
@@ -151,7 +180,7 @@ CREATE TABLE `order` (
 -- Records of order
 -- ----------------------------
 INSERT INTO `order` VALUES ('00000001', '2017-11-23 13:23:29', '0', '2', '324.00', '1', '邮寄至顾客家，地址见记事本，邮寄完成记得回馈单号给客户', '0001', '1');
-INSERT INTO `order` VALUES ('00000002', '2017-11-23 13:27:32', '1', '1', '99.00', '3', '顾客明天下午四点到店自提，经手人：景云', '0003', '2');
+INSERT INTO `order` VALUES ('00000002', '2017-11-23 13:27:32', '1', '1', '99.00', '3', '顾客明天下午四点到店自提，经手人：小明', '0003', '2');
 
 -- ----------------------------
 -- Table structure for `order_detail`

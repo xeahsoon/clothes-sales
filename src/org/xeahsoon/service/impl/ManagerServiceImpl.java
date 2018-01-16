@@ -14,7 +14,6 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	@Override
 	public Manager login(String loginname, String password) {
-		// TODO Auto-generated method stub
 		return managerMapper.findManager(loginname, password);
 	}
 

@@ -15,6 +15,8 @@ CREATE TABLE `manager` (
  */
 public class Manager implements Serializable{
 	
+	private static final long serialVersionUID = 59177698038112475L;
+	
 	private int id;
 	private String loginname;
 	private String password;

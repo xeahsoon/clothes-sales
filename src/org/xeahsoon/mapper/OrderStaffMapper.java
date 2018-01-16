@@ -11,6 +11,10 @@ import org.xeahsoon.pojo.OrderStaff;
 
 public interface OrderStaffMapper {
 	
+	/**
+	 * @param order_id 订单编号
+	 * @return 返回指定订单ID的订单导购员列表
+	 */
 	@Select("select * from order_staff where order_id = #{order_id}")
 	@Results({
 		@Result(column="id", property="id"),

@@ -22,6 +22,10 @@ public interface OrderDetailMapper {
 	private double price;			//单价
 	private double dis_price;*/
 	
+	/**
+	 * @param order_id 订单编号
+	 * @return 指定订单ID的详细条目数
+	 */
 	@Select("select * from order_detail where order_id = #{order_id}")
 	@Results({
 		@Result(id=true, column="id", property="id"),

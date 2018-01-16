@@ -17,6 +17,8 @@ CREATE TABLE `order_staff` (
  */
 public class OrderStaff implements Serializable{
 	
+	private static final long serialVersionUID = -8524366061371298663L;
+	
 	private int id;			
 	private int order_id;			//订单编号
 	private Staff staff;			//导购员编号
