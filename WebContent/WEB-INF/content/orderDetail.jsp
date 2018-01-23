@@ -23,8 +23,10 @@
                 $("#check_ok").fadeIn();
             });
             
-            $("#search_id").keydown(function() {
-            	if(event.which == 13) {
+            $("#search_id").keydown(function(e) {
+            	var theEvent = window.event || e;
+        		var code = theEvent.keyCode || theEvent.which;
+            	if(code == 13) {
             		search();
             	}
             });

@@ -55,7 +55,7 @@
                         </select>
                     </div>
                     <div class="input-group col-md-3 pull-left">
-                        <span class="input-group-addon">会员卡：</span>
+                        <span class="input-group-addon">会员：</span>
                         <input type="text" class="form-control" style="width: 120px;">
                     </div>
                     <div class="input-group col-md-3 pull-left">
