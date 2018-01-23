@@ -8,10 +8,12 @@ bootstrap-multiselect bootstrap下拉多选菜单<br>
 bootstrap-datetimepicker bootstrap时间选择器<br>
 jqprint 打印指定区域<br>
 dataTables 创建自带分页以及搜索的表格<br>
-echarts 画圆形比例图用的插件<br>
+echarts 百度官方绘制比例图插件<br>
 ## 预览
 #### 登录页面
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/login.png)
+#### 主页面
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/main.png)
 #### 订单详情
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/order_detail.png)
 #### 打印订单
