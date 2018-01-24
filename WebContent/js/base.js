@@ -281,29 +281,33 @@ function addStaff() {
 	var idcard = document.getElementById("detail_idcard").value;
 	var address = document.getElementById("detail_address").value;
 	
-	$.ajax({
-		type: "POST",
-		url: "addStaff",
-		data: {
-			name: name,
-			phone: phone,
-			idcard: idcard,
-			address: address
-		},
-		dataType: "json",
-		success: function(data) {
-			if(data == 1) {
-				alert("添加导购员成功！");
-				showAtRight('staff');
-			} else{
-				alert("添加导购员失败，姓名已经存在！");
+	if(name.length == 0 || phone.length == 0) {
+		alert("请将信息填写完整！");
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "addStaff",
+			data: {
+				name: name,
+				phone: phone,
+				idcard: idcard,
+				address: address
+			},
+			dataType: "json",
+			success: function(data) {
+				if(data == 1) {
+					alert("添加导购员成功！");
+					showAtRight('staff');
+				} else{
+					alert("添加导购员失败，姓名已经存在！");
+				}
+			},
+			error: function(jqXHR) {
+				$("#dismissButton").click();
+				alert("发生错误： " + jqXHR.status);
 			}
-		},
-		error: function(jqXHR) {
-			$("#dismissButton").click();
-			alert("发生错误： " + jqXHR.status);
-		}
-	});
+		});
+	}
 }
 
 function getGoodById(id) {

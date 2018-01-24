@@ -34,7 +34,7 @@
 	<script src="js/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="js/showRight.js"></script>
 	<script src="js/base.js"></script>
-	<script src="js/theme.js"></script>
+	<script src="js/echarts-theme.js"></script>
 	
 	<script>
 		$(document).ready(function() {
@@ -357,6 +357,10 @@
 	<script src="js/echarts.js"></script>
 
 	<script src="js/jquery.jqprint-0.3.js"></script>
+	
+	<script src="js/bootstrap-suggest.js"></script>
+	
+	<script src="js/json2.js"></script>
 
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 	<!--<script src="css/bootstrap/js/holder.min.js"></script>-->

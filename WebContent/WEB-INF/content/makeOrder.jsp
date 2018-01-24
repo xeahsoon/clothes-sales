@@ -21,7 +21,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#staff_multiselect').multiselect();
-
+                
                 $("#paylist li").click(function() {
                     var i = $("#paylist li").index(this);
                     var t = ["银行卡","支付宝","微信","现金"];
@@ -29,6 +29,43 @@
                     $("#paytext").val(t[i]);
                 });
             });
+            
+            /**
+    	     * 测试(首次从 URL 获取数据，显示 header，不显示按钮，忽略大小写，可清除)
+    	     */
+    	    $("#member_id").bsSuggest({
+    	        url: "memberSuggest",
+    	        effectiveFieldsAlias:{phone: "卡号", name: "姓名"},
+    	        autoSelect: true,
+    	        ignorecase: true,
+    	        showHeader: true,
+    	        showBtn: false,     //不显示下拉按钮
+    	        delayUntilKeyup: true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
+    	        clearable: true,
+    	        inputWarnColor: 'transparant', //输入框内容不是下拉列表选择时的警告色
+    	        processData: function(json){ //url 获取数据时，对数据的处理，作为 getData 的回调函数                
+                    var i, len, data = {value: []};            
+                    if(!json || json.length == 0) {
+                        return false;
+                    }
+                    len = json.length;            
+                    for (i = 0; i < len; i++) {
+                        data.value.push({
+                            "phone": json[i].phone,
+                            "name":json[i].name
+                        });
+                    }
+                    /* var data = JSON.parse(json); */
+                    console.log(data);
+                    return data;            
+                }
+    	    }).on('onDataRequestSuccess', function (e, result) {
+    	        console.log('onDataRequestSuccess: ', result);
+    	    }).on('onSetSelectValue', function (e, keyword, data) {
+    	        console.log('onSetSelectValue: ', keyword, data);
+    	    }).on('onUnsetSelectValue', function () {
+    	        console.log("onUnsetSelectValue");
+    	    });
         </script>
 
     </head>
@@ -39,12 +76,41 @@
                 <h2 class="page-header">选项</h2>
             </div>
             <form action="postOrder" class="form-controll">
-                <div class="row">
-                    <div class="input-group col-md-3 pull-left">
+            	<style>
+            		.order-info td {
+            			width: 25%;
+            			padding-right: 50px;
+            		}
+            		
+            		.order-info .pay-button {
+            			text-align: right;
+            			padding-left: 88px;
+            			padding-right: 0px;
+            		}
+            	</style>
+                <table class="order-info">
+                <tr>
+                <td>
+                    <div class="input-group">
                         <span class="input-group-addon">收银：</span>
-                        <input type="text" class="form-control" value="${sessionScope.user.name }" readOnly="readonly" style="width: 120px;">
+                        <input type="text" class="form-control" value="${sessionScope.user.name }" readOnly="readonly">
                     </div>
-                    <div class="input-group col-md-3 pull-left">
+                </td>
+                <td>
+                	<div class="input-group">
+                        <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">会员：</span>
+                        <input type="text" id="member_id" class="form-control">
+                        <div class="input-group-btn">
+	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	                            <span class="caret"></span>
+	                        </button>
+	                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+	                        </ul>
+	                    </div>
+                    </div>
+                </td>
+                <td style="padding-right: 0px;">
+                    <div class="input-group">
                         <span class="input-group-addon">导购：</span>
                         <select id="staff_multiselect" multiple="multiple">
                             <option value="1" selected="selected">松子</option>
@@ -54,28 +120,24 @@
                             <option value="5">景云</option>
                         </select>
                     </div>
-                    <div class="input-group col-md-3 pull-left">
-                        <span class="input-group-addon">会员：</span>
-                        <input type="text" class="form-control" style="width: 120px;">
-                    </div>
-                    <div class="input-group col-md-3 pull-left">
-                        <!--<span class="input-group-addon">支付：</span>-->
-                        <input type="text" value="98.9" class="form-control" style="font-weight: 600" readOnly="readonly">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul id="paylist" class="dropdown-menu" style="min-width:100%;">
-                                <li><a href="###">银行卡</a></li>
-                                <li><a href="###">支付宝</a></li>
-                                <li><a href="###">微信</a></li>
-                                <li><a href="###">现金</a></li>
-                            </ul>
-                            <input id="paytext" type="submit" class="btn btn-default" value="银行卡" style="width: 66px;">
-                        </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
-                </div>
-
+                </td>
+                <td class="pay-button">
+                	<div class="input-group pull-right">
+						<span id="paymoney" class="input-group-addon" data-toggle="dropdown" style="width:88px; font-weight:bold; text-align: right;">
+							988.00
+						 </span>
+                		<ul id="paylist" class="dropdown-menu" style="min-width:100%;">
+                            <li><a href="###">银行卡</a></li>
+                            <li><a href="###">支付宝</a></li>
+                            <li><a href="###">微信</a></li>
+                            <li><a href="###">现金</a></li>
+                        </ul>
+                        <input id="paytext" type="button" class="form-control" value="银行卡" style="width: 66px;">
+						
+					</div>
+                </td>
+                </tr>
+                </table>
 
                 <div class="table-responsive" style="margin-top: 30px">
                     <h3 class="page-header">销售</h3>

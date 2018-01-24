@@ -63,4 +63,17 @@ public class MemberController {
 		int result = memberService.updateMemberInfo(name, birthday, discount, phone);
 		return result;
 	}
+	
+	/**
+	 * 销售打单填写会员账号建议
+	 * @return 会员列表
+	 */
+	@ResponseBody
+	@RequestMapping(value="/memberSuggest")
+	public List<Member> memberSuggest() {
+		
+		List<Member> member_list = memberService.listAllMembers();
+		
+		return member_list;
+	}
 }

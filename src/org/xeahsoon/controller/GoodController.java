@@ -64,14 +64,13 @@ public class GoodController {
 	/**
 	 * 处理/main请求
 	 * */
-	@RequestMapping(value="/test")
-	 public String listGoods(Model model){
+	@ResponseBody
+	@RequestMapping(value="/testData")
+	public List<Good> listGoods(Model model){
 		
 		List<Good> good_list = goodService.listAllGoods();
 		
-		model.addAttribute("good_list", good_list);
-		// 跳转到main页面
-		return "test";
+		return good_list;
 	}
 	
 }

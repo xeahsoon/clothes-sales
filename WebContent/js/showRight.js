@@ -21,7 +21,7 @@ function executeScript(html)
             var code = blocks[1].replace(/<!--/, '');
             try
             {
-                eval(code) //执行脚本
+                eval(code); //执行脚本
             }
             catch (e)
             {
