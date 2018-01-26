@@ -33,91 +33,9 @@
 	<!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
 	<script src="js/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="js/showRight.js"></script>
-	<script src="js/base.js"></script>
 	<script src="js/echarts-theme.js"></script>
-	
-	<script>
-		$(document).ready(function() {
-			var theme = new Theme();
-    		echarts.registerTheme("blue", theme.getTheme("blue"));
-    		
-			var pieName = new Array("商品金额比例图","商品数量比例图","导购员业绩比例图","剩余库存比例图");
-			// 基于准备好的dom，初始化echarts实例
-	        var myChart1 = echarts.init(document.getElementById('test_div1'), "blue");
-	        var myChart2 = echarts.init(document.getElementById('test_div2'), "blue");
-	        var myChart3 = echarts.init(document.getElementById('test_div3'), "blue");
-	        var myChart4 = echarts.init(document.getElementById('test_div4'), "blue");
-	        var option = {
-	        		title : {
-	        	        text: pieName[0],
-	        	        x: 'center',
-	        	        y: 'bottom',
-	        	        textStyle: {
-	        	        	fontSize: 14,
-	        	        	fontWeight: 'normal',
-	        	        	color: '#888'
-	        	        }
-	        	    },
-	        	    tooltip: {
-	        	        trigger: 'item',
-	        	        formatter: "{a} <br/>{b}: {c} ({d}%)"
-	        	    },
-	        	    series: [
-	        	        {
-	        	            name:'访问来源',
-	        	            type:'pie',
-	        	            center: ['50%', '44%'],  //圆心坐标
-	        	            radius: ['80%', '88%'],  //圆环宽度
-	        	            avoidLabelOverlap: false,
-	        	            label: {
-	        	                normal: {
-	        	                    show: false,
-	        	                    position: 'center'
-	        	                },
-	        	                emphasis: {
-	        	                    show: true,
-	        	                    textStyle: {
-	        	                        fontSize: '20',
-	        	                        fontWeight: 'bold'
-	        	                    }
-	        	                }
-	        	            },
-	        	            labelLine: {
-	        	                normal: {
-	        	                    show: false
-	        	                }
-	        	            },
-	        	            data:[
-	        	                {value:335, name:'直接访问'},
-	        	                {value:310, name:'邮件营销'},
-	        	                {value:234, name:'联盟广告'},
-	        	                {value:135, name:'视频广告'},
-	        	                {value:1548, name:'搜索引擎'}
-	        	            ]
-	        	        }
-	        	    ]
-	        	};
-	        // 使用刚指定的配置项和数据显示图表。
-	        myChart1.setOption(option);
-	        myChart2.setOption(option);
-	        myChart3.setOption(option);
-	        myChart4.setOption(option);
-			
-			// 创建orders_table表格
-			$('#orders_table').DataTable( {
-                //导入中文包
-            	"language": {
-                    "url": "plug-ins/Chinese.json"
-                },
-              	//设置操作栏 排序为 false
-                "columnDefs": [
-                    { "orderable": false, "targets": 7 }
-                  ],
-                "lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]]
-            });
-		});
-	</script>
-	
+	<script src="js/main.js"></script>
+	<script src="js/base.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -131,8 +49,8 @@
 						class="icon-bar"></span>
 				</button>
 				<img src="images/icon.png" class="pull-left"
-					style="height: 36px; margin: 7px;" alt="icon"> <a
-					class="navbar-brand" href="main">MyClothes</a>
+					style="height: 36px; margin: 7px;" alt="icon">
+				<a class="navbar-brand" href="main">MyClothes</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -256,16 +174,16 @@
 
 					<div class="row placeholders">
 						<div class="col-xs-6 col-sm-3 placeholder">
-							<div id="test_div1" style="width: 175px; height: 200px; margin: 0 auto;"></div>
+							<div id="test_div_0" style="width: 175px; height: 200px; margin: 0 auto;"></div>
 						</div>
 						<div class="col-xs-6 col-sm-3 placeholder">
-							<div id="test_div2" style="width: 175px; height: 200px; margin: 0 auto;"></div>
+							<div id="test_div_1" style="width: 175px; height: 200px; margin: 0 auto;"></div>
 						</div>
 						<div class="col-xs-6 col-sm-3 placeholder">
-							<div id="test_div3" style="width: 175px; height: 200px; margin: 0 auto;"></div>
+							<div id="test_div_2" style="width: 175px; height: 200px; margin: 0 auto;"></div>
 						</div>
 						<div class="col-xs-6 col-sm-3 placeholder">
-							<div id="test_div4" style="width: 175px; height: 200px; margin: 0 auto;"></div>
+							<div id="test_div_3" style="width: 175px; height: 200px; margin: 0 auto;"></div>
 						</div>
 					</div>
 
@@ -359,6 +277,8 @@
 	<script src="js/jquery.jqprint-0.3.js"></script>
 	
 	<script src="js/bootstrap-suggest.js"></script>
+	
+	<script src="js/jquery.quicksearch.js"></script>
 	
 	<script src="js/json2.js"></script>
 

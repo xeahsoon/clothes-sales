@@ -36,6 +36,7 @@
     	    $("#member_id").bsSuggest({
     	        url: "memberSuggest",
     	        effectiveFieldsAlias:{phone: "卡号", name: "姓名"},
+    	        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
     	        autoSelect: true,
     	        ignorecase: true,
     	        showHeader: true,
@@ -132,7 +133,7 @@
                             <li><a href="###">微信</a></li>
                             <li><a href="###">现金</a></li>
                         </ul>
-                        <input id="paytext" type="button" class="form-control" value="银行卡" style="width: 66px;">
+                        <input id="paytext" type="button" class="form-control btn btn-primary" value="银行卡" style="width: 66px;">
 						
 					</div>
                 </td>

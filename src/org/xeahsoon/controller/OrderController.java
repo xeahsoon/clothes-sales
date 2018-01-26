@@ -19,15 +19,6 @@ public class OrderController {
 	@Qualifier("orderService")
 	private OrderService orderService;
 	
-	//销售单列表
-	@RequestMapping("/main")
-	public String listOrders(Model model) {
-		
-		List<Order> order_list = orderService.listAllOrders();
-		model.addAttribute("order_list", order_list);
-		return "main";
-	}
-	
 	//明细主页，默认显示最近一笔订单
 	@RequestMapping("/orderDetail")
 	public String orderDetailPage(Model model) {

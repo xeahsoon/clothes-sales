@@ -22,7 +22,10 @@ public class GoodController {
 	@Qualifier("goodService")
 	private GoodService goodService;
 
-	//商品查询主页，默认显示最新插入的商品信息
+	/**
+	 * @param model
+	 * @return 商品查询主页，默认显示最新插入的商品信息
+	 */
 	@RequestMapping("/searchGood")
 	public String searchGoodPage(Model model) {
 		
@@ -35,10 +38,13 @@ public class GoodController {
 		return "searchGood";
 	}
 	
-	//后台检索单号是否存在
+	/**
+	 * @param id 款号
+	 * @return 后台检索商品款号是否存在
+	 */
 	@ResponseBody
 	@RequestMapping("/checkGoodID")
-	public int checkOrderID(int id) {
+	public int checkGoodID(int id) {
 		Good good = goodService.findGoodInfoWithID(id);
 		if(good != null) {
 			return 1;
@@ -62,7 +68,7 @@ public class GoodController {
 	}
 	
 	/**
-	 * 处理/main请求
+	 * 处理testData请求
 	 * */
 	@ResponseBody
 	@RequestMapping(value="/testData")
@@ -72,5 +78,4 @@ public class GoodController {
 		
 		return good_list;
 	}
-	
 }
