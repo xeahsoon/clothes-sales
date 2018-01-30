@@ -54,27 +54,27 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales</a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown">Sales</a>
 						<ul class="dropdown-menu">
-							<li><a onclick="showAtRight('makeOrder')"> <span
+							<li><a data-url="makeOrder"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>销售打单
 							</a></li>
-							<li><a onclick="showAtRight('orderDetail')"> <span
+							<li><a data-url="orderDetail"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>销售单管理
 							</a></li>
 						</ul></li>
-					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Statics</a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown">Statics</a>
 						<ul class="dropdown-menu">
-							<li><a href="#" onclick="showAtRight('staffsales')"> <span
+							<li><a data-url="staffsales"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>导购员业绩统计
 							</a></li>
-							<li><a href="#" onclick="showAtRight('statics')"> <span
+							<li><a data-url="statics"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>销售统计
 							</a></li>
 						</ul></li>
-					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Storages</a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown">Storages</a>
 						<ul class="dropdown-menu">
-							<li><a href="#" onclick="showAtRight('searchGood')"> <span
+							<li><a data-url="searchGood"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>商品资料查询
 							</a></li>
 							<li><a href="#"> <span
@@ -87,15 +87,15 @@
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存盘点
 							</a></li>
 						</ul></li>
-					<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">System</a>
+					<li><a class="dropdown-toggle" data-toggle="dropdown">System</a>
 						<ul class="dropdown-menu">
-							<li><a href="#" onclick="showAtRight('member')"> <span
+							<li><a data-url="member"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>会员管理
 							</a></li>
-							<li><a href="#" onclick="showAtRight('staff')"> <span
+							<li><a data-url="staff"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>导购员管理
 							</a></li>
-							<li><a href="#" onclick="showAtRight('test')"> <span
+							<li><a data-url="test"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>测试页面
 							</a></li>
 						</ul></li>
@@ -124,13 +124,18 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
+				<div class="menu-search">
+					<span id="search_icon" class="search-icon glyphicon glyphicon-search"></span>
+					<input id="search_menu" type="text" class="form-control" title="单击此处以搜索"/>
+				</div>
+				
 				<div class="menu">
-					<a data-toggle="collapse" data-parent="#accordion" href="#list1">销售管理</a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#list1" style="margin-top: 0px;">销售管理</a>
 				</div>
 				<div id="list1" class="collapse in">
 					<ul class="nav nav-sidebar">
-						<li><a onclick="showAtRight('makeOrder')">销售打单</a></li>
-						<li><a onclick="showAtRight('orderDetail')">销售单管理</a></li>
+						<li><a data-url="makeOrder">销售打单</a></li>
+						<li><a data-url="orderDetail">销售单管理</a></li>
 					</ul>
 				</div>
 
@@ -139,8 +144,8 @@
 				</div>
 				<div id="list2" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a href="#" onclick="showAtRight('staffsales')">导购员业绩统计</a></li>
-						<li><a href="#" onclick="showAtRight('statics')">销售统计</a></li>
+						<li><a data-url="staffsales">导购员业绩统计</a></li>
+						<li><a data-url="statics">销售统计</a></li>
 					</ul>
 				</div>
 
@@ -149,7 +154,7 @@
 				</div>
 				<div id="list3" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a href="#" onclick="showAtRight('searchGood')">商品资料查询</a></li>
+						<li><a data-url="searchGood">商品资料查询</a></li>
 						<li><a href="#">库存进货</a></li>
 						<li><a href="#">库存出货</a></li>
 						<li><a href="#">库存盘点</a></li>
@@ -161,9 +166,9 @@
 				</div>
 				<div id="list4" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a href="#" onclick="showAtRight('member')">会员管理</a></li>
-						<li><a href="#" onclick="showAtRight('staff')">导购员管理</a></li>
-						<li><a href="#" onclick="showAtRight('test')">测试页面</a></li>
+						<li><a data-url="member">会员管理</a></li>
+						<li><a data-url="staff">导购员管理</a></li>
+						<li><a data-url="test">测试页面</a></li>
 					</ul>
 				</div>
 			</div>

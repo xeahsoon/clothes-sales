@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
+import org.xeahsoon.pojo.OrderStaff;
+import org.xeahsoon.pojo.Staff;
 import org.xeahsoon.service.OrderService;
+import org.xeahsoon.service.StaffService;
 
 @Controller
 public class OrderController {
@@ -18,6 +21,36 @@ public class OrderController {
 	@Autowired
 	@Qualifier("orderService")
 	private OrderService orderService;
+	
+	@Autowired
+	@Qualifier("staffService")
+	private StaffService staffService;
+	
+	
+	@RequestMapping("/makeOrder")
+	public String makeOrderPage(Model model) {
+		
+		List<Staff> verified_staff = staffService.listVerifiedStaffs();
+		List<OrderStaff> recent_staff = orderService.listAllOrders().get(0).getStaffs();
+		
+		//借助staff.status属性，存储是否为最近一笔订单的员工
+		int i, j;
+		for(i=0; i<verified_staff.size(); i++) {
+			for(j=0; j<recent_staff.size(); j++) {
+				if(verified_staff.get(i).getId() == recent_staff.get(j).getStaff().getId()) {
+					verified_staff.get(i).setStatus(1);
+					break;
+				}
+			}
+			if(j >= recent_staff.size()) {
+				verified_staff.get(i).setStatus(0);
+			}
+		}
+		
+		model.addAttribute("verified_staff", verified_staff);
+		
+		return "makeOrder";
+	}
 	
 	//明细主页，默认显示最近一笔订单
 	@RequestMapping("/orderDetail")
@@ -64,15 +97,12 @@ public class OrderController {
 	}
 	
 	//打印销售单
+	@ResponseBody
 	@RequestMapping("/printOrder/{order_id}")
-	public void printOrder(
+	public int printOrder(
 			@PathVariable(value="order_id") int order_id) {
 		int result = orderService.printOrder(order_id);
-		if(result == 1) {
-			System.out.println("Printing!!! " + order_id);
-		} else {
-			System.out.println("Printing failed!!!");
-		}
+		return result;
 	}
 	
 	//添加订单备注

@@ -78,15 +78,31 @@
 				<script>
                     $(document).ready(function() {
                         $("#printButton").click(function(){
-                        	//$("#printForm").submit();
+                        	var id = "${order.id}";
                             $("#div_print").jqprint();
+                            printOrder(id);
+                            $(".close").click();
                         });
                     });
+                    
+                  	//ajax更新打印计数
+                    function printOrder(id) {
+                    	$.ajax({
+                    		type: "POST",
+                    		url: "printOrder/"+id,
+                    		success: function(result) {
+                    			showAtRight('orderDetail/' + id);
+                    		},
+                    		error: function(jqXHR) {
+                    			alert("发生错误: " + jqXHR.status);
+                    		}
+                    	});
+                    }
                 </script>
                 <!-- 打印计数 -->
-                <form id="printForm" action="printOrder/${order.id }" method="post"></form>
 				<input type="button" class="btn btn-default" data-dismiss="modal"
-					value="关闭"> <input id="printButton" type="submit"
+					value="关闭">
+				<input id="printButton" type="button"
 					class="btn btn-primary" value="打印"/>
 			</div>
 		</div>

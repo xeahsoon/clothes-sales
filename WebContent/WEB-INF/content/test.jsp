@@ -9,6 +9,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+	    $("#fork_link").fadeIn();
+	    
 		//jQuery QuickSearch测试
 		var qs = $('input#menu_search').quicksearch('ul.nav li');
 		
@@ -16,7 +19,7 @@
 		 * 测试(首次从 URL 获取数据，显示 header，不显示按钮，忽略大小写，可清除)
 		 */
 		$("#testNoBtn").bsSuggest({
-			url : "testData",
+			url : "goodSuggest",
 			/*effectiveFields: ["userName", "shortAccount"],
 			searchFields: [ "shortAccount"],*/
 			effectiveFieldsAlias : {
@@ -63,7 +66,12 @@
 </script>
 </head>
 <body>
-	<div class="container col-md-12">
+	<div id="fork_link" style="position: fixed; bottom: 0; right: 0; display:none;">
+		<a href="https://github.com/xeahsoon" target="_Blank">
+		<img src="images/fork.png" alt="Fork me on GitHub"/></a>
+	</div>
+	
+	<div class="container col-md-12" style="height: 100%;">
 		<div class="row">
 			<h2 class="page-header">这是一个测试
 			</h2>
@@ -93,6 +101,9 @@
         	<div class="col-md-4">
         		<input type="text" class="form-control" id="menu_search"/>
         	</div>
+        </div>
+        
+        <div id="test_jquery_load" style="background-color: #ddd">
         </div>
 	</div>
 </body>

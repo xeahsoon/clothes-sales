@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +22,9 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $('#staff_multiselect').multiselect();
+                $('#staff_multiselect').multiselect({
+                	maxHeight: 200
+                });
                 
                 $("#paylist li").click(function() {
                     var i = $("#paylist li").index(this);
@@ -67,6 +71,45 @@
     	    }).on('onUnsetSelectValue', function () {
     	        console.log("onUnsetSelectValue");
     	    });
+            
+    	    $("#good_id").bsSuggest({
+    			url : "goodSuggest",
+    			/*effectiveFields: ["userName", "shortAccount"],
+    			searchFields: [ "shortAccount"],*/
+    			effectiveFieldsAlias : {
+    				id : "编号",
+    				type : "类型"
+    			},
+    			autoSelect : true,
+    			autoMinWidth : false,
+    	        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
+    			ignorecase : true,
+    			showHeader : true,
+    			showBtn : false, //不显示下拉按钮
+    			delayUntilKeyup : true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
+    			idField : "id",
+    			clearable : true,
+    	        inputWarnColor: 'transparant', //输入框内容不是下拉列表选择时的警告色
+    			processData : function(json) { //url 获取数据时，对数据的处理，作为 getData 的回调函数                
+    				var i, len, data = {
+    					value : []
+    				};
+    				if (!json || json.length == 0) {
+    					return false;
+    				}
+    				len = json.length;
+    				for (i = 0; i < len; i++) {
+    					data.value.push({
+    						"id" : json[i].id,
+    						"type" : json[i].type,
+    						"price" : json[i].price
+    					});
+    				}
+    				/* var data = JSON.parse(json); */
+    				console.log(data);
+    				return data;
+    			}
+    		});
         </script>
 
     </head>
@@ -114,11 +157,17 @@
                     <div class="input-group">
                         <span class="input-group-addon">导购：</span>
                         <select id="staff_multiselect" multiple="multiple">
-                            <option value="1" selected="selected">松子</option>
-                            <option value="6">婷婷</option>
-                            <option value="2">小黑</option>
-                            <option value="3">倩倩</option>
-                            <option value="5">景云</option>
+                        <!-- 输出所有通过审核的员工，并且默认勾选最近一笔开单的员工 -->
+                        <c:forEach items="${requestScope.verified_staff }" var="staff">
+	                        <c:choose>
+	                        	<c:when test="${staff.status == 1 }">
+	                        		<option value="${staff.id }" selected="selected">${staff.name }</option>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<option value="${staff.id }">${staff.name }</option>
+	                        	</c:otherwise>
+	                        </c:choose>
+                        </c:forEach>
                         </select>
                     </div>
                 </td>
@@ -144,16 +193,29 @@
                     <h3 class="page-header">销售</h3>
                 </div>
 
-                <div class="table-responsive">
+                <table class="order-info">
+                <tr>
+                <td>
                     <div class="input-group col-md-4 pull-left">
                         <span class="input-group-addon">条形码：</span>
-                        <input type="text" class="form-control" value="" style="width: 200px;">
+                        <input type="text" class="form-control" style="width: 200px;">
                     </div>
-                    <div class="input-group col-md-4 pull-left">
-                        <span class="input-group-addon">款号：</span>
-                        <input type="text" class="form-control" style="width: 150px;">
+                </td>
+                <td>
+                    <div class="input-group">
+                        <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">款号：</span>
+                        <input type="text" id="good_id" class="form-control">
+                        <div class="input-group-btn">
+	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	                            <span class="caret"></span>
+	                        </button>
+	                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+	                        </ul>
+	                    </div>
                     </div>
-                </div>
+                </td><td></td>
+                </tr>
+                </table>
 
                 <div class="table-responsive">
                     <table class="table table-striped">

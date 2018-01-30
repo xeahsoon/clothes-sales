@@ -257,6 +257,7 @@ function editStaff() {
 		}
 	});	
 }
+
 //设置添加员工信息模态框内容
 function setStaffDetailModal() {
 	//alert("setStaffDetailModal");

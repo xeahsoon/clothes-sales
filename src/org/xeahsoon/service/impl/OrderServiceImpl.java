@@ -38,9 +38,4 @@ public class OrderServiceImpl implements OrderService {
 	public int printOrder(int order_id) {
 		return orderMapper.printOrder(order_id);
 	}
-	
-	@Override
-	public List<Staff> getVerifiedStaffs() {
-		return staffMapper.listVerifiedStaffs();
-	}
 }

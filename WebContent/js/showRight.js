@@ -8,7 +8,6 @@
  */
 function executeScript(html)
 {
-
     var reg = /<script[^>]*>([^\x00]+)$/i;
     //对整段HTML片段按<\/script>拆分
     var htmlBlock = html.split("<\/script>");
@@ -57,7 +56,8 @@ function showAtRight(url) {
 
             if (xmlHttp.status == 200) {
                 //xmlHttp.status == 200		——	服务器反馈正常
-
+            	
+            	//$("#content").load(url);
                 document.getElementById("content").innerHTML=xmlHttp.responseText;	//重设页面中id="content"的div里的内容
                 executeScript(xmlHttp.responseText);	//执行从服务器返回的页面内容里包含的JavaScript函数
             }

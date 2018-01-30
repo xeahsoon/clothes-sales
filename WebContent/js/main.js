@@ -3,6 +3,34 @@
  */
 
 $(document).ready(function() {
+	
+	$("#search_menu").focus(function() {
+	    $("#search_menu").css("color","black");
+	    $("#search_icon").fadeIn("slow");
+	    $("#search_menu").animate({height:'34px'},"fast");
+	});
+	
+	$("#search_menu").blur(function(){
+	    $("#search_menu").css("color","white");
+	    $("#search_icon").fadeOut("fast");
+	    $("#search_menu").animate({height:'20px'});
+	});
+	
+	// 创建菜单栏quicksearch
+	$('input#search_menu').quicksearch('ul.nav li', {
+		// 搜索前展开所有菜单列表
+		'onBefore' : function() {
+			$(".collapse").addClass("in");
+		}
+	});
+	
+    // 点击菜单加载页面
+	$("a[data-url]").click(function(evt){
+		showAtRight($(this).data("url"));
+        $("ul.nav li").removeClass("active");
+        $(this).parent().addClass("active");
+    });
+	
 	// 注册自定义的echarts主题
 	var theme = new Theme();
 	echarts.registerTheme("blue", theme.getTheme("blue"));

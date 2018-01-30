@@ -71,7 +71,7 @@ public class GoodController {
 	 * 处理testData请求
 	 * */
 	@ResponseBody
-	@RequestMapping(value="/testData")
+	@RequestMapping(value="/goodSuggest")
 	public List<Good> listGoods(Model model){
 		
 		List<Good> good_list = goodService.listAllGoods();

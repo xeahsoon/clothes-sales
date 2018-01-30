@@ -1,0 +1,26 @@
+Log4j由三个重要的组件构成：日志信息的优先级，日志信息的输出目的地，日志信息的输出格式。日志信息的优先级从高到低有ERROR、WARN、 INFO、DEBUG，分别用来指定这条日志信息的重要程度，比如使用DEBUG,则会包括前面3个，也就是全部都包括，使用INFO，则不包括DEBUG；日志信息的输出目的地指定了日志将打印到控制台还是文件中；而输出格式则控制了日志信息的显示内容。
+
+1. 配置log输出目的地:
+
+ org.apache.log4j.ConsoleAppender（控制台）
+ org.apache.log4j.FileAppender（文件）
+ org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）
+ org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）
+ org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）
+ 
+2. log信息的格式:
+ org.apache.log4j.HTMLLayout（HTML表格形式）
+ org.apache.log4j.SimpleLayout（简单格式的日志，只包括日志信息的级别和指定的信息字符串 ，如:DEBUG - Hello）
+ org.apache.log4j.TTCCLayout（日志的格式包括日志产生的时间、线程、类别等等信息）
+ org.apache.log4j.PatternLayout（灵活地自定义日志格式）
+ 当使用org.apache.log4j.PatternLayout来自定义信息格式时，可以使用log4j.appender.A1.layout.ConversionPattern=%d{yyyy-MM-ddHH:mm:ss} %p-%m%n 来格式化信息
+ %c 输出所属类的全名，可写为 %c{Num} ,Num类名输出的范围 如："com.sun.aaa.classB",%C{2}将使日志输出输出范围为：aaa.classB
+ %d 输出日志时间其格式为 可指定格式 如 %d{HH:mm:ss}等
+ %l 输出日志事件发生位置，包括类目名、发生线程，在代码中的行数
+ %n 换行符
+ %m 输出代码指定信息，如info(“message”),输出message
+ %p 输出日志的优先级，即 FATAL ,ERROR 等
+ %r 输出从启动到显示该条日志信息所耗费的时间（毫秒数）
+ %t 输出产生该日志事件的线程名
+ 
+ 原文引用地址：https://www.cnblogs.com/sky230/p/5759831.html
