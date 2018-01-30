@@ -22,15 +22,76 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+            	// 创建员工multiselect
                 $('#staff_multiselect').multiselect({
                 	maxHeight: 200
                 });
-                
+                // 支付操作按钮
                 $("#paylist li").click(function() {
                     var i = $("#paylist li").index(this);
                     var t = ["银行卡","支付宝","微信","现金"];
 
                     $("#paytext").val(t[i]);
+                });
+                //计算价格
+                $("#temp_order_table .tdinput").change(function() {
+                	
+                	var discount = parseFloat($(this).val()).toFixed(2);
+                	if(isNaN(discount) || discount < 0.1 || 1.0 < discount) {
+						$(this).val("1.00");
+						discount = 1.00;
+		            	$('#myAlert').fadeIn(100).delay(200).fadeOut(200)
+		            		.fadeIn(100).delay(200).fadeOut(200)
+		            		.fadeIn(100).delay(1500).fadeOut(500);
+                	} else {
+                		$(this).val(discount);
+                	}
+                	
+                	//输入框前一个单元格为金额，后一个为单品折后价
+                	var td_price = $(this).parent().prev();
+                	var td_sum = $(this).parent().next();
+                	
+                	//设置每一行的总金额，精度为小数点后两位
+                	var sum = ( parseFloat(td_price.text()) * discount ).toFixed(2);
+                	td_sum.text(sum);
+                	
+                	var total_num = 0, total_sum = 0;
+                	//遍历非首尾行
+                	$("#temp_order_table tr:not(:first):not(:last)").each(function() {
+                		total_num ++;
+                		total_sum += parseFloat($(this).find("td").eq(7).text());
+                	});
+                	//设置尾行总数
+                	$("#temp_num").text(total_num);
+                	$("#temp_money").text(total_sum.toFixed(2));
+                	//设置支付按钮金额
+                	$("#paymoney").text(total_sum.toFixed(2));
+                });
+                $(".tdinput").trigger("change");
+                
+                // 批量修改折扣操作
+                $("#bar_code").keydown(function(e) {
+                	//监听回车
+                	var theEvent = window.event || e;
+            		var code = theEvent.keyCode || theEvent.which;
+                	if(code == 13) {
+                		var code = document.getElementById("bar_code").value;
+                		var pre = code.substr(0, 2);
+                		if(pre == "z/" || pre == "Z/") {
+                			var discount = parseFloat(code.substr(2));
+                			if(isNaN(discount) || discount < 0.1 || 1.0 < discount) {
+                				$('#myAlert').fadeIn(100).delay(200).fadeOut(200)
+	    		            		.fadeIn(100).delay(200).fadeOut(200)
+	    		            		.fadeIn(100).delay(1500).fadeOut(500);
+                			} else {
+                				//设置输入框折扣
+                				$(".tdinput").val(discount.toFixed(2));
+                				$(".tdinput").trigger("change");
+                			}
+                		} else {
+                			//查找商品
+                		}
+                	}
                 });
             });
             
@@ -131,6 +192,17 @@
             			padding-left: 88px;
             			padding-right: 0px;
             		}
+            		
+            		.alert-box {
+            			border: 1px solid #faebcc;
+            			border-radius: 5px;
+            			background-color: #fcfbe3;
+            			color: #a66d3b;
+            			height: 34px;
+            			line-height: 34px;
+            			padding:0px 10px;
+            			display: none;
+            		}
             	</style>
                 <table class="order-info">
                 <tr>
@@ -174,7 +246,7 @@
                 <td class="pay-button">
                 	<div class="input-group pull-right">
 						<span id="paymoney" class="input-group-addon" data-toggle="dropdown" style="width:88px; font-weight:bold; text-align: right;">
-							988.00
+							9988.00
 						 </span>
                 		<ul id="paylist" class="dropdown-menu" style="min-width:100%;">
                             <li><a href="###">银行卡</a></li>
@@ -192,13 +264,12 @@
                 <div class="table-responsive" style="margin-top: 30px">
                     <h3 class="page-header">销售</h3>
                 </div>
-
                 <table class="order-info">
                 <tr>
                 <td>
-                    <div class="input-group col-md-4 pull-left">
+                    <div class="input-group">
                         <span class="input-group-addon">条形码：</span>
-                        <input type="text" class="form-control" style="width: 200px;">
+                        <input id="bar_code" type="text" class="form-control">
                     </div>
                 </td>
                 <td>
@@ -213,12 +284,17 @@
 	                        </ul>
 	                    </div>
                     </div>
-                </td><td></td>
+                </td>
+                <td style="padding-right: 0px;">
+                	<div id="myAlert" class="alert-box pull-right">
+						<strong>警告！</strong>折扣必须为数字且在0.1~1.0之间
+					</div>
+                </td>
                 </tr>
                 </table>
 
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table id="temp_order_table" class="table table-striped">
                         <thead>
                         <tr>
                             <th width="16%">#</th>
@@ -240,7 +316,7 @@
                             <td>S</td>
                             <td>90</td>
                             <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td>90</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>10000000001</td>
@@ -248,9 +324,9 @@
                             <td>T恤</td>
                             <td>红色</td>
                             <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
-                            <td>90</td>
+                            <td>100</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>10000000001</td>
@@ -258,9 +334,9 @@
                             <td>T恤</td>
                             <td>红色</td>
                             <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
-                            <td>90</td>
+                            <td>110</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>10000000001</td>
@@ -268,9 +344,9 @@
                             <td>T恤</td>
                             <td>红色</td>
                             <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
-                            <td>90</td>
+                            <td>120</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>10000000001</td>
@@ -278,9 +354,9 @@
                             <td>T恤</td>
                             <td>红色</td>
                             <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
-                            <td>90</td>
+                            <td>130</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>10000000001</td>
@@ -288,19 +364,29 @@
                             <td>T恤</td>
                             <td>红色</td>
                             <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="form-control tdinput"></td>
-                            <td>90</td>
+                            <td>140</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10000000001</td>
+                            <td>17202001</td>
+                            <td>T恤</td>
+                            <td>红色</td>
+                            <td>S</td>
+                            <td>200</td>
+                            <td><input type="text" value="1.00" class="tdinput"></td>
+                            <td></td>
                         </tr>
                         </tr>
                         <tr style="border-bottom: 2px solid #ddd">
                         	<td colspan="5">
                         		<span class="pull-left">备注：&nbsp;&nbsp;</span>
-                        		<input type="text" name="remark" style="height:20px; width:78%; background-color:transparent; border:none"/>
+                        		<input type="text" id="remark" name="remark" style="height:20px; width:78%; background-color:transparent; border:none"/>
                         	</td>
                             <td>合计</td>
-                            <td>9件</td>
-                            <td>810.0</td>
+                            <td id="temp_num">9件</td>
+                            <td id="temp_money">810.0</td>
                         </tr>
                         </tbody>
                     </table>
