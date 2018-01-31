@@ -25,4 +25,9 @@ public class StorageServiceImpl implements StorageService {
 		return storageMapper.listAllStorages();
 	}
 
+	@Override
+	public Storage getStorageWithId(int id) {
+		return storageMapper.getStorageWithId(id);
+	}
+
 }

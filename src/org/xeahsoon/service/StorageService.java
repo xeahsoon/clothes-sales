@@ -9,4 +9,6 @@ public interface StorageService {
 	List<Storage> listSameGoods(int code);
 	
 	List<Storage> listAllGoods();
+	
+	Storage getStorageWithId(int id);
 }

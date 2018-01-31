@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderStaff;
+import org.xeahsoon.pojo.OrderTemp;
 import org.xeahsoon.pojo.Staff;
+import org.xeahsoon.pojo.Storage;
 import org.xeahsoon.service.OrderService;
 import org.xeahsoon.service.StaffService;
+import org.xeahsoon.service.StorageService;
 
 @Controller
 public class OrderController {
@@ -21,35 +24,71 @@ public class OrderController {
 	@Autowired
 	@Qualifier("orderService")
 	private OrderService orderService;
-	
+
 	@Autowired
 	@Qualifier("staffService")
 	private StaffService staffService;
+	
+	@Autowired
+	@Qualifier("storageService")
+	private StorageService storageService;
 	
 	
 	@RequestMapping("/makeOrder")
 	public String makeOrderPage(Model model) {
 		
-		List<Staff> verified_staff = staffService.listVerifiedStaffs();
-		List<OrderStaff> recent_staff = orderService.listAllOrders().get(0).getStaffs();
+		List<Staff> verified_staffs = staffService.listVerifiedStaffs();
+		List<OrderStaff> recent_staffs = orderService.listAllOrders().get(0).getStaffs();
+		List<OrderTemp> temp_list = orderService.getTempList();
 		
 		//借助staff.status属性，存储是否为最近一笔订单的员工
 		int i, j;
-		for(i=0; i<verified_staff.size(); i++) {
-			for(j=0; j<recent_staff.size(); j++) {
-				if(verified_staff.get(i).getId() == recent_staff.get(j).getStaff().getId()) {
-					verified_staff.get(i).setStatus(1);
+		for(i=0; i<verified_staffs.size(); i++) {
+			for(j=0; j<recent_staffs.size(); j++) {
+				if(verified_staffs.get(i).getId() == recent_staffs.get(j).getStaff().getId()) {
+					verified_staffs.get(i).setStatus(1);
 					break;
 				}
 			}
-			if(j >= recent_staff.size()) {
-				verified_staff.get(i).setStatus(0);
+			if(j >= recent_staffs.size()) {
+				verified_staffs.get(i).setStatus(0);
 			}
 		}
 		
-		model.addAttribute("verified_staff", verified_staff);
+		model.addAttribute("verified_staffs", verified_staffs);
+		model.addAttribute("temp_list", temp_list);
 		
 		return "makeOrder";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getOneStorage")
+	public int getOneStorage(int id) {
+		Storage item =  storageService.getStorageWithId(id);
+		if(item == null) {
+			return -1;
+		} else {
+			if(orderService.checkStorageIfExist(id) >= 1) {
+				// 如果order_temp表已经存在
+				return 0;
+			} else {
+				// 添加商品信息到order_temp表
+				int result = orderService.addTempItem(item.getId(), item.getGood().getId(), item.getColor(), item.getSize());
+				return result;
+			}
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteItem")
+	public int deleteItem(int id) {
+		return orderService.deleteTempItem(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteTempTable")
+	public int deleteTempTable() {
+		return orderService.clearTempTable();
 	}
 	
 	//明细主页，默认显示最近一笔订单

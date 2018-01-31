@@ -17,7 +17,7 @@
 }
 
 .operator:hover {
-	color: #337ab7;
+	color: #428bca;
 	cursor: pointer;
 }
 
@@ -28,4 +28,26 @@
 .searcher:hover {
 	font-weight: 700;
 	cursor: pointer;
+}
+
+.order-info td {
+	width: 25%;
+	padding-right: 50px;
+}
+
+.order-info .pay-button {
+	text-align: right;
+	padding-left: 88px;
+	padding-right: 0px;
+}
+
+.alert-box {
+	border: 1px solid #faebcc;
+	border-radius: 5px;
+	background-color: #fcfbe3;
+	color: #a66d3b;
+	height: 34px;
+	line-height: 34px;
+	padding:0px 10px;
+	display: none;
 }

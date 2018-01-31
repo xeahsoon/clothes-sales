@@ -2,7 +2,10 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.xeahsoon.pojo.Storage;
 
@@ -20,6 +23,14 @@ public interface StorageMapper {
 	 * @return 根据条形码取出商品
 	 */
 	@Select("select * from storage where id = #{id}")
+	@Results({
+		@Result(id=true, column="id", property="id"),
+		@Result(column="good_id", property="good", 
+		one=@One(
+			select = "org.xeahsoon.mapper.GoodMapper.findGoodInfoWithID")),
+		@Result(column="color", property="color"),
+		@Result(column="size", property="size")
+	})
 	Storage getStorageWithId(@Param("id")int id);
 
 	/**

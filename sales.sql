@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(8) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '订单主键',
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单日期',
-  `print_count` int(11) NOT NULL DEFAULT '0' COMMENT '打印统计',
+  `print_count` int(11) NOT NULL DEFAULT '1' COMMENT '打印统计',
   `nums` int(11) NOT NULL DEFAULT '0' COMMENT '订单总件数',
   `sum_money` double(8,2) NOT NULL DEFAULT '0.00' COMMENT '订单总金额',
   `pay_mode` int(11) NOT NULL DEFAULT '0' COMMENT '支付方式（1/银行卡 2/支付宝 3/微信 4/现金）',
@@ -184,7 +184,7 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (00000001,'2017-11-23 05:23:29',0,2,324.00,1,'邮寄至顾客家，地址见记事本，邮寄完成记得回馈单号给客户',0001,1),(00000002,'2017-11-23 05:27:32',1,1,99.00,3,'顾客明天下午四点到店自提，经手人：小明',0003,2);
+INSERT INTO `order` VALUES (00000001,'2017-11-23 05:23:29',3,2,324.00,1,'邮寄至顾客家，地址见记事本，邮寄完成记得回馈单号给客户',0001,1),(00000002,'2017-11-23 05:27:32',2,1,99.00,3,'顾客明天下午四点到店自提，经手人：小明',0003,2);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,8 +206,8 @@ CREATE TABLE `order_detail` (
   `price` double(6,2) NOT NULL COMMENT '单价',
   `dis_price` double(8,2) NOT NULL DEFAULT '0.00' COMMENT '折后价',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_code` (`storage_id`) USING BTREE,
   KEY `fk_od_order` (`order_id`),
-  KEY `uq_code` (`storage_id`) USING BTREE,
   KEY `fk_od_good` (`good_id`),
   CONSTRAINT `fk_od_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`),
   CONSTRAINT `fk_od_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
@@ -240,7 +240,7 @@ CREATE TABLE `order_staff` (
   KEY `fk_os_staff` (`staff_id`),
   CONSTRAINT `fk_os_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`),
   CONSTRAINT `fk_os_staff` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,8 +249,36 @@ CREATE TABLE `order_staff` (
 
 LOCK TABLES `order_staff` WRITE;
 /*!40000 ALTER TABLE `order_staff` DISABLE KEYS */;
-INSERT INTO `order_staff` VALUES (1,00000001,0003),(2,00000001,0004),(3,00000002,0001),(4,00000001,0001),(5,00000001,0002);
+INSERT INTO `order_staff` VALUES (1,00000001,0003),(2,00000001,0004),(3,00000002,0001),(4,00000001,0001),(5,00000001,0002),(6,00000002,0003);
 /*!40000 ALTER TABLE `order_staff` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_temp`
+--
+
+DROP TABLE IF EXISTS `order_temp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `order_temp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `storage_id` int(11) NOT NULL COMMENT '条形码',
+  `good_id` int(8) NOT NULL COMMENT '款号',
+  `color` varchar(8) NOT NULL COMMENT '颜色',
+  `size` varchar(4) NOT NULL COMMENT '尺码',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_ot_storage_id` (`storage_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_temp`
+--
+
+LOCK TABLES `order_temp` WRITE;
+/*!40000 ALTER TABLE `order_temp` DISABLE KEYS */;
+INSERT INTO `order_temp` VALUES (20,4,17020101,'白色','S'),(21,5,17020101,'白色','S');
+/*!40000 ALTER TABLE `order_temp` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -269,7 +297,7 @@ CREATE TABLE `staff` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态（0/待审核 1/已审核）',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,7 +306,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (0001,'小黑','13279475234','368729199211084328','江西省九江市浔阳区沿江路***小区18栋1502',0),(0002,'倩倩','15279475235','328729198806234327','江西省九江市浔阳区沿江路***小区16栋1502',0),(0003,'松子','13279475236','468729199302134326','江西省九江市浔阳区沿江路***小区14栋1502',1),(0004,'景云','15279475237','358729199012254325','江西省九江市浔阳区沿江路***小区14栋1502',1),(0005,'小霞','18279475238','228729199411244324','江西省九江市浔阳区沿江路***小区12栋1502',0),(0006,'婷婷','17279475234','348729199504244323','江西省九江市浔阳区沿江路***小区10栋1101',1),(0007,'test','13257028730','1231123','City.Test Road.Test',1),(0008,'测试1','123','132511','电费根深蒂固',0),(0009,'测试2','123','','',1),(0011,'测试23','1234','','',0);
+INSERT INTO `staff` VALUES (0001,'小黑','13279475234','368729199211084328','江西省九江市浔阳区沿江路***小区18栋1502',1),(0002,'倩倩','15279475235','328729198806234327','江西省九江市浔阳区沿江路***小区16栋1502',1),(0003,'松子','13279475236','468729199302134326','江西省九江市浔阳区沿江路***小区14栋1502',1),(0004,'景云','15279475237','358729199012254325','江西省九江市浔阳区沿江路***小区14栋1502',1),(0005,'小霞','18279475238','228729199411244324','江西省九江市浔阳区沿江路***小区12栋1502',1),(0006,'婷婷','17279475234','348729199504244323','江西省九江市浔阳区沿江路***小区10栋1101',1),(0007,'test','13257028730','1231123','City.Test Road.Test',1),(0008,'测试1','123','132511','电费根深蒂固',1),(0009,'测试2','123','','',1),(0011,'测试23','1234','','',1),(0015,'11111','131231231','','',0),(0016,'13123','124124234','','',1);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-23  9:08:31
+-- Dump completed on 2018-01-31 18:10:29

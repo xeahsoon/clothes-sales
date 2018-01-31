@@ -7,18 +7,6 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
-        <!-- Include Twitter Bootstrap and jQuery: -->
-        <link rel="stylesheet" href=" css/bootstrap/css/bootstrap.min.css" type="text/css"/>
-        <script type="text/javascript" src=" css/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src=" css/bootstrap/js/jquery.min.js"></script>
-
-        <!-- Include the plugin's CSS and JS: -->
-        <script type="text/javascript" src=" css/bootstrap/js/bootstrap-multiselect.js"></script>
-        <link rel="stylesheet" href=" css/bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
-
-        <!-- Custom styles for this template -->
-        <link href=" css/dashboard.css" rel="stylesheet">
-        <link rel="stylesheet" href=" css/base.css">
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -33,6 +21,7 @@
 
                     $("#paytext").val(t[i]);
                 });
+                
                 //计算价格
                 $("#temp_order_table .tdinput").change(function() {
                 	
@@ -62,7 +51,7 @@
                 		total_sum += parseFloat($(this).find("td").eq(7).text());
                 	});
                 	//设置尾行总数
-                	$("#temp_num").text(total_num);
+                	$("#temp_num").text(total_num + "件");
                 	$("#temp_money").text(total_sum.toFixed(2));
                 	//设置支付按钮金额
                 	$("#paymoney").text(total_sum.toFixed(2));
@@ -90,6 +79,28 @@
                 			}
                 		} else {
                 			//查找商品
+                			$.ajax({
+                				type: "POST",
+                				url: "getOneStorage",
+                				data: {
+                					id: document.getElementById("bar_code").value
+                				},
+                				dataType: "json",
+                				success: function(data) {
+                					if(data == -1) {
+                						alert("未找到该商品信息！");
+                					} else if(data == 0) {
+                						alert("该唯一码已扫过！");
+                					} else {
+                    					showAtRight('makeOrder');
+                    					document.getElementById('bar_code').focus(); //--无效
+                					}
+                				},
+                				error: function(jqXHR) {
+                					$("#dismissButton").click();
+                					alert("发生错误： " + jqXHR.status);
+                				}
+                			});
                 		}
                 	}
                 });
@@ -133,6 +144,7 @@
     	        console.log("onUnsetSelectValue");
     	    });
             
+            // 商品款号搜索建议
     	    $("#good_id").bsSuggest({
     			url : "goodSuggest",
     			/*effectiveFields: ["userName", "shortAccount"],
@@ -181,29 +193,6 @@
                 <h2 class="page-header">选项</h2>
             </div>
             <form action="postOrder" class="form-controll">
-            	<style>
-            		.order-info td {
-            			width: 25%;
-            			padding-right: 50px;
-            		}
-            		
-            		.order-info .pay-button {
-            			text-align: right;
-            			padding-left: 88px;
-            			padding-right: 0px;
-            		}
-            		
-            		.alert-box {
-            			border: 1px solid #faebcc;
-            			border-radius: 5px;
-            			background-color: #fcfbe3;
-            			color: #a66d3b;
-            			height: 34px;
-            			line-height: 34px;
-            			padding:0px 10px;
-            			display: none;
-            		}
-            	</style>
                 <table class="order-info">
                 <tr>
                 <td>
@@ -230,7 +219,7 @@
                         <span class="input-group-addon">导购：</span>
                         <select id="staff_multiselect" multiple="multiple">
                         <!-- 输出所有通过审核的员工，并且默认勾选最近一笔开单的员工 -->
-                        <c:forEach items="${requestScope.verified_staff }" var="staff">
+                        <c:forEach items="${requestScope.verified_staffs }" var="staff">
 	                        <c:choose>
 	                        	<c:when test="${staff.status == 1 }">
 	                        		<option value="${staff.id }" selected="selected">${staff.name }</option>
@@ -246,7 +235,7 @@
                 <td class="pay-button">
                 	<div class="input-group pull-right">
 						<span id="paymoney" class="input-group-addon" data-toggle="dropdown" style="width:88px; font-weight:bold; text-align: right;">
-							9988.00
+							￥0.00
 						 </span>
                 		<ul id="paylist" class="dropdown-menu" style="min-width:100%;">
                             <li><a href="###">银行卡</a></li>
@@ -269,7 +258,7 @@
                 <td>
                     <div class="input-group">
                         <span class="input-group-addon">条形码：</span>
-                        <input id="bar_code" type="text" class="form-control">
+                        <input id="bar_code" type="text" class="form-control" autofocus>
                     </div>
                 </td>
                 <td>
@@ -298,95 +287,45 @@
                         <thead>
                         <tr>
                             <th width="16%">#</th>
-                            <th width="12%">款号</th>
-                            <th width="12%">类型</th>
-                            <th width="12%">颜色</th>
-                            <th width="12%">大小</th>
-                            <th width="12%">原价</th>
-                            <th width="12%">折扣</th>
-                            <th width="12%">金额</th>
+                            <th width="14%">款号</th>
+                            <th width="10%">类型</th>
+                            <th width="10%">颜色</th>
+                            <th width="10%">大小</th>
+                            <th width="10%">原价</th>
+                            <th width="10%">折扣</th>
+                            <th width="10%">金额</th>
+                            <th width="10%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>90</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>100</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>110</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>120</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>130</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>140</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>10000000001</td>
-                            <td>17202001</td>
-                            <td>T恤</td>
-                            <td>红色</td>
-                            <td>S</td>
-                            <td>200</td>
-                            <td><input type="text" value="1.00" class="tdinput"></td>
-                            <td></td>
-                        </tr>
-                        </tr>
+                        <c:forEach items="${requestScope.temp_list }" var="temp">
+                        	<tr>
+                        		<td><fmt:formatNumber value="${temp.storage_id }" pattern="00000000000"/></td>
+                        		<td><fmt:formatNumber value="${temp.good.id }" pattern="00000000"/></td>
+                        		<td>${temp.good.type }</td>
+                        		<td>${temp.color }</td>
+                        		<td>${temp.size }</td>
+                        		<td><fmt:formatNumber value="${temp.good.price }" pattern=".00"/></td>
+                        		<td><input type="text" value="1.00" class="tdinput"></td>
+                        		<td>SUM</td>
+	                            <td>
+	                            	<span style="color:transparent;">/</span>
+	                            	<span class="glyphicon glyphicon-remove-circle operator" title="删除条目" onclick="deleteItem('${temp.id}')"></span>
+	                            </td>
+                        	</tr>
+                        </c:forEach>
                         <tr style="border-bottom: 2px solid #ddd">
                         	<td colspan="5">
                         		<span class="pull-left">备注：&nbsp;&nbsp;</span>
-                        		<input type="text" id="remark" name="remark" style="height:20px; width:78%; background-color:transparent; border:none"/>
+                        		<input type="text" id="remark" name="remark" placeholder="此处填写备注.." style="height:20px; width:88%; background-color:transparent; border:none"/>
                         	</td>
-                            <td>合计</td>
-                            <td id="temp_num">9件</td>
-                            <td id="temp_money">810.0</td>
+                            <td>合计：</td>
+                            <td id="temp_num">0件</td>
+                            <td id="temp_money">0.00</td>
+                            <td>
+                            	<span style="color:transparent;">/</span>
+                            	<span class="glyphicon glyphicon-trash operator" title="取消订单" onclick="deleteTempTable()"></span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

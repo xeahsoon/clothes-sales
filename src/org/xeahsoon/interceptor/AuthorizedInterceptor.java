@@ -46,7 +46,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 			
 			if(user == null) {
 				request.setAttribute("message", "请先登录再访问网站！");
-				request.getRequestDispatcher("loginForm").forward(request, response);
+				request.getRequestDispatcher("/loginForm").forward(request, response);
 				
 				return flag;
 			} else {

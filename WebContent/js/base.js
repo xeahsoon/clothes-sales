@@ -311,6 +311,44 @@ function addStaff() {
 	}
 }
 
-function getGoodById(id) {
-	alert("id = "+id);
+function deleteItem(id) {
+	$.ajax({
+		type: "POST",
+		url: "deleteItem",
+		data: {
+			id: id
+		},
+		dataType: "json",
+		success: function(data) {
+			if(data == 1) {
+				showAtRight('makeOrder');
+			} else{
+				alert("删除失败！");
+			}
+		},
+		error: function(jqXHR) {
+			$("#dismissButton").click();
+			alert("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+function deleteTempTable() {
+	$.ajax({
+		type: "POST",
+		url: "deleteTempTable",
+		dataType: "json",
+		success: function(data) {
+			if(data >= 1) {
+				alert("清空成功！");
+				showAtRight('makeOrder');
+			} else{
+				alert("没有条目信息！");
+			}
+		},
+		error: function(jqXHR) {
+			$("#dismissButton").click();
+			alert("发生错误： " + jqXHR.status);
+		}
+	});
 }
