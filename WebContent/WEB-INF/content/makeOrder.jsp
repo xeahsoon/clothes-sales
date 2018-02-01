@@ -12,13 +12,26 @@
             $(document).ready(function() {
             	// 创建员工multiselect
                 $('#staff_multiselect').multiselect({
-                	maxHeight: 200
+                	maxHeight: 200,
+                    nonSelectedText: '未选择',
+                    nSelectedText: '项选中',
+                    allSelectedText: '全部选中',
+                    onDropdownHide: function () {
+                    	// 下拉框关闭时检测选择是否为空
+                    	if($("#staff_multiselect option:selected").length == 0) {
+                    		alert("请选择至少一个导购员  " + $("#staff_multiselect option:first").text());
+                    		
+                    		/* 官网地址: http://davidstutz.de/bootstrap-multiselect/ 
+                        	 * 没查到正确的api浪费大半个下午，JS源文件里一般都有包括网址信息 */
+                    		$('#staff_multiselect').multiselect('select', ['1']);
+                    	}
+                    }
                 });
                 // 支付操作按钮
                 $("#paylist li").click(function() {
                     var i = $("#paylist li").index(this);
                     var t = ["银行卡","支付宝","微信","现金"];
-
+					$("#paymode").val(i+1);
                     $("#paytext").val(t[i]);
                 });
                 
@@ -109,7 +122,7 @@
             /**
     	     * 测试(首次从 URL 获取数据，显示 header，不显示按钮，忽略大小写，可清除)
     	     */
-    	    $("#member_id").bsSuggest({
+    	    $("#member_phone").bsSuggest({
     	        url: "memberSuggest",
     	        effectiveFieldsAlias:{phone: "卡号", name: "姓名"},
     	        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
@@ -119,7 +132,7 @@
     	        showBtn: false,     //不显示下拉按钮
     	        delayUntilKeyup: true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
     	        clearable: true,
-    	        inputWarnColor: 'transparant', //输入框内容不是下拉列表选择时的警告色
+    	        inputWarnColor: 'rgba(255,0,0,.1)', //输入框内容不是下拉列表选择时的警告色
     	        processData: function(json){ //url 获取数据时，对数据的处理，作为 getData 的回调函数                
                     var i, len, data = {value: []};            
                     if(!json || json.length == 0) {
@@ -160,9 +173,8 @@
     			showHeader : true,
     			showBtn : false, //不显示下拉按钮
     			delayUntilKeyup : true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
-    			idField : "id",
     			clearable : true,
-    	        inputWarnColor: 'transparant', //输入框内容不是下拉列表选择时的警告色
+    	        inputWarnColor: 'rgba(255,0,0,.1)', //输入框内容不是下拉列表选择时的警告色
     			processData : function(json) { //url 获取数据时，对数据的处理，作为 getData 的回调函数                
     				var i, len, data = {
     					value : []
@@ -196,6 +208,8 @@
                 <table class="order-info">
                 <tr>
                 <td>
+                	<!-- 隐式提交收银员编号 -->
+                	<input type="hidden" id="user_id" value="${sessionScope.user.id }">
                     <div class="input-group">
                         <span class="input-group-addon">收银：</span>
                         <input type="text" class="form-control" value="${sessionScope.user.name }" readOnly="readonly">
@@ -203,8 +217,10 @@
                 </td>
                 <td>
                 	<div class="input-group">
-                        <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">会员：</span>
-                        <input type="text" id="member_id" class="form-control">
+                        <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">
+                        	会员：
+                        </span>
+                        <input type="text" id="member_phone" class="form-control">
                         <div class="input-group-btn">
 	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	                            <span class="caret"></span>
@@ -233,18 +249,20 @@
                     </div>
                 </td>
                 <td class="pay-button">
+                	<!-- 隐式提交支付方式 -->
+	                <input id="paymode" type="hidden" value="1"/>
                 	<div class="input-group pull-right">
 						<span id="paymoney" class="input-group-addon" data-toggle="dropdown" style="width:88px; font-weight:bold; text-align: right;">
 							￥0.00
 						 </span>
                 		<ul id="paylist" class="dropdown-menu" style="min-width:100%;">
-                            <li><a href="###">银行卡</a></li>
-                            <li><a href="###">支付宝</a></li>
-                            <li><a href="###">微信</a></li>
-                            <li><a href="###">现金</a></li>
+                            <li><a>银行卡</a></li>
+                            <li><a>支付宝</a></li>
+                            <li><a>微信</a></li>
+                            <li><a>现金</a></li>
                         </ul>
-                        <input id="paytext" type="button" class="form-control btn btn-primary" value="银行卡" style="width: 66px;">
-						
+                        <input id="paytext" type="button" class="form-control btn btn-primary"
+                        	value="银行卡" style="width: 66px;" onclick="payForOrder()">
 					</div>
                 </td>
                 </tr>
@@ -317,7 +335,7 @@
                         <tr style="border-bottom: 2px solid #ddd">
                         	<td colspan="5">
                         		<span class="pull-left">备注：&nbsp;&nbsp;</span>
-                        		<input type="text" id="remark" name="remark" placeholder="此处填写备注.." style="height:20px; width:88%; background-color:transparent; border:none"/>
+                        		<input type="text" id="remark" name="remark" class="tdremark" placeholder="--此处填写备注--"/>
                         	</td>
                             <td>合计：</td>
                             <td id="temp_num">0件</td>

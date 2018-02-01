@@ -2,7 +2,7 @@
  * Created by xeahsoon on 2017/11/8.
  */
 
-//搜索函数
+// 搜索函数
 function search(id) {
 	var url = document.getElementById("search_url").value;
 	var name = document.getElementById("search_name").value;
@@ -36,7 +36,7 @@ function search(id) {
 	}
 }
 
-//更新备注 设置模态框内容
+// 更新备注 设置模态框内容
 function setModalContent(id, remark) {
 	$("#order_id").val(id);
 	/* 不可设为disabled，否则表单无法提交order_id */
@@ -51,7 +51,7 @@ function setModalContent(id, remark) {
 	}
 }
 
-//ajax提交备注信息
+// ajax提交备注信息
 function sendRemark() {
 	$.ajax({
 		type: "POST",
@@ -73,7 +73,7 @@ function sendRemark() {
 	});
 }
 
-//ajax添加会员信息
+// ajax添加会员信息
 function addMember() {
 	var phone = document.getElementById("member_phone").value;
 	var name = document.getElementById("member_name").value;
@@ -106,7 +106,7 @@ function addMember() {
 	}
 }
 
-//ajax删除会员信息
+// ajax删除会员信息
 function deleteMember(id, name, phone) {
 	if(confirm("确定删除该条信息?且删除后不可恢复！\n会员姓名："+name+"\n手机号码："+phone)) {
 		$.ajax({
@@ -131,7 +131,7 @@ function deleteMember(id, name, phone) {
 	}
 }
 
-//设置member模态框内容
+// 设置member模态框内容
 function setMemberModal(phone, name, birth, discount) {
 	//alert("setting member modal...\n" + name +" " +phone+" "+birth+" "+discount);
 	$("#modal_phone").val(phone);
@@ -146,7 +146,7 @@ function setMemberModal(phone, name, birth, discount) {
 	}
 }
 
-//ajax修改会员信息
+// ajax修改会员信息
 function editMember() {
 	
 	var phone = document.getElementById("modal_phone").value;
@@ -185,7 +185,7 @@ function editMember() {
 	}
 }
 
-//ajax审核/反审核员工信息
+// ajax审核/反审核员工信息
 function checkStaff(id) {
 	$.ajax({
 		type: "POST",
@@ -207,7 +207,7 @@ function checkStaff(id) {
 	});
 }
 
-//设置staff模态框内容
+// 设置staff模态框内容
 function setStaffModal(name, phone, idcard, address) {
 	//alert("haha " + name + " " + idcard);
 	$("#modal_name").val(name);
@@ -223,7 +223,7 @@ function setStaffModal(name, phone, idcard, address) {
 	$("#modal_address").val(address);
 }
 
-//ajax修改导购员信息
+// ajax修改导购员信息
 function editStaff() {
 
 	var name = document.getElementById("modal_name").value;
@@ -258,7 +258,7 @@ function editStaff() {
 	});	
 }
 
-//设置添加员工信息模态框内容
+// 设置添加员工信息模态框内容
 function setStaffDetailModal() {
 	//alert("setStaffDetailModal");
 	var name = document.getElementById("staff_name").value;
@@ -268,13 +268,13 @@ function setStaffDetailModal() {
 	$("#detail_phone").val(phone);
 }
 
-//简单添加员工信息
+// 简单添加员工信息
 function addSimpleStaff() {
 	setStaffDetailModal();
 	addStaff();
 }
 
-//ajax增加导购员
+// ajax增加导购员
 function addStaff() {
 	//alert("I'm here to add a staff!");
 	var name = document.getElementById("detail_name").value;
@@ -310,7 +310,7 @@ function addStaff() {
 		});
 	}
 }
-
+// 删除临时订单条目
 function deleteItem(id) {
 	$.ajax({
 		type: "POST",
@@ -327,12 +327,12 @@ function deleteItem(id) {
 			}
 		},
 		error: function(jqXHR) {
-			$("#dismissButton").click();
 			alert("发生错误： " + jqXHR.status);
 		}
 	});
 }
 
+// 清空临时订单
 function deleteTempTable() {
 	$.ajax({
 		type: "POST",
@@ -347,8 +347,56 @@ function deleteTempTable() {
 			}
 		},
 		error: function(jqXHR) {
-			$("#dismissButton").click();
 			alert("发生错误： " + jqXHR.status);
 		}
 	});
+}
+
+// 订单支付
+function payForOrder() {
+	/* 收银员user_id、会员 member_id、 总金额pay_money、 支付方式pay_mode、 备注remark、 导购staffs、 条目折扣discounts */
+	var user_id = $("#user_id").val();
+	var member_phone = $("#member_phone").val();
+	// ----此处应有member_id检测----
+	var pay_money = $("#paymoney").text();
+	var pay_mode = $("#paymode").val();
+    var remark = $("#remark").val();
+	
+    var discounts = new Array();
+    $("#temp_order_table tr:not(:first):not(:last)").each(function() {
+    	discounts.push($(this).find("input").val());
+    });
+	
+	var staffs = new Array();  //定义数组   
+    $("#staff_multiselect option:selected").each(function(){  //遍历所有选中option  
+    	staffs.push($(this).val());  //添加到数组中 
+    })
+    // ----此处应有staffs为空处理----
+
+	alert("Paying..\n" + user_id + "\n" + member_phone + "\n" + pay_money + "\n" + pay_mode + "\n" + remark + "\n" + discounts + "\n" + staffs);
+
+    $.ajax({
+    	type: "POST",
+    	url: "payForOrder",
+    	data: {
+    		user_id: user_id,
+    		member_phone, member_phone,
+    		pay_money, pay_money,
+    		pay_mode, pay_mode,
+    		remark, remark,
+    		discounts, discounts,
+    		staffs, staffs
+    	},
+    	dataType: "json",
+    	success: function(data) {
+    		if(data == 1) {
+    			alert("支付成功！");
+    		} else {
+    			alert("支付失败！");
+    		}
+		},
+		error: function(jqXHR) {
+			alert("发生错误： " + jqXHR.status);
+		}
+    });
 }

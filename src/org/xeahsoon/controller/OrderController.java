@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderStaff;
@@ -33,7 +34,7 @@ public class OrderController {
 	@Qualifier("storageService")
 	private StorageService storageService;
 	
-	
+	// 销售打单页面
 	@RequestMapping("/makeOrder")
 	public String makeOrderPage(Model model) {
 		
@@ -61,6 +62,7 @@ public class OrderController {
 		return "makeOrder";
 	}
 	
+	// 读取商品条形码
 	@ResponseBody
 	@RequestMapping("/getOneStorage")
 	public int getOneStorage(int id) {
@@ -69,7 +71,7 @@ public class OrderController {
 			return -1;
 		} else {
 			if(orderService.checkStorageIfExist(id) >= 1) {
-				// 如果order_temp表已经存在
+				// 如果order_temp表已经存在该商品
 				return 0;
 			} else {
 				// 添加商品信息到order_temp表
@@ -79,16 +81,40 @@ public class OrderController {
 		}
 	}
 	
+	// 删除条目
 	@ResponseBody
 	@RequestMapping("/deleteItem")
 	public int deleteItem(int id) {
 		return orderService.deleteTempItem(id);
 	}
 	
+	// 清空临时订单
 	@ResponseBody
 	@RequestMapping("/deleteTempTable")
 	public int deleteTempTable() {
 		return orderService.clearTempTable();
+	}
+	
+	@ResponseBody
+	@RequestMapping("/payForOrder")
+	public int payForOrder(int user_id, String member_phone, double pay_money, int pay_mode, String remark, 
+			@RequestParam(value = "discounts[]")double[] discounts, @RequestParam(value = "staffs[]")int[] staffs) {
+
+		System.err.println(user_id);
+		System.err.println(member_phone);
+		System.err.println(pay_money);
+		System.err.println(pay_mode);
+		System.err.println(remark);
+		
+		for(int i=0; i<discounts.length; i++) {
+			System.err.println(discounts[i]);
+		}
+		
+		for(int i=0; i<staffs.length; i++) {
+			System.err.println(staffs[i]);
+		}
+		
+		return 1;
 	}
 	
 	//明细主页，默认显示最近一笔订单

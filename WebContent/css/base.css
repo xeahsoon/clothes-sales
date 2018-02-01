@@ -12,6 +12,13 @@
 	border: none;
 }
 
+.tdremark {
+	height: 20px;
+	width: 88%;
+	background-color: transparent;
+	border: none;
+}
+
 .operator {
 	color: #666;
 }

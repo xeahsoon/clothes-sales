@@ -1,5 +1,21 @@
-/* Bootstrap Search Suggest配置参数 */
+/* Bootstrap Search Suggest */
 
+/* 事件监听 */
+// onDataRequestSuccess: 当 AJAX 请求数据成功时触发，并传回结果到第二个参数
+// onSetSelectValue：当从下拉菜单选取值时触发，并传回设置的数据到第二个参数
+// onUnsetSelectValue：当设置了 idField，且自由输入内容时触发（与背景警告色显示同步）
+$("#test")
+    .on('onDataRequestSuccess', function (event, result) {
+        console.log(result);
+    })
+    .on('onSetSelectValue', function (e, keyword) {
+        console.log('onSetSelectValue: ', keyword);
+    })
+    .on('onUnsetSelectValue', function (e) {
+        console.log('onUnsetSelectValue');
+    });
+
+/* 配置参数 */
 var defaultOptions = {
     url: null,                      //请求数据的 URL 地址
     jsonp: null,                    //设置此参数名，将开启jsonp功能，否则使用json数据结构

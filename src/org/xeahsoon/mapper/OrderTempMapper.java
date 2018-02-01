@@ -46,7 +46,7 @@ public interface OrderTempMapper {
 	 * @param discount 单间折扣
 	 * @return 添加条目返回结果
 	 */
-	@Insert("insert into order_temp(storage_id, good_id, color, size) values(#{storage_id}, #{good_id}, #{color}, '${size}')")
+	@Insert("insert into order_temp(storage_id, good_id, color, size) values(#{storage_id}, #{good_id}, #{color}, '${size}')")  //--DKW? 此处用#{size}会报错
 	int addItem(@Param("storage_id")int storage_id, @Param("good_id")int good_id, @Param("color")String color, @Param("size")String size);
 	
 	/**
