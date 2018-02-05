@@ -2,6 +2,7 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -38,4 +39,11 @@ public interface StorageMapper {
 	 */
 	@Select("select * from storage")
 	List<Storage> listAllStorages();
+	
+	/**
+	 * @param storage_id 条形码
+	 * @return 根据条形码删除商品结果
+	 */
+	@Delete("delete from storage where id = #{id}")
+	int deleteOneStorage(@Param("id")int storage_id);
 }

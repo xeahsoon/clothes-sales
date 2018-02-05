@@ -90,4 +90,10 @@ public interface OrderService {
 	 * @return 清空临时订单表结果
 	 */
 	int clearTempTable();
+	
+	/**
+	 * @param storage_id 商品条形码
+	 * @return 删除一条库存结果
+	 */
+	int deleteStorage(int storage_id);
 }

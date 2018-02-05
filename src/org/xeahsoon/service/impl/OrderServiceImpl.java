@@ -8,6 +8,7 @@ import org.xeahsoon.mapper.OrderDetailMapper;
 import org.xeahsoon.mapper.OrderMapper;
 import org.xeahsoon.mapper.OrderStaffMapper;
 import org.xeahsoon.mapper.OrderTempMapper;
+import org.xeahsoon.mapper.StorageMapper;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
 import org.xeahsoon.service.OrderService;
@@ -26,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderTempMapper orderTempMapper;
+	
+	@Autowired
+	private StorageMapper storageMapper;
 
 	@Override
 	public int insertOrder(int nums, double sum_money, int pay_mode, String remark, int user_id, int member_id) {
@@ -91,5 +95,10 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int clearTempTable() {
 		return orderTempMapper.clearTempTable();
+	}
+
+	@Override
+	public int deleteStorage(int storage_id) {
+		return storageMapper.deleteOneStorage(storage_id);
 	}
 }

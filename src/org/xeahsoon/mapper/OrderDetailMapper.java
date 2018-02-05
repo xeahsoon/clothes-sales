@@ -35,7 +35,7 @@ public interface OrderDetailMapper {
 	*/
 	
 	@Insert("insert into order_detail(order_id, storage_id, good_id, color, size, price, discount, dis_price) "
-			+ "values(#{order_id}, #{storage_id}, #{good_id}, #{color}, #{size}, #{price}, #{discount}, #{dis_price})")
+			+ "values(#{order_id}, #{storage_id}, #{good_id}, #{color}, '${size}', #{price}, #{discount}, #{dis_price})")
 	int insertDetail(
 			@Param("order_id")int order_id,
 			@Param("storage_id")int storage_id,

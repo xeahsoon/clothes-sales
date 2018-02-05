@@ -131,21 +131,26 @@ public class OrderController {
 		}
 		
 		
-		/* 事务开始 */
-		
+		/* 此处应有事务开始 */
 		// 存入信息到order表
-		int order_id = 4;
-		//int order_id = orderService.insertOrder(discounts.length, pay_money, pay_mode, remark, user_id, member_id);
+		int order_id = orderService.insertOrder(discounts.length, pay_money, pay_mode, remark, user_id, member_id);
 		
 		// 把staffs存入order_staff表
 		for(int i=0; i<staffs.length; i++) {
 			orderService.insertStaff(order_id, staffs[i]);
 		}
 		
-		// 把order_temp存入order_detail表，并清空order_temp表
+		// 把order_temp存入order_detail表
+		List<OrderTemp> ot = orderService.getTempList();
+		for(int i=0; i<types.length; i++) {
+			orderService.insertDetail(order_id, ot.get(i).getStorage_id(), ot.get(i).getGood().getId(), ot.get(i).getColor(), 
+					ot.get(i).getSize(), prices[i], discounts[i], dis_prices[i]);
+			// 删除storage表商品
+			orderService.deleteStorage(ot.get(i).getStorage_id());
+		}
 		
-		// 删除storage表商品
-		
+		// 清空order_temp表
+		orderService.clearTempTable();
 		/* 事务结束 */
 		
 		return 1;
