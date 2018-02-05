@@ -357,14 +357,20 @@ function payForOrder() {
 	/* 收银员user_id、会员 member_id、 总金额pay_money、 支付方式pay_mode、 备注remark、 导购staffs、 条目折扣discounts */
 	var user_id = $("#user_id").val();
 	var member_phone = $("#member_phone").val();
-	// ----此处应有member_id检测----
+	// ----此处应有member_id不为空是否存在检测----
 	var pay_money = $("#paymoney").text();
 	var pay_mode = $("#paymode").val();
     var remark = $("#remark").val();
 	
+    var types = new Array();
+    var prices = new Array();
     var discounts = new Array();
+    var dis_prices = new Array();
     $("#temp_order_table tr:not(:first):not(:last)").each(function() {
+    	types.push($(this).find("td").eq(2).text());
+    	prices.push($(this).find("td").eq(5).text());
     	discounts.push($(this).find("input").val());
+    	dis_prices.push($(this).find("td").eq(7).text());
     });
 	
 	var staffs = new Array();  //定义数组   
@@ -373,19 +379,22 @@ function payForOrder() {
     })
     // ----此处应有staffs为空处理----
 
-	alert("Paying..\n" + user_id + "\n" + member_phone + "\n" + pay_money + "\n" + pay_mode + "\n" + remark + "\n" + discounts + "\n" + staffs);
+	alert("Paying..\n" + types + "\n" + prices + "\n" + discounts + "\n" + dis_prices);
 
     $.ajax({
     	type: "POST",
     	url: "payForOrder",
     	data: {
     		user_id: user_id,
-    		member_phone, member_phone,
-    		pay_money, pay_money,
-    		pay_mode, pay_mode,
-    		remark, remark,
-    		discounts, discounts,
-    		staffs, staffs
+    		member_phone: member_phone,
+    		pay_money: pay_money,
+    		pay_mode: pay_mode,
+    		remark: remark,
+    		types: types,
+    		prices: prices,
+    		discounts: discounts,
+    		dis_prices: dis_prices,
+    		staffs: staffs
     	},
     	dataType: "json",
     	success: function(data) {

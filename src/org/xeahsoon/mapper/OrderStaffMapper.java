@@ -2,6 +2,7 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -10,6 +11,14 @@ import org.apache.ibatis.annotations.Select;
 import org.xeahsoon.pojo.OrderStaff;
 
 public interface OrderStaffMapper {
+	
+	/**
+	 * @param order_id 订单号
+	 * @param staff_id 员工ID
+	 * @return 插入order_staff结果
+	 */
+	@Insert("insert into order_staff(order_id, staff_id) values(#{order_id}, #{staff_id})")
+	int insertOrderStaff(@Param("order_id")int order_id, @Param("staff_id")int staff_id);
 	
 	/**
 	 * @param order_id 订单编号

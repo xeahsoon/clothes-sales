@@ -44,4 +44,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.updataMemberByPhone(name, birth, discount, phone);
 	}
 
+	@Override
+	public int getMemberIdByPhone(String phone) {
+		return memberMapper.getMemberIdByPhone(phone);
+	}
+
 }

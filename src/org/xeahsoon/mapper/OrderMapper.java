@@ -2,6 +2,7 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
@@ -21,6 +22,20 @@ public interface OrderMapper {
 	private String remark;
 	private User user;
 	private Member member;*/
+	
+	@Insert("insert into `order`(nums, sum_money, pay_mode, remark, user_id, member_id) "
+			+ "values(#{nums}, #{sum_money}, #{pay_mode}, #{remark}, #{user_id}, #{member_id})")
+	int insertOrder(
+			@Param("nums")int nums,
+			@Param("sum_money")double sum_money,
+			@Param("pay_mode")int pay_mode,
+			@Param("remark")String remark,
+			@Param("user_id")int user_id,
+			@Param("member_id")int member_id);
+	
+	@Select("select max(id) from `order`")
+	int getLastId();
+	
 	/**
 	 * @param id 订单编号
 	 * @return 订单、会员、导购员信息、订单条目

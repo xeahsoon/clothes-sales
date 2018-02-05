@@ -40,4 +40,10 @@ public interface MemberService {
 	 * @return 更新会员信息影响条目数
 	 */
 	int updateMemberInfo(String name, Date birth, Double discount, String phone);
+	
+	/**
+	 * @param phone 手机号码
+	 * @return 会员ID
+	 */
+	int getMemberIdByPhone(String phone);
 }

@@ -30,7 +30,6 @@ public interface OrderTempMapper {
 	})
 	List<OrderTemp> getTempList();
 	
-	
 	/**
 	 * @param storage_id 条形码
 	 * @return 查找结果

@@ -15,6 +15,7 @@ import org.xeahsoon.pojo.OrderStaff;
 import org.xeahsoon.pojo.OrderTemp;
 import org.xeahsoon.pojo.Staff;
 import org.xeahsoon.pojo.Storage;
+import org.xeahsoon.service.MemberService;
 import org.xeahsoon.service.OrderService;
 import org.xeahsoon.service.StaffService;
 import org.xeahsoon.service.StorageService;
@@ -33,6 +34,10 @@ public class OrderController {
 	@Autowired
 	@Qualifier("storageService")
 	private StorageService storageService;
+	
+	@Autowired
+	@Qualifier("memberService")
+	private MemberService memberService;
 	
 	// 销售打单页面
 	@RequestMapping("/makeOrder")
@@ -95,24 +100,53 @@ public class OrderController {
 		return orderService.clearTempTable();
 	}
 	
+	// 支付订单
 	@ResponseBody
 	@RequestMapping("/payForOrder")
-	public int payForOrder(int user_id, String member_phone, double pay_money, int pay_mode, String remark, 
-			@RequestParam(value = "discounts[]")double[] discounts, @RequestParam(value = "staffs[]")int[] staffs) {
-
+	public int payForOrder(
+			@RequestParam(value = "user_id")int user_id,
+			@RequestParam(value = "member_phone")String member_phone,
+			@RequestParam(value = "pay_money")double pay_money,
+			@RequestParam(value = "pay_mode")int pay_mode,
+			@RequestParam(value = "remark")String remark,
+			@RequestParam(value = "types[]")String[] types,
+			@RequestParam(value = "prices[]")double[] prices,
+			@RequestParam(value = "discounts[]")double[] discounts,
+			@RequestParam(value = "dis_prices[]")double[] dis_prices,
+			@RequestParam(value = "staffs[]")int[] staffs) {
+		// 通过member_phone获取member_id
+		int member_id = 0;
+		if(member_phone.length() > 0) {
+			member_id = memberService.getMemberIdByPhone(member_phone);
+		}
+		
 		System.err.println(user_id);
-		System.err.println(member_phone);
+		System.err.println(member_phone.length()>0? member_phone: "没有会员信息");
 		System.err.println(pay_money);
 		System.err.println(pay_mode);
-		System.err.println(remark);
+		System.err.println(remark.length()>0? remark: "没有备注信息");
 		
-		for(int i=0; i<discounts.length; i++) {
-			System.err.println(discounts[i]);
+		for(int i=0; i<types.length; i++) {
+			System.err.println(types[i] + " " + prices[i] + " " + discounts[i] + " " + dis_prices[i]);
 		}
 		
+		
+		/* 事务开始 */
+		
+		// 存入信息到order表
+		int order_id = 4;
+		//int order_id = orderService.insertOrder(discounts.length, pay_money, pay_mode, remark, user_id, member_id);
+		
+		// 把staffs存入order_staff表
 		for(int i=0; i<staffs.length; i++) {
-			System.err.println(staffs[i]);
+			orderService.insertStaff(order_id, staffs[i]);
 		}
+		
+		// 把order_temp存入order_detail表，并清空order_temp表
+		
+		// 删除storage表商品
+		
+		/* 事务结束 */
 		
 		return 1;
 	}

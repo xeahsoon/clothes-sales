@@ -62,4 +62,11 @@ public interface MemberMapper {
 			+ "where phone = #{phone}")
 	int updataMemberByPhone(@Param("name")String name, @Param("birthday")Date birth,
 			@Param("discount")double discount, @Param("phone")String phone);
+	
+	/**
+	 * @param phone 手机号码
+	 * @return 会员ID
+	 */
+	@Select("select id from member where phone=#{phone}")
+	int getMemberIdByPhone(@Param("phone")String phone);
 }

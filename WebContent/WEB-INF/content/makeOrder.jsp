@@ -19,11 +19,11 @@
                     onDropdownHide: function () {
                     	// 下拉框关闭时检测选择是否为空
                     	if($("#staff_multiselect option:selected").length == 0) {
-                    		alert("请选择至少一个导购员  " + $("#staff_multiselect option:first").text());
                     		
-                    		/* 官网地址: http://davidstutz.de/bootstrap-multiselect/ 
+                    		alert("请选择至少一个导购！\n将为您自动选择列表项第一位导购员：" + $("#staff_multiselect option:first").text());
+                    		/* 官网地址: http://davidstutz.de/bootstrap-multiselect/
                         	 * 没查到正确的api浪费大半个下午，JS源文件里一般都有包括网址信息 */
-                    		$('#staff_multiselect').multiselect('select', ['1']);
+                    		$('#staff_multiselect').multiselect('select', '1');
                     	}
                     }
                 });

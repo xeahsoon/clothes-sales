@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xeahsoon.mapper.OrderDetailMapper;
 import org.xeahsoon.mapper.OrderMapper;
+import org.xeahsoon.mapper.OrderStaffMapper;
 import org.xeahsoon.mapper.OrderTempMapper;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
@@ -17,7 +19,34 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 	
 	@Autowired
+	private OrderStaffMapper orderStaffMapper;
+	
+	@Autowired
+	private OrderDetailMapper orderDetailMapper;
+	
+	@Autowired
 	private OrderTempMapper orderTempMapper;
+
+	@Override
+	public int insertOrder(int nums, double sum_money, int pay_mode, String remark, int user_id, int member_id) {
+		int insertResult = orderMapper.insertOrder(nums, sum_money, pay_mode, remark, user_id, member_id);
+		if(insertResult != 1) {
+			return 0;
+		} else {
+			return orderMapper.getLastId();
+		}
+	}
+
+	@Override
+	public int insertStaff(int order_id, int staff_id) {
+		return orderStaffMapper.insertOrderStaff(order_id, staff_id);
+	}
+
+	@Override
+	public int insertDetail(int order_id, int storage_id, int good_id, String color, String size, double price,
+			double discount, double dis_price) {
+		return orderDetailMapper.insertDetail(order_id, storage_id, good_id, color, size, price, discount, dis_price);
+	}
 	
 	@Override
 	public Order findOrderById(int id) {
