@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.xeahsoon.pojo.Member;
 
+/**
+ * @author user
+ *
+ */
 public interface MemberService {
 	
 	/**
@@ -46,4 +50,11 @@ public interface MemberService {
 	 * @return 会员ID
 	 */
 	int getMemberIdByPhone(String phone);
+	
+	/**
+	 * @param score 单笔积分(订单金额)
+	 * @param id 会员编号
+	 * @return 增加积分结果
+	 */
+	int addMemberScore(double score, int id);
 }

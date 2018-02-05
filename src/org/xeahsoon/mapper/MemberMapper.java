@@ -69,4 +69,12 @@ public interface MemberMapper {
 	 */
 	@Select("select id from member where phone=#{phone}")
 	int getMemberIdByPhone(@Param("phone")String phone);
+	
+	/**
+	 * @param score 单次积分
+	 * @param id 会员ID
+	 * @return 增加积分结果
+	 */
+	@Update("update member set score = score + #{score} where id=#{id}")
+	int addMemberScore(@Param("score")double score,@Param("id")int id);
 }

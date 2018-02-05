@@ -49,4 +49,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getMemberIdByPhone(phone);
 	}
 
+	@Override
+	public int addMemberScore(double score, int id) {
+		return memberMapper.addMemberScore(score, id);
+	}
+
 }

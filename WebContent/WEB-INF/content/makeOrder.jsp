@@ -124,6 +124,7 @@
     	     */
     	    $("#member_phone").bsSuggest({
     	        url: "memberSuggest",
+    	        effectiveFields: ['phone', 'name'],
     	        effectiveFieldsAlias:{phone: "卡号", name: "姓名"},
     	        allowNoKeyword: false,   //是否允许无关键字时请求数据。为 false 则无输入时不执行过滤请求
     	        autoSelect: true,
@@ -141,8 +142,9 @@
                     len = json.length;            
                     for (i = 0; i < len; i++) {
                         data.value.push({
-                            "phone": json[i].phone,
-                            "name":json[i].name
+                        	"phone": json[i].phone,
+                            "name": json[i].name,
+                            "discount": json[i].discount
                         });
                     }
                     /* var data = JSON.parse(json); */
@@ -152,7 +154,9 @@
     	    }).on('onDataRequestSuccess', function (e, result) {
     	        console.log('onDataRequestSuccess: ', result);
     	    }).on('onSetSelectValue', function (e, keyword, data) {
-    	        console.log('onSetSelectValue: ', keyword, data);
+    	        //alert('onSetSelectValue: ' + "\n" + JSON.stringify(keyword) +"\n"+ JSON.stringify(data));
+    	        $(".tdinput").val(data.discount.toFixed(2));
+				$(".tdinput").trigger("change");
     	    }).on('onUnsetSelectValue', function () {
     	        console.log("onUnsetSelectValue");
     	    });

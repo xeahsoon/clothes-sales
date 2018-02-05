@@ -151,6 +151,9 @@ public class OrderController {
 		
 		// 清空order_temp表
 		orderService.clearTempTable();
+		
+		// 增加会员积分
+		memberService.addMemberScore(pay_money, member_id);
 		/* 事务结束 */
 		
 		return 1;
