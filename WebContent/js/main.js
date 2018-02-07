@@ -4,13 +4,13 @@
 
 $(document).ready(function() {
 	
-	$("#search_menu").focus(function() {
+	$("#search_menu").on("focus", function() {
 	    $("#search_menu").css("color","black");
 	    $("#search_icon").fadeIn("slow");
 	    $("#search_menu").animate({height:'34px'},"fast");
 	});
 	
-	$("#search_menu").blur(function(){
+	$("#search_menu").on("blur", function() {
 	    $("#search_menu").css("color","white");
 	    $("#search_icon").fadeOut("fast");
 	    $("#search_menu").animate({height:'20px'});
@@ -25,7 +25,7 @@ $(document).ready(function() {
 	});
 	
     // 点击菜单加载页面
-	$("a[data-url]").click(function(evt){
+	$("a[data-url]").on("click", function() {
 		showAtRight($(this).data("url"));
         $("ul.nav li").removeClass("active");
         $(this).parent().addClass("active");
@@ -56,10 +56,17 @@ $(document).ready(function() {
 	}
 
 	// 创建orders_table表格
-	$('#orders_table').DataTable({
+	var table = $('#orders_table').DataTable( {
+        lengthChange: false,
+        buttons: [ 'print', 'excel', 'pdf', 'colvis' ]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#orders_table_wrapper .col-sm-6:eq(0)' );
+	/*$('#orders_table').DataTable({
 		//导入中文包
 		"language" : {
-			"url" : "plug-ins/Chinese.json"
+			"url" : "assets/dataTables/plug-in/Chinese.json"
 		},
 		"order": [[ 0, "desc" ]],
 		//设置操作栏 排序为 false
@@ -67,8 +74,11 @@ $(document).ready(function() {
 			"orderable" : false,
 			"targets" : 7
 		} ],
-		"lengthMenu" : [ [ 8, 18, 28, -1 ], [ 8, 18, 28, "全部" ] ]
-	});
+		"lengthMenu" : [ [ 8, 18, 28, -1 ], [ 8, 18, 28, "全部" ] ],
+		buttons: [
+	        'copy', 'excel', 'pdf'
+	    ]
+	});*/
 });
 
 // 通过ajax从后台获取数据并创建ECharts

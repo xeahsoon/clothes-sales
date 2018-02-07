@@ -14,7 +14,7 @@
   <title>欢迎登入迈克服装收银系统</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <!--<link href="css/signin.css" rel="stylesheet">-->
@@ -42,14 +42,5 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
   </form>
-
-</div> <!-- /container -->
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="css/bootstrap/js/jquery.min.js"></script>
-<script src="css/bootstrap/js/bootstrap.min.js"></script>
-<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="css/bootstrap/js/holder.min.js"></script>
 </body>
 </html>

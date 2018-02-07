@@ -21,7 +21,7 @@
             $('#memberTable').DataTable( {
                 //导入中文包
             	"language": {
-                    "url": "plug-ins/Chinese.json"
+                    "url": "assets/dataTables/plug-in/Chinese.json"
                 },
                 //默认按入会时间降序展示
                 "order": [[ 6, "desc" ]],

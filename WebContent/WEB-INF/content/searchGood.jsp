@@ -21,7 +21,7 @@
                     { "orderable": false, "targets": 6 }
                   ],
             	"language": {
-                    "url": "plug-ins/Chinese.json"
+                    "url": "assets/dataTables/plug-in/Chinese.json"
                 }
             });
         });

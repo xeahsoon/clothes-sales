@@ -21,7 +21,7 @@
             $('#staffTable').DataTable( {
                 //导入中文包
             	"language": {
-                    "url": "plug-ins/Chinese.json"
+                    "url": "assets/dataTables/plug-in/Chinese.json"
                 },
               	//设置操作栏 排序为 false
                 "columnDefs": [

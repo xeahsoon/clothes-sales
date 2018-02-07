@@ -12,16 +12,16 @@ bootstrap-multiselect bootstrap下拉多选菜单<br>
 bootstrap-datetimepicker bootstrap时间选择器<br>
 ## 预览
 #### 登录页面
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/login.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/login.png)
 #### 主页面
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/main.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/main.png)
 #### 销售打单
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/make_order.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/make_order.png)
 #### 订单详情
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/order_detail.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/order_detail.png)
 #### 打印订单
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/print_order.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/print_order.png)
 #### 商品信息
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/good_detail.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/good_detail.png)
 #### 会员信息
-![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/preview/member.png)
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/member.png)

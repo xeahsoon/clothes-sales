@@ -16,27 +16,16 @@
 	
 	<title>迈克服装收银系统-首页</title>
 	
-	<!-- Bootstrap core CSS -->
-	<link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet"
-		href="css/bootstrap/css/bootstrap-multiselect.css">
-	<link rel="stylesheet"
-		href="css/bootstrap/css/bootstrap-datetimepicker.min.css">
-	<link rel="stylesheet" type="text/css"
-		href="css/dataTables.bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/buttons.bootstrap.css">
-	
-	<!-- Custom styles for this template -->
-	<link href="css/dashboard.css" rel="stylesheet">
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/bootstrap-multiselect/bootstrap-multiselect.css">
+	<link rel="stylesheet" href="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="assets/dataTables/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="assets/dataTables/css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" href="css/dashboard.css">
 	<link rel="stylesheet" href="css/base.css">
 	
-	<script src="css/bootstrap/js/jquery.min.js"></script>
-	<!--解决 jqprint所需jquery 和bootstrap版本不一致问题-->
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script type="text/javascript" src="js/showRight.js"></script>
-	<script src="js/echarts-theme.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/base.js"></script>
+	<script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
+	
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -263,32 +252,39 @@
 
 	</div>
 
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-
-	<script src="css/bootstrap/js/bootstrap.min.js"></script>
-	<script src="css/bootstrap/js/bootstrap-multiselect.js"></script>
-	<script src="css/bootstrap/js/bootstrap-datetimepicker.js"></script>
-	<script src="css/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
-
-	<script src="js/jquery.dataTables.js"></script>
-	<script src="js/dataTables.bootstrap.js"></script>
-
-	<script src="js/dataTables.buttons.js"></script>
-	<script src="js/buttons.bootstrap.js"></script>
-
-	<script src="js/echarts.js"></script>
-
-	<script src="js/jquery.jqprint-0.3.js"></script>
 	
-	<script src="js/bootstrap-suggest.js"></script>
-	
-	<script src="js/jquery.quicksearch.js"></script>
-	
-	<script src="js/json2.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+	<script src="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 
-	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-	<!--<script src="css/bootstrap/js/holder.min.js"></script>-->
+	<script src="assets/dataTables/jquery.dataTables.min.js"></script>
+	<script src="assets/dataTables/dataTables.bootstrap.min.js"></script>
+	<script src="assets/dataTables/dataTables.buttons.min.js"></script>
+	<script src="assets/dataTables/buttons.bootstrap.min.js"></script>
+	
+	<script src="assets/dataTables/jszip.min.js"></script>
+	<script src="assets/dataTables/pdfmake.min.js"></script>
+	<script src="assets/dataTables/vfs_fonts.js"></script>
+	<script src="assets/dataTables/buttons.html5.min.js"></script>
+	<script src="assets/dataTables/buttons.print.min.js"></script>
+	<script src="assets/dataTables/buttons.colVis.min.js"></script>
+
+	<script src="assets/echarts/echarts-theme.js"></script>
+	<script src="assets/echarts/echarts.js"></script>
+
+	<script src="assets/jqprint/browser.js"></script>
+	<script src="assets/jqprint/jquery.jqprint-0.3.js"></script>
+	
+	<script src="assets/quicksearch/jquery.quicksearch.js"></script>
+	<script src="assets/bootstrap-suggest/bootstrap-suggest.js"></script>
+
+	<script src="assets/json2.js"></script>
+		
+	<script src="assets/showRight.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/base.js"></script>
+
 </body>
 </html>
