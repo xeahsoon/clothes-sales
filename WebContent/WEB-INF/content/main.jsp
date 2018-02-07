@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -233,7 +234,7 @@
 											${staff.staff.name }
 											</c:forEach>
 										</td>
-										<td>${order.member.phone }</td>
+										<td><c:if test="${empty order.member.phone }">无会员信息</c:if>${order.member.phone }</td>
 										<c:if test="${order.pay_mode == 1 }">
 											<td>银行卡</td>
 										</c:if>

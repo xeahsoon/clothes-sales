@@ -18,13 +18,13 @@
                     allSelectedText: '全部选中',
                     onDropdownHide: function () {
                     	// 下拉框关闭时检测选择是否为空
-                    	if($("#staff_multiselect option:selected").length == 0) {
+                    	/* if($("#staff_multiselect option:selected").length == 0) {
                     		
                     		alert("请选择至少一个导购！\n将为您自动选择列表项第一位导购员：" + $("#staff_multiselect option:first").text());
-                    		/* 官网地址: http://davidstutz.de/bootstrap-multiselect/
-                        	 * 没查到正确的api浪费大半个下午，JS源文件里一般都有包括网址信息 */
+                    		// 官网地址: http://davidstutz.de/bootstrap-multiselect/
+                        	// 没查到正确的api浪费大半个下午，JS源文件里一般都有包括网址信息 
                     		$('#staff_multiselect').multiselect('select', '1');
-                    	}
+                    	} */
                     }
                 });
                 // 支付操作按钮
@@ -155,10 +155,10 @@
     	        console.log('onDataRequestSuccess: ', result);
     	    }).on('onSetSelectValue', function (e, keyword, data) {
     	        //alert('onSetSelectValue: ' + "\n" + JSON.stringify(keyword) +"\n"+ JSON.stringify(data));
+    	        //设置会员折扣
     	        $(".tdinput").val(data.discount.toFixed(2));
 				$(".tdinput").trigger("change");
     	    }).on('onUnsetSelectValue', function () {
-    	        console.log("onUnsetSelectValue");
     	    });
             
             // 商品款号搜索建议

@@ -33,6 +33,15 @@ public interface OrderMapper {
 			@Param("user_id")int user_id,
 			@Param("member_id")int member_id);
 	
+	@Insert("insert into `order`(nums, sum_money, pay_mode, remark, user_id) "
+			+ "values(#{nums}, #{sum_money}, #{pay_mode}, #{remark}, #{user_id})")
+	int insertOrderNoMember(
+			@Param("nums")int nums,
+			@Param("sum_money")double sum_money,
+			@Param("pay_mode")int pay_mode,
+			@Param("remark")String remark,
+			@Param("user_id")int user_id);
+	
 	@Select("select max(id) from `order`")
 	int getLastId();
 	

@@ -72,7 +72,11 @@
 					<c:if test="${order.pay_mode == 3 }">微信</c:if>
 					<c:if test="${order.pay_mode == 4 }">现金</c:if>
                 </td>
-                <td>/</td><td>会员：</td><td>${order.member.phone }</td>
+                <td>/</td><td>会员：</td>
+                <td>
+                	<c:if test="${empty order.member.phone }">无会员信息</c:if>
+                	${order.member.phone }
+                </td>
             </tr>
         </table>
     </div>

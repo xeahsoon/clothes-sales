@@ -1,6 +1,9 @@
 package org.xeahsoon.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +25,58 @@ import org.xeahsoon.service.StorageService;
 
 @Controller
 public class OrderController {
+	
+	class StaffSales {
+		private String name;
+		private int good_num;
+		private int order_num;
+		private double ave_good;
+		private double ave_order;
+		private double effort;
+
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public int getGood_num() {
+			return good_num;
+		}
+		public void setGood_num(int good_num) {
+			this.good_num = good_num;
+		}
+		public int getOrder_num() {
+			return order_num;
+		}
+		public void setOrder_num(int order_num) {
+			this.order_num = order_num;
+		}
+		public double getAve_good() {
+			return ave_good;
+		}
+		public void setAve_good(double ave_good) {
+			this.ave_good = ave_good;
+		}
+		public double getAve_order() {
+			return ave_order;
+		}
+		public void setAve_order(double ave_order) {
+			this.ave_order = ave_order;
+		}
+		public double getEffort() {
+			return effort;
+		}
+		public void setEffort(double effort) {
+			this.effort = effort;
+		}
+		
+		@Override
+		public String toString() {
+			return "StaffSales [name=" + name + ", good_num=" + good_num + ", order_num=" + order_num + ", ave_good="
+					+ ave_good + ", ave_order=" + ave_order + ", effort=" + effort + "]";
+		}
+	}
 	
 	@Autowired
 	@Qualifier("orderService")
@@ -114,11 +169,6 @@ public class OrderController {
 			@RequestParam(value = "discounts[]")double[] discounts,
 			@RequestParam(value = "dis_prices[]")double[] dis_prices,
 			@RequestParam(value = "staffs[]")int[] staffs) {
-		// 通过member_phone获取member_id
-		int member_id = 0;
-		if(member_phone.length() > 0) {
-			member_id = memberService.getMemberIdByPhone(member_phone);
-		}
 		
 		System.err.println(user_id);
 		System.err.println(member_phone.length()>0? member_phone: "没有会员信息");
@@ -132,8 +182,17 @@ public class OrderController {
 		
 		
 		/* 此处应有事务开始 */
-		// 存入信息到order表
-		int order_id = orderService.insertOrder(discounts.length, pay_money, pay_mode, remark, user_id, member_id);
+		int order_id = 0;
+		if(member_phone.length() > 0) {
+			// 通过member_phone获取member_id
+			int member_id = memberService.getMemberIdByPhone(member_phone);
+			// 存入信息到order表
+			order_id = orderService.insertOrder(discounts.length, pay_money, pay_mode, remark, user_id, member_id);
+			// 增加会员积分
+			memberService.addMemberScore(pay_money, member_id);
+		} else {
+			order_id = orderService.insertOrderNoMember(discounts.length, pay_money, pay_mode, remark, user_id);
+		}
 		
 		// 把staffs存入order_staff表
 		for(int i=0; i<staffs.length; i++) {
@@ -152,8 +211,6 @@ public class OrderController {
 		// 清空order_temp表
 		orderService.clearTempTable();
 		
-		// 增加会员积分
-		memberService.addMemberScore(pay_money, member_id);
 		/* 事务结束 */
 		
 		return 1;
@@ -222,4 +279,102 @@ public class OrderController {
 		
 		return order;
 	}
+	
+	//计算导购员业绩
+	@RequestMapping(value="/staffsales")
+	public String countStaffMoney(Model model) {
+		
+		// 订单列表
+		List<Order> order_list = orderService.listAllOrders();
+		// 销售数据列表
+		Map<String, StaffSales> staff_sales = new HashMap<String, StaffSales>();
+		
+		// 遍历每条订单
+		for(Order o: order_list) {
+			// 单笔订单的导购员列表
+			List<OrderStaff> staffs = o.getStaffs();
+			double sum = o.getSum_money();
+			int ave = (int) (sum / staffs.size());
+			// 遍历导购员列表
+			for(OrderStaff os: o.getStaffs()) {
+				// 获取单个导购员编号
+				String staff_name = os.getStaff().getName();
+				// 存在则更新，不存在则添加
+				StaffSales sale = new StaffSales();
+				if(staff_sales.containsKey(staff_name)) {
+					sale = staff_sales.get(staff_name);
+					sale.setEffort(sale.getEffort() + ave);
+				} else {
+					sale.setEffort(ave);
+				}
+				staff_sales.put(staff_name, sale);
+			}
+			// 把零头存给该笔订单第一个员工
+			if(sum > ave * staffs.size()) {
+				// ?不知为何sum - ave * staffs.size()会出现很长很长的小数
+				double left = sum - ave * staffs.size();
+				left = Math.floor(left * 100) / 100;
+				System.err.println("Sum: "+sum+"  R: " + ave*staffs.size() + "  Left: " + left);
+				
+				String first_staff_name = staffs.get(0).getStaff().getName();
+				StaffSales sale = new StaffSales();
+				sale = staff_sales.get(first_staff_name);
+				sale.setEffort(sale.getEffort() + left);
+				staff_sales.put(first_staff_name, sale);
+			}
+		}
+		
+		List<StaffSales> sales_list = new ArrayList<StaffSales>();
+		for(String key : staff_sales.keySet()) {
+			StaffSales sale = staff_sales.get(key); 
+			sale.setName(key);
+			sales_list.add(sale);
+		}
+		for(StaffSales sale: sales_list) {
+			System.err.println(sale);
+		}
+		
+		model.addAttribute("sales_list", sales_list);
+		
+		return "staffsales";
+	}
+	/*public String countStaffMoney(Model model) {
+		// 订单列表
+		List<Order> order_list = orderService.listAllOrders();
+		// 存储导购员业绩的map<员工编号，总业绩金额>
+		Map<Integer, Double> staff_sales = new HashMap<Integer, Double>();
+		
+		// 遍历每条订单
+		for(Order o: order_list) {
+			// 单笔订单的导购员列表
+			List<OrderStaff> staffs = o.getStaffs();
+			double sum = o.getSum_money();
+			int ave = (int) (sum / staffs.size());
+			// 遍历导购员列表
+			for(OrderStaff os: o.getStaffs()) {
+				// 获取单个导购员编号
+				int staff_id = os.getStaff().getId();
+				// 存在则更新，不存在则添加
+				if(staff_sales.containsKey(staff_id)) {
+					staff_sales.put(staff_id, staff_sales.get(staff_id) + ave);
+				} else {
+					staff_sales.put(staff_id, (double) ave);
+				}
+			}
+			// 把零头存给该笔订单第一个员工
+			if(sum > ave * staffs.size()) {
+				// ?不知为何sum - ave * staffs.size()会出现很长很长的小数
+				double left = sum - ave * staffs.size();
+				left = Math.floor(left * 100) / 100;
+				System.err.println("Sum: "+sum+"  R: " + ave*staffs.size() + "  Left: " + left);
+				
+				int first_staff_id = staffs.get(0).getStaff().getId();
+				staff_sales.put(first_staff_id, staff_sales.get(first_staff_id) + left);
+			}
+		}
+		
+		model.addAttribute("staff_sales", staff_sales);
+		
+		return "staffsales";
+	}*/
 }

@@ -61,6 +61,7 @@ $(document).ready(function() {
 		"language" : {
 			"url" : "plug-ins/Chinese.json"
 		},
+		"order": [[ 0, "desc" ]],
 		//设置操作栏 排序为 false
 		"columnDefs" : [ {
 			"orderable" : false,

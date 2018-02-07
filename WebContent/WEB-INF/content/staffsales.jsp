@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <script>
+    	$(document).ready(function() {
+    		var data = '${requestScope.sales_list }';
+    		document.getElementById("test_td").innerHTML = JSON.stringify(data);
+    	});
+    </script>
 </head>
 <body>
 <div class="container col-md-12">
@@ -36,65 +44,12 @@
                 <td>640.00</td>
                 <td>1000.00</td>
             </tr>
+            <c:forEach items="${requestScope.sales_list }" var="sale">
+            	<tr>
+            	</tr>
+            </c:forEach>
             <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
-            </tr>
-            <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
-            </tr>
-            <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
-            </tr>
-            <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
-            </tr>
-            <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
-            </tr>
-            <tr>
-                <td>1001</td>
-                <td>松子</td>
-                <td>10</td>
-                <td>4</td>
-                <td>160</td>
-                <td>2.5</td>
-                <td>640.00</td>
-                <td>1000.00</td>
+            	<td id="test_td" colspan="8"></td>
             </tr>
             <tr style="border-bottom: 2px solid #ddd">
                 <td>合计</td>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.service.OrderService;
 
-
 /**
  * @author xeahsoon
  * 动态页面转发控制器

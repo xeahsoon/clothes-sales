@@ -42,6 +42,16 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public int insertOrderNoMember(int nums, double sum_money, int pay_mode, String remark, int user_id) {
+		int insertResult = orderMapper.insertOrderNoMember(nums, sum_money, pay_mode, remark, user_id);
+		if(insertResult != 1) {
+			return 0;
+		} else {
+			return orderMapper.getLastId();
+		}
+	}
+
+	@Override
 	public int insertStaff(int order_id, int staff_id) {
 		return orderStaffMapper.insertOrderStaff(order_id, staff_id);
 	}

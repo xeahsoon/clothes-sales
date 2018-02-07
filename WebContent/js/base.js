@@ -358,6 +358,12 @@ function payForOrder() {
 	var user_id = $("#user_id").val();
 	var member_phone = $("#member_phone").val();
 	// ----此处应有member_id不为空是否存在检测----
+	var bgc = document.getElementById("member_phone").style.backgroundColor;
+	if(bgc == "rgba(255, 0, 0, 0.1)") {
+		alert("请输入有效的会员信息！");
+		return;
+	}
+	
 	var pay_money = $("#paymoney").text();
 	var pay_mode = $("#paymode").val();
     var remark = $("#remark").val();
@@ -378,9 +384,20 @@ function payForOrder() {
     	staffs.push($(this).val());  //添加到数组中 
     })
     // ----此处应有staffs为空处理----
-
-	alert("Paying..\n" + types + "\n" + prices + "\n" + discounts + "\n" + dis_prices);
-
+    if(staffs.length == 0) {
+    	alert("请选择至少一位导购员！")
+    	return;
+    }
+    if(types.length == 0) {
+    	alert("请先选择商品！")
+    	return;
+    }
+    
+    var confirmPay = confirm("确认完成如下支付？\n" + $("#paytext").val() + "：[" + pay_money + "]");
+	if (confirmPay == false) {
+		return;
+	}
+    
     $.ajax({
     	type: "POST",
     	url: "payForOrder",

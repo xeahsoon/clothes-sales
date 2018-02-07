@@ -18,6 +18,7 @@ public interface OrderService {
 	 */
 	int insertOrder(int nums, double sum_money, int pay_mode, String remark, int user_id, int member_id);
 	
+	int insertOrderNoMember(int nums, double sum_money, int pay_mode, String remark, int user_id);
 	
 	/**
 	 * @param order_id 订单号
