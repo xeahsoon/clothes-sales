@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" href="assets/dataTables/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="assets/dataTables/css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" href="assets/toastr/toastr.min.css">
 	<link rel="stylesheet" href="css/dashboard.css">
 	<link rel="stylesheet" href="css/base.css">
 	
@@ -184,7 +185,7 @@
 
 					<h2 class="sub-header">清单</h2>
 					<div class="table-responsive">
-						<table id="orders_table" class="table table-striped">
+						<table id="orders_table" class="table table-striped table-hover">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -270,6 +271,8 @@
 	<script src="assets/dataTables/buttons.html5.min.js"></script>
 	<script src="assets/dataTables/buttons.print.min.js"></script>
 	<script src="assets/dataTables/buttons.colVis.min.js"></script>
+	
+	<script src="assets/toastr/toastr.min.js"></script>
 
 	<script src="assets/echarts/echarts-theme.js"></script>
 	<script src="assets/echarts/echarts.js"></script>

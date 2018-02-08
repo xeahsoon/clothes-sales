@@ -42,9 +42,7 @@
                 	if(isNaN(discount) || discount < 0.1 || 1.0 < discount) {
 						$(this).val("1.00");
 						discount = 1.00;
-		            	$('#myAlert').fadeIn(100).delay(200).fadeOut(200)
-		            		.fadeIn(100).delay(200).fadeOut(200)
-		            		.fadeIn(100).delay(1500).fadeOut(500);
+		            	toastr.error("折扣必须为数字且在<strong>0.1~1.0</strong>之间");
                 	} else {
                 		$(this).val(discount);
                 	}
@@ -82,14 +80,14 @@
                 		if(pre == "z/" || pre == "Z/") {
                 			var discount = parseFloat(code.substr(2));
                 			if(isNaN(discount) || discount < 0.1 || 1.0 < discount) {
-                				$('#myAlert').fadeIn(100).delay(200).fadeOut(200)
-	    		            		.fadeIn(100).delay(200).fadeOut(200)
-	    		            		.fadeIn(100).delay(1500).fadeOut(500);
+	    		            	toastr.error("折扣必须为数字且在<strong>0.1~1.0</strong>之间");
                 			} else {
                 				//设置输入框折扣
                 				$(".tdinput").val(discount.toFixed(2));
                 				$(".tdinput").trigger("change");
                 			}
+                		} else if(isNaN(code) || code.length == 0) {
+                			toastr.error("请输入正确的条形码！");
                 		} else {
                 			//查找商品
                 			$.ajax({
@@ -101,9 +99,9 @@
                 				dataType: "json",
                 				success: function(data) {
                 					if(data == -1) {
-                						alert("未找到该商品信息！");
+                						toastr.info("未找到该商品信息！");
                 					} else if(data == 0) {
-                						alert("该唯一码已扫过！");
+                						toastr.info("该唯一码已扫过！");
                 					} else {
                     					showAtRight('makeOrder');
                     					document.getElementById('bar_code').focus(); //--无效
@@ -111,7 +109,7 @@
                 				},
                 				error: function(jqXHR) {
                 					$("#dismissButton").click();
-                					alert("发生错误： " + jqXHR.status);
+                					toastr.error("发生错误： " + jqXHR.status);
                 				}
                 			});
                 		}
@@ -296,10 +294,7 @@
 	                    </div>
                     </div>
                 </td>
-                <td style="padding-right: 0px;">
-                	<div id="myAlert" class="alert-box pull-right">
-						<strong>警告！</strong>折扣必须为数字且在0.1~1.0之间
-					</div>
+                <td>
                 </td>
                 </tr>
                 </table>

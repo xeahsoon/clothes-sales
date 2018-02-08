@@ -12,8 +12,8 @@ function search(id) {
 		id = document.getElementById("search_id").value;
 	}
 	
-	if(id.length == 0) {
-		alert("参数不能为空！");
+	if(isNaN(id) || id.length == 0) {
+		toastr.error("请输入有效的参数！");
 	} else {
 		$.ajax({
    			type: "POST",
@@ -24,13 +24,13 @@ function search(id) {
    			dataType: "json",
    			success: function(result) {
    				if(result == 0) {
-   					alert("未搜索到该数据!");
+   					toastr.info("未搜索到该数据!");
    				} else {
    	    			showAtRight(name + '/' + id);
    				}
    			},
    			error: function(jqXHR) {
-   				alert("发生错误: " + jqXHR.status);
+   				toastr.error("发生错误: " + jqXHR.status);
    			}
    		});
 	}
@@ -68,7 +68,7 @@ function sendRemark() {
 		},
 		error: function(jqXHR) {
 			$("#dismissButton").click();
-			alert("发生错误: " + jqXHR.status);
+			toastr.error("发生错误: " + jqXHR.status);
 		}
 	});
 }
@@ -80,7 +80,7 @@ function addMember() {
 	var birth = document.getElementById("member_birth").value;
 	
 	if(phone.length == 0 || name.length == 0 || birth.length == 0) {
-		alert("请将信息填写完整！");
+		toastr.error("请将信息填写完整！");
 	} else {
 		$.ajax({
 			type: "POST",
@@ -93,14 +93,14 @@ function addMember() {
 			dataType: "json",
 			success: function(data) {
 				if(data == 1) {
-					alert("添加会员成功！");
+					toastr.success("添加会员成功！");
 					showAtRight('member');
 				} else{
-					alert("添加会员失败，该手机号码已经存在！");
+					toastr.error("添加会员失败，该手机号码已经存在！");
 				}
 			},
 			error: function(jqXHR) {
-				alert("发生错误： " + jqXHR.status);
+				toastr.error("发生错误： " + jqXHR.status);
 			}
 		});	
 	}
@@ -118,14 +118,14 @@ function deleteMember(id, name, phone) {
 			dataType: "json",
 			success: function(data) {
 				if(data == 1) {
-					alert("删除成功！");
+					toastr.success("删除成功！");
 					showAtRight('member');
 				} else{
-					alert("删除失败！");
+					toastr.error("删除失败！");
 				}
 			},
 			error: function(jqXHR) {
-				alert("发生错误： " + jqXHR.status);
+				toastr.error("发生错误： " + jqXHR.status);
 			}
 		});
 	}
@@ -157,7 +157,7 @@ function editMember() {
 	/*此处应有表单内容未作出改变的时候 函数return*/
 	
 	if(name.length == 0 || birth.length == 0 || discount.length == 0) {
-		alert("请将信息填写完整！");
+		toastr.error("请将信息填写完整！");
 	} else {
 		$.ajax({
 			type: "POST",
@@ -172,14 +172,14 @@ function editMember() {
 			success: function(data) {
 				$("#dismissButton").click();
 				if(data == 1) {
-					alert("修改会员信息成功！");
+					toastr.success("修改会员信息成功！");
 					showAtRight('member');
 				} else{
-					alert("修改信息失败！");
+					toastr.error("修改信息失败！");
 				}
 			},
 			error: function(jqXHR) {
-				alert("发生错误： " + jqXHR.status);
+				toastr.error("发生错误： " + jqXHR.status);
 			}
 		});	
 	}
@@ -196,13 +196,14 @@ function checkStaff(id) {
 		dataType: "json",
 		success: function(data) {
 			if(data == 0) {
-				alert("操作失败！");
+				toastr.error("操作失败！");
 			} else {
 				showAtRight('staff');
+				toastr.success("审核/反审核操作成功！");
 			}
 		},
 		error: function(jqXHR) {
-			alert("发生错误： " + jqXHR.status);
+			toastr.error("发生错误： " + jqXHR.status);
 		}
 	});
 }
@@ -246,14 +247,14 @@ function editStaff() {
 		success: function(data) {
 			$("#dismissButton").click();
 			if(data == 1) {
-				alert("修改员工信息成功！");
+				toastr.success("修改员工信息成功！");
 				showAtRight('staff');
 			} else{
-				alert("修改信息失败！");
+				toastr.error("修改信息失败！");
 			}
 		},
 		error: function(jqXHR) {
-			alert("发生错误： " + jqXHR.status);
+			toastr.error("发生错误： " + jqXHR.status);
 		}
 	});	
 }
@@ -283,7 +284,7 @@ function addStaff() {
 	var address = document.getElementById("detail_address").value;
 	
 	if(name.length == 0 || phone.length == 0) {
-		alert("请将信息填写完整！");
+		toastr.error("请将信息填写完整！");
 	} else {
 		$.ajax({
 			type: "POST",
@@ -297,15 +298,15 @@ function addStaff() {
 			dataType: "json",
 			success: function(data) {
 				if(data == 1) {
-					alert("添加导购员成功！");
+					toastr.success("添加导购员成功！");
 					showAtRight('staff');
 				} else{
-					alert("添加导购员失败，姓名已经存在！");
+					toastr.error("添加导购员失败，姓名已经存在！");
 				}
 			},
 			error: function(jqXHR) {
 				$("#dismissButton").click();
-				alert("发生错误： " + jqXHR.status);
+				toastr.error("发生错误： " + jqXHR.status);
 			}
 		});
 	}
@@ -323,11 +324,11 @@ function deleteItem(id) {
 			if(data == 1) {
 				showAtRight('makeOrder');
 			} else{
-				alert("删除失败！");
+				toastr.error("删除失败！");
 			}
 		},
 		error: function(jqXHR) {
-			alert("发生错误： " + jqXHR.status);
+			toastr.error("发生错误： " + jqXHR.status);
 		}
 	});
 }
@@ -340,14 +341,14 @@ function deleteTempTable() {
 		dataType: "json",
 		success: function(data) {
 			if(data >= 1) {
-				alert("清空成功！");
+				toastr.success("清空成功！");
 				showAtRight('makeOrder');
 			} else{
-				alert("没有条目信息！");
+				toastr.error("没有条目信息！");
 			}
 		},
 		error: function(jqXHR) {
-			alert("发生错误： " + jqXHR.status);
+			toastr.error("发生错误： " + jqXHR.status);
 		}
 	});
 }
@@ -360,7 +361,7 @@ function payForOrder() {
 	// ----此处应有member_id不为空是否存在检测----
 	var bgc = document.getElementById("member_phone").style.backgroundColor;
 	if(bgc == "rgba(255, 0, 0, 0.1)") {
-		alert("请输入有效的会员信息！");
+		toastr.error("请输入有效的会员信息！");
 		return;
 	}
 	
@@ -385,11 +386,11 @@ function payForOrder() {
     })
     // ----此处应有staffs为空处理----
     if(staffs.length == 0) {
-    	alert("请选择至少一位导购员！")
+    	toastr.error("请选择至少一位导购员！")
     	return;
     }
     if(types.length == 0) {
-    	alert("请先选择商品！")
+    	toastr.error("请先选择商品！")
     	return;
     }
     
@@ -416,13 +417,13 @@ function payForOrder() {
     	dataType: "json",
     	success: function(data) {
     		if(data == 1) {
-    			alert("支付成功！");
+    			toastr.success("支付成功！");
     		} else {
-    			alert("支付失败！");
+    			toastr.error("支付失败！");
     		}
 		},
 		error: function(jqXHR) {
-			alert("发生错误： " + jqXHR.status);
+			toastr.error("发生错误： " + jqXHR.status);
 		}
     });
 }

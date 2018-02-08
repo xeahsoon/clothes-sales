@@ -3,6 +3,10 @@
  */
 
 $(document).ready(function() {
+
+	toastr.options.positionClass = "toast-bottom-right";
+	toastr.options.showMethod = 'slideDown';
+	toastr.options.timeOut = 2000;
 	
 	$("#search_menu").on("focus", function() {
 	    $("#search_menu").css("color","black");
@@ -58,7 +62,7 @@ $(document).ready(function() {
 	// 创建orders_table表格
 	var table = $('#orders_table').DataTable( {
         lengthChange: false,
-        buttons: [ 'print', 'excel', 'pdf', 'colvis' ]
+        buttons: [ 'excel', 'pdf', 'colvis' ]
     } );
  
     table.buttons().container()
@@ -91,7 +95,7 @@ function getChartData(number, name, chart) {
 			chart.setOption(createOption(name, data));
 		},
 		error : function(jqXHR) {
-			alert("发生错误: " + jqXHR.status);
+			toastr.error("发生错误: " + jqXHR.status);
 		}
 	});
 }
