@@ -37,7 +37,9 @@ function search(id) {
 }
 
 // 更新备注 设置模态框内容
-function setModalContent(id, remark) {
+function setModalContent() {
+	var id = document.getElementById("hidden_id").value;
+	var remark = document.getElementById("hidden_remark").value;
 	$("#order_id").val(id);
 	/* 不可设为disabled，否则表单无法提交order_id */
 	document.getElementById("order_id").readOnly="readOnly";
@@ -138,12 +140,8 @@ function setMemberModal(phone, name, birth, discount) {
 	$("#modal_name").val(name);
 	$("#modal_birth").val(birth);
 	$("#modal_discount").val(discount);
-	for(var i=0; i<$("#modal_discount").length; i++) {
-		if($("#modal_discount").get(0).option[i].value == discount) {
-			$("#modal_discount").get(0).option[i].selected = true;
-			break;
-		}
-	}
+	//选中select指定value
+	$("#modal_discount option[value=discount]").attr("selected","selected"); 
 }
 
 // ajax修改会员信息

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="id" value="${order.id }"></c:set>
+<c:set var="remark" value="${order.remark }"></c:set>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +40,7 @@
 <body>
 <div class="container col-md-12">
     <div class="row">
-        <h2 class="page-header">销售清单查询</h2>
+        <h2 class="page-header"">销售清单查询</h2>
     </div>
     <div class="row">
         <div class="col-md-3">
@@ -58,7 +62,7 @@
                 }
             </style>
             <tr style="border-bottom:1px solid #ddd;">
-                <td>单号：</td><td><fmt:formatNumber value="${order.id }" pattern="00000000"/></td><td>/</td>
+                <td>单号：</td><td><fmt:formatNumber value="${requestScope.order.id }" pattern="00000000"/></td><td>/</td>
                 <td>时间：</td><td><fmt:formatDate value="${order.create_date }" type="both"/></td><td>/</td>
                 <td>收银：</td><td>${order.user.name }</td><td>/</td>
                 <td>导购：</td><td>
@@ -124,7 +128,9 @@
                     -->
                 </td>
                 <td>
-                	<span class="glyphicon glyphicon-edit operator" title="详细" data-toggle="modal" data-target="#remarkModal" onclick="setModalContent('<fmt:formatNumber value="${order.id }" pattern="00000000"/>', '${order.remark }')"></span>
+                	<input type="hidden" value="<fmt:formatNumber value="${order.id }" pattern="00000000"/>" id="hidden_id">
+                	<input type="hidden" value="${order.remark }" id="hidden_remark">
+                	<span class="glyphicon glyphicon-edit operator" title="详细" data-toggle="modal" data-target="#remarkModal" onclick="setModalContent()"></span>
                 	<span style="color: #ddd;">/</span>
                     <span class="glyphicon glyphicon-print operator" title="打印" data-toggle="modal" data-target="#printModal"></span>
                 </td>
