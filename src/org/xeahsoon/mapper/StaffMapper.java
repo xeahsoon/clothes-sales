@@ -35,6 +35,13 @@ public interface StaffMapper {
 	 */
 	@Update("update staff set status = 1-status  where id = #{id}")
 	int checkStaff(@Param("id")int id);
+	
+	/**
+	 * @param id 员工编号
+	 * @return 员工审核状态
+	 */
+	@Select("select status from staff where id = #{id}")
+	int getStaffStatus(@Param("id")int id);
 
 	/**
 	 * @param phone 手机号码

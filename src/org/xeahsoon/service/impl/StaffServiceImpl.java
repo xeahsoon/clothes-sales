@@ -30,6 +30,11 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
+	public int getStaffStatus(int id) {
+		return staffMapper.getStaffStatus(id);
+	}
+
+	@Override
 	public int editStaff(String name, String phone, String idcard, String address) {
 		return staffMapper.editStaff(phone, idcard, address, name);
 	}
@@ -38,5 +43,4 @@ public class StaffServiceImpl implements StaffService {
 	public int addStaff(String name, String phone, String idcard, String address) {
 		return staffMapper.addStaff(name, phone, idcard, address);
 	}
-
 }

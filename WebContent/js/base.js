@@ -186,7 +186,9 @@ function editMember() {
 }
 
 // ajax审核/反审核员工信息
-function checkStaff(id) {
+function checkStaff(id, obj) {
+	//获取当前点击行的status单元格
+	var td_status = $(obj).parent().prev();
 	$.ajax({
 		type: "POST",
 		url: "checkStaff",
@@ -195,10 +197,15 @@ function checkStaff(id) {
 		},
 		dataType: "json",
 		success: function(data) {
-			if(data == 0) {
+			if(data == -1) {
 				toastr.error("操作失败！");
 			} else {
-				showAtRight('staff');
+				//showAtRight('staff');
+				if(data == 1) {
+					td_status.text("审核");
+				} else if(data == 0){
+					td_status.text("待审核");
+				}
 				toastr.success("审核/反审核操作成功！");
 			}
 		},

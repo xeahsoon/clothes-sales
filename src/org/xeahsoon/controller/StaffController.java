@@ -31,7 +31,13 @@ public class StaffController {
 	@RequestMapping(value="/checkStaff")
 	public int checkStaff(int id) {
 		int result = staffService.checkStaff(id);
-		return result;
+		int status;
+		if(result == 1) {
+			status = staffService.getStaffStatus(id);
+		} else {
+			return -1;
+		}
+		return status;
 	}
 
 	@ResponseBody

@@ -3,10 +3,13 @@
  */
 
 $(document).ready(function() {
-
-	toastr.options.positionClass = "toast-bottom-right";
-	toastr.options.showMethod = 'slideDown';
-	toastr.options.timeOut = 2000;
+	
+	toastr.options = {
+        positionClass: "toast-bottom-right",  
+        showDuration: "500",  
+        hideDuration: "300", 
+        timeOut: 2500
+	};
 	
 	$("#search_menu").on("focus", function() {
 	    $("#search_menu").css("color","black");

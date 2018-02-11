@@ -23,6 +23,12 @@ public interface StaffService {
 	int checkStaff(int id);
 	
 	/**
+	 * @param id 员工编号
+	 * @return 审核状态
+	 */
+	int getStaffStatus(int id);
+	
+	/**
 	 * @param name 姓名
 	 * @param phone 电话
 	 * @param idcard 身份证

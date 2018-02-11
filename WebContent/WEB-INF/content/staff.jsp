@@ -163,7 +163,7 @@
 								onclick="setStaffModal('${staff.name}','${staff.phone }','${staff.idcard }','${staff.address }')"></span>
 								<span style="color: #ddd;">/</span> <span
 								class="glyphicon glyphicon-check operator" title="审核/反审核"
-								onclick="checkStaff('${staff.id}')"></span></td>
+								onclick="checkStaff('${staff.id}', this)"></span></td>
 						</tr>
 					</c:forEach>
 				</tbody>
