@@ -218,7 +218,7 @@
 								<c:forEach items="${requestScope.order_list }" var="order">
 									<tr>
 										<td><fmt:formatDate value="${order.create_date }"
-												type="both" /></td>
+												pattern="yyyy-MM-dd hh:mm:ss" /></td>
 										<td><fmt:formatNumber value="${order.id }"
 												pattern="00000000" /></td>
 										<td>${order.sum_money }</td>

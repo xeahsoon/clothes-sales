@@ -327,7 +327,21 @@ function deleteItem(id) {
 		dataType: "json",
 		success: function(data) {
 			if(data == 1) {
-				showAtRight('makeOrder');
+				//ajax局部刷新表格数据
+				$.ajax({
+					url: "refreshTempOrder",
+					success: function(result) {
+				        $("#temp_order_table tbody").html(result);
+        				$(".tdinput").trigger("change");
+        				if($("#temp_order_table tr:not(:first):not(:last)").length == 0) {
+        					//设置尾行总数
+                        	$("#temp_num").text("0件");
+                        	$("#temp_money").text("0.00");
+                        	//设置支付按钮金额
+                        	$("#paymoney").text("0.00");
+        				}
+				    }
+				});
 			} else{
 				toastr.error("删除失败！");
 			}
@@ -347,7 +361,17 @@ function deleteTempTable() {
 		success: function(data) {
 			if(data >= 1) {
 				toastr.success("清空成功！");
-				showAtRight('makeOrder');
+				$.ajax({
+					url: "refreshTempOrder",
+					success: function(result) {
+				        $("#temp_order_table tbody").html(result);
+				        //设置尾行总数
+                    	$("#temp_num").text("0件");
+                    	$("#temp_money").text("0.00");
+                    	//设置支付按钮金额
+                    	$("#paymoney").text("0.00");
+				    }
+				});
 			} else{
 				toastr.error("没有条目信息！");
 			}

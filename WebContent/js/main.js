@@ -65,7 +65,7 @@ $(document).ready(function() {
 	// 创建orders_table表格
 	var table = $('#orders_table').DataTable( {
         lengthChange: false,
-        buttons: [ 'excel', 'pdf', 'colvis' ]
+        buttons: [ 'excel', 'colvis' ]
     } );
  
     table.buttons().container()

@@ -141,6 +141,15 @@ public class OrderController {
 		}
 	}
 	
+	@RequestMapping("/refreshTempOrder")
+	public String refreshTempOrder(Model model) {
+		
+		List<OrderTemp> temp_list = orderService.getTempList();
+		model.addAttribute("temp_list", temp_list);
+		
+		return "tempOrderBody";
+	}
+	
 	// 删除条目
 	@ResponseBody
 	@RequestMapping("/deleteItem")

@@ -10,6 +10,15 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
+            	
+            	/**
+            	 * 2018/2/25 NOTICE!!
+            	 * 将makeOrder表格换成dataTables
+            	 * 表格数据源为ajax
+            	 * 当输入一件商品，调用dataTables的ajax.reload()方法重新刷新表格数据
+            	 * 禁止刷新整个页面！
+            	 */
+            	
             	// 创建员工multiselect
                 $('#staff_multiselect').multiselect({
                 	maxHeight: 200,
@@ -28,15 +37,15 @@
                     }
                 });
                 // 支付操作按钮
-                $("#paylist li").click(function() {
+                $("#paylist li").on("click", function() {
                     var i = $("#paylist li").index(this);
                     var t = ["银行卡","支付宝","微信","现金"];
 					$("#paymode").val(i+1);
                     $("#paytext").val(t[i]);
                 });
                 
-                //计算价格
-                $("#temp_order_table .tdinput").change(function() {
+                // 计算价格 事件委托
+                $("#temp_order_table").on("change", ".tdinput", function() {
                 	
                 	var discount = parseFloat($(this).val()).toFixed(2);
                 	if(isNaN(discount) || discount < 0.1 || 1.0 < discount) {
@@ -103,7 +112,14 @@
                 					} else if(data == 0) {
                 						toastr.info("该唯一码已扫过！");
                 					} else {
-                    					showAtRight('makeOrder');
+                						$.ajax({
+                							url: "refreshTempOrder",
+                							success: function(result) {
+	                					        $("#temp_order_table tbody").html(result);
+	                            				$(".tdinput").trigger("change");
+	                					    }
+                						});
+                    					//showAtRight('makeOrder');
                     					document.getElementById('bar_code').focus(); //--无效
                 					}
                 				},
@@ -331,20 +347,22 @@
 	                            </td>
                         	</tr>
                         </c:forEach>
-                        <tr style="border-bottom: 2px solid #ddd">
-                        	<td colspan="5">
-                        		<span class="pull-left">备注：&nbsp;&nbsp;</span>
-                        		<input type="text" id="remark" name="remark" class="tdremark" placeholder="--此处填写备注--"/>
-                        	</td>
-                            <td>合计：</td>
-                            <td id="temp_num">0件</td>
-                            <td id="temp_money">0.00</td>
-                            <td>
-                            	<span style="color:transparent;">/</span>
-                            	<span class="glyphicon glyphicon-trash operator" title="取消订单" onclick="deleteTempTable()"></span>
-                            </td>
-                        </tr>
                         </tbody>
+                        <tfoot>
+                        	<tr style="border-bottom: 2px solid #ddd">
+	                        	<td colspan="5">
+	                        		<span class="pull-left">备注：&nbsp;&nbsp;</span>
+	                        		<input type="text" id="remark" name="remark" class="tdremark" placeholder="--此处填写备注--"/>
+	                        	</td>
+	                            <td>合计：</td>
+	                            <td id="temp_num">0件</td>
+	                            <td id="temp_money">0.00</td>
+	                            <td>
+	                            	<span style="color:transparent;">/</span>
+	                            	<span class="glyphicon glyphicon-trash operator" title="取消订单" onclick="deleteTempTable()"></span>
+	                            </td>
+	                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </form>
