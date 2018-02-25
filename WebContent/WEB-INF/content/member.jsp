@@ -19,7 +19,7 @@
             });
             //创建DateTable
             $('#memberTable').DataTable( {
-                //导入中文包
+            	//导入中文包
             	"language": {
                     "url": "assets/dataTables/plug-in/Chinese.json"
                 },

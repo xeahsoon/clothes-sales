@@ -62,30 +62,31 @@ $(document).ready(function() {
 		}
 	}
 
-	// 创建orders_table表格
-	var table = $('#orders_table').DataTable( {
-        lengthChange: false,
-        buttons: [ 'excel', 'colvis' ]
-    } );
- 
-    table.buttons().container()
-        .appendTo( '#orders_table_wrapper .col-sm-6:eq(0)' );
-	/*$('#orders_table').DataTable({
+	$('#orders_table').DataTable({
 		//导入中文包
 		"language" : {
 			"url" : "assets/dataTables/plug-in/Chinese.json"
 		},
 		"order": [[ 0, "desc" ]],
 		//设置操作栏 排序为 false
-		"columnDefs" : [ {
+		"columnDefs" : [{
 			"orderable" : false,
 			"targets" : 7
-		} ],
-		"lengthMenu" : [ [ 8, 18, 28, -1 ], [ 8, 18, 28, "全部" ] ],
-		buttons: [
-	        'copy', 'excel', 'pdf'
+		}],
+		"dom" : 'Bfrtip',
+		"buttons" : [
+			{
+				extend: 'copy',
+	            text: "<span class='glyphicon glyphicon-duplicate table-buttons' title='复制'></span>"
+	        },{
+				extend: 'excel',
+	            text: "<span class='glyphicon glyphicon-download-alt table-buttons' title='导出Excel'></span>"
+	        },{
+	            extend: 'colvis',
+	            text: "<span class='glyphicon glyphicon-stats table-buttons' title='列可视调整'></span>"
+	        }
 	    ]
-	});*/
+	});
 });
 
 // 通过ajax从后台获取数据并创建ECharts

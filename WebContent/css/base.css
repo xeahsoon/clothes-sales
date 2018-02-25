@@ -19,6 +19,11 @@
 	border: none;
 }
 
+.table-buttons {
+	color: #666;
+	margin: 0 auto;
+}
+
 .operator {
 	color: #666;
 }
