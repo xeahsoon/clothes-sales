@@ -71,19 +71,19 @@ $(document).ready(function() {
 		//设置操作栏 排序为 false
 		"columnDefs" : [{
 			"orderable" : false,
-			"targets" : 7
+			"targets" : 8
 		}],
 		"dom" : 'Bfrtip',
 		"buttons" : [
 			{
 				extend: 'copy',
-	            text: "<span class='glyphicon glyphicon-duplicate table-buttons' title='复制'></span>"
-	        },{
-				extend: 'excel',
-	            text: "<span class='glyphicon glyphicon-download-alt table-buttons' title='导出Excel'></span>"
+	            text: "<span class='glyphicon glyphicon-duplicate table-buttons' title='复制文本'></span>"
 	        },{
 	            extend: 'colvis',
 	            text: "<span class='glyphicon glyphicon-stats table-buttons' title='列可视调整'></span>"
+	        },{
+				extend: 'excel',
+	            text: "<span class='glyphicon glyphicon-download-alt table-buttons' title='导出Excel'></span>"
 	        }
 	    ]
 	});

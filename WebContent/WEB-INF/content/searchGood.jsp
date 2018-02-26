@@ -91,7 +91,7 @@
                         </tbody>
                     </table>
                 </div>
-                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" 
+                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" alt="No Picture Found"
                 	onload="placeGoodPicture('${requestScope.good.picture }', '${requestScope.good.type }', this)"/>
 			</div>
         </div>

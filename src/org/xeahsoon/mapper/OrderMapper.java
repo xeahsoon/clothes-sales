@@ -21,7 +21,8 @@ public interface OrderMapper {
 	private int pay_mode;
 	private String remark;
 	private User user;
-	private Member member;*/
+	private Member member;
+	private int return_flag; */
 	
 	@Insert("insert into `order`(nums, sum_money, pay_mode, remark, user_id, member_id) "
 			+ "values(#{nums}, #{sum_money}, #{pay_mode}, #{remark}, #{user_id}, #{member_id})")
@@ -58,6 +59,7 @@ public interface OrderMapper {
 		@Result(column="sum_money", property="sum_money"),
 		@Result(column="pay_mode", property="pay_mode"),
 		@Result(column="remark", property="remark"),
+		@Result(column="return_flag", property="return_flag"),
 		@Result(column="user_id", property="user",
 		one=@One(
 			select = "org.xeahsoon.mapper.UserMapper.selectUserById")),
@@ -85,6 +87,7 @@ public interface OrderMapper {
 		@Result(column="sum_money", property="sum_money"),
 		@Result(column="pay_mode", property="pay_mode"),
 		@Result(column="remark", property="remark"),
+		@Result(column="return_flag", property="return_flag"),
 		@Result(column="user_id", property="user",
 		one=@One(
 			select = "org.xeahsoon.mapper.UserMapper.selectUserById")),

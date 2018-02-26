@@ -457,6 +457,12 @@ function payForOrder() {
     });
 }
 
+// 退货
+function returnGoods() {
+	alert("正在操作退货..");
+}
+
+
 // 显示商品图片 
 function placeGoodPicture(picture, type, img) {
 	// 商品类型中英文对照map

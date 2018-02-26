@@ -199,6 +199,7 @@
 									<th>导购员</th>
 									<th>会员卡号</th>
 									<th>支付方式</th>
+									<th>退货</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -211,6 +212,7 @@
 									<th>导购员</th>
 									<th>会员卡号</th>
 									<th>支付方式</th>
+									<th>退货</th>
 									<th>操作</th>
 								</tr>
 							</tfoot>
@@ -218,7 +220,7 @@
 								<c:forEach items="${requestScope.order_list }" var="order">
 									<tr>
 										<td><fmt:formatDate value="${order.create_date }"
-												pattern="yyyy-MM-dd hh:mm:ss" /></td>
+												pattern="yyyy-MM-dd HH:mm:ss" /></td>
 										<td><fmt:formatNumber value="${order.id }"
 												pattern="00000000" /></td>
 										<td>${order.sum_money }</td>
@@ -241,6 +243,7 @@
 										<c:if test="${order.pay_mode == 4 }">
 											<td>现金</td>
 										</c:if>
+										<td>${order.return_flag }</td>
 										<td><span style="color: transparent">/</span> <span
 											class="glyphicon glyphicon-share operator" title="详细"
 											onclick="showAtRight('orderDetail/${order.id}')"></span></td>
