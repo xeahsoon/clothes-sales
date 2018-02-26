@@ -13,24 +13,22 @@
     <script type="text/javascript" class="init">
         $(document).ready(function() {
         	//创建goods dataTable
-        	$('#goods_table').DataTable( {
-            	"lengthChange": false,
-            	"dom": 'lrtip',
-            	//设置操作栏 排序为 false
-                "columnDefs": [
-                    { "orderable": false, "targets": 6 }
-                  ],
-            	"language": {
-                    "url": "assets/dataTables/plug-in/Chinese.json"
-                }
-            });
+	        var table = $('#goods_table').DataTable({
+	        	"dom": 'lrtip',
+	        	//设置操作栏 排序为 false
+	            "columnDefs": [
+	                { "orderable": false, "targets": 6 }
+	              ],
+	        	"language": {
+	                "url": "assets/dataTables/plug-in/Chinese.json"
+	            }
+	        });
+	        
+        	// 绑定搜索事件至指定输入框
+	        $('#keyword').on('keyup', function () {
+	            table.search( this.value ).draw();
+	        });
         });
-        
-        var table = $('#goods_table').DataTable();
-        
-        $('#keyword').on( 'keyup', function () {
-            table.search( this.value ).draw();
-        } );
     </script>
     
 </head>
@@ -93,9 +91,9 @@
                         </tbody>
                     </table>
                 </div>
-                <img class="thumbnail pull-right" style="height: 195px;" 
-                	src="images/${requestScope.good.picture }" onerror="this.src='images/icon_blue.png'" alt="Good Picture Has Gone">
-            </div>
+                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" 
+                	onload="placeGoodPicture('${requestScope.good.picture }', '${requestScope.good.type }', this)"/>
+			</div>
         </div>
         <div class="table-responsive">
             <table id="goods_table" class="table table-striped">

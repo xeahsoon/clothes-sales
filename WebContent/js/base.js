@@ -456,3 +456,22 @@ function payForOrder() {
 		}
     });
 }
+
+// 显示商品图片 
+function placeGoodPicture(picture, type, img) {
+	// 商品类型中英文对照map
+	var enType = new Map(
+		[['夹克', 'jacket'], ['衬衫', 'overshirt'], ['长袖衬衫', 'overshirt-long']
+		,['长裤', 'pants'], ['POLO衫', 'polo'], ['鞋子', 'shoes']
+		,['短裤', 'shorts'], ['T恤', 't-shirt'], ['长袖T恤', 't-shirt-long']]);
+	// 如果数据库存储图片路径为空，则统一更换缩略图路径为以类型英文命名的图片
+	if(picture.length == 0) {
+		if(enType.get(type) != undefined) {
+			img.src = "images/category/" + enType.get(type) + ".jpg";
+		} else {
+			img.src = "images/category/undefined.jpg";
+		}
+	} else {
+		img.src = "images/goods/" + picture;
+	}
+}
