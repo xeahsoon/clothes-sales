@@ -52,3 +52,35 @@
 	padding-left: 88px;
 	padding-right: 0px;
 }
+
+.navbar-box {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    padding: 8px 20px 0px 20px;
+    width: 32%;
+    height: 34px;
+    margin: 8px;
+    font-size: 12px;
+}
+.navbar-box ul {
+	float: left;
+}
+.navbar-box li {
+	display: inline;
+}
+.date-top {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    /* margin-left: -35px; */
+    padding: 0px 15px 0px 0px;
+}
+.digital {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    /* margin-left: -25px; */
+    padding: 0px 15px;
+}
+.running-text {
+    padding: 0px 0px 0px 15px;
+}

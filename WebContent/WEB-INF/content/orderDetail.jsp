@@ -70,7 +70,7 @@
 						${staff.staff.name }
 					</c:forEach>
                 </td><td>/</td>
-                <td>支付：</td><td>
+                <td>支付方式：</td><td>
                 	<c:if test="${order.pay_mode == 1 }">银行卡</c:if>
 					<c:if test="${order.pay_mode == 2 }">支付宝</c:if>
 					<c:if test="${order.pay_mode == 3 }">微信</c:if>

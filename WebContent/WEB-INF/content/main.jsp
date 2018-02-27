@@ -35,7 +35,7 @@
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
-			<div class="navbar-header">
+			<div class="navbar-header" style="width: 210px;">
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
@@ -46,6 +46,20 @@
 				<img src="images/icon.png" class="pull-left"
 					style="height: 36px; margin: 7px;" alt="icon">
 				<a class="navbar-brand" href="main">MyClothes</a>
+			</div>
+			<div class="navbar-left navbar-box">
+				<ul class="date-top">
+					<li class="glyphicon glyphicon-calendar"></li>
+					<li id="date">1996年7月11日 星期八</li>
+				</ul>
+				<ul class="digital">
+					<li class="glyphicon glyphicon-time"></li>
+					<li id="time">00:00:00</li>
+				</ul>
+				<ul class="running-text">
+					<li class="glyphicon glyphicon-info-sign"></li>
+					<li>松子 55556.00</li>
+				</ul>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
