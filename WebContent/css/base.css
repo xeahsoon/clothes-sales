@@ -53,6 +53,12 @@
 	padding-right: 0px;
 }
 
+@media (max-width: 767px) {
+	/* 小屏幕设备隐藏时间框 */
+	.navbar-box {
+		display: none;
+	}
+}
 .navbar-box {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -60,13 +66,12 @@
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
     padding: 8px 20px 0px 20px;
-    width: 32%;
     height: 34px;
     margin: 8px;
     font-size: 12px;
 }
 .navbar-box ul {
-	float: left;
+	display: inline;
 }
 .navbar-box li {
 	display: inline;

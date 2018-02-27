@@ -4,6 +4,8 @@
 
 $(document).ready(function() {
 	
+	generateDate();
+	
 	toastr.options = {
         positionClass: "toast-bottom-right",  
         showDuration: "500",  
@@ -87,7 +89,26 @@ $(document).ready(function() {
 	        }
 	    ]
 	});
+
+	window.setInterval("generateDate()", 1000);
 });
+
+// 设置顶部栏时间
+function checkTime(i) {
+	if (i<10){
+		i="0" + i;
+	}
+	return i;
+}
+function generateDate() {
+	var week = ["日","一","二","三","四","五","六"];
+	var now = new Date();
+	var date = now.getFullYear() + "年" + (now.getMonth()+1) + "月" + now.getDate() + "日 星期" + week[now.getDay()];
+	var time = checkTime(now.getHours()) + ":" + checkTime(now.getMinutes()) + ":" + checkTime(now.getSeconds());
+	
+	$("#date").text(date);
+	$("#time").text(time);
+}
 
 // 通过ajax从后台获取数据并创建ECharts
 function getChartData(number, name, chart) {
