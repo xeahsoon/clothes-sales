@@ -54,7 +54,7 @@
 				</ul>
 				<ul class="digital">
 					<li class="glyphicon glyphicon-time"></li>
-					<li id="time" style="display:inline-block; width: 47px;"></li>
+					<li id="time"></li>
 				</ul>
 				<ul id="run_data" class="running-text">
 					<li id="run_hello">
@@ -113,7 +113,7 @@
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="font-style: italic;">
 						<span class="glyphicon glyphicon-user" style="display: inline-block; width: 20px; height: 20px;"></span>${sessionScope.user.loginname }</a>
 						<ul class="dropdown-menu">
-							<li><a><span class="glyphicon glyphicon-credit-card"
+							<li><a><span class="glyphicon glyphicon-cog"
 									style="width: 25px"></span><span id="top_username">${sessionScope.user.name }</span></a></li>
 							<li><a><span class="glyphicon glyphicon-phone"
 									style="width: 25px"></span><span>${sessionScope.user.phone }</span></a></li>
@@ -243,7 +243,7 @@
 										<td>${order.user.name }</td>
 										<td>
 											<c:forEach items="${order.staffs }" var="staff">
-											${staff.staff.name }
+											${staff.staff.name }&nbsp;
 											</c:forEach>
 										</td>
 										<td><c:if test="${empty order.member.phone }">无会员信息</c:if>${order.member.phone }</td>
