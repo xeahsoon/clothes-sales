@@ -113,7 +113,7 @@
             		<td>${detail.price }</td>
             		<td><fmt:formatNumber value="${detail.discount }" pattern="0.00" /></td>
             		<td>${detail.dis_price }</td>	
-            		<td><input type="checkbox" name="order_item" value="${detail.storage_id }"></td>
+            		<td><input type="checkbox" name="order_item" value="<fmt:formatNumber value='${detail.storage_id }' pattern='00000000000'/>"></td>
             	</tr>
             </c:forEach>
             
@@ -143,7 +143,7 @@
                         <!--<b class="caret"></b>-->
                     </span>
                     <ul class="dropdown-menu dropdown-menu-right" style="margin-top: -10px;">
-                        <li><a onclick="returnGoods()">退货</a></li>
+                        <li><a onclick="returnGoods('${requestScope.order.id }')">退货</a></li>
                         <li><a onclick="toastr.info('正在建设中..')">换货</a></li>
                     </ul>
                 </td>

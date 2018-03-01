@@ -458,8 +458,28 @@ function payForOrder() {
 }
 
 // 退货
-function returnGoods() {
-	alert("正在操作退货..");
+function returnGoods(order_id) {
+	
+	var items = document.getElementsByName("order_item");
+	var goods = [];
+	
+	for(var item of items) {
+		if(item.checked) {
+			goods.push(item.value);
+		}
+	}
+	
+	if(goods.length <= 0) {
+		toastr.error("请先勾选你所要退货的商品！");
+		return;
+	}
+	
+	var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
+	if (confirmReturn == false) {
+		return;
+	}
+	// ajax退货请求
+	toastr.info(order_id + " " + JSON.stringify(goods));
 }
 
 

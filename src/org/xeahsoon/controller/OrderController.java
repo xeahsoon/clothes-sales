@@ -189,8 +189,8 @@ public class OrderController {
 			System.err.println(types[i] + " " + prices[i] + " " + discounts[i] + " " + dis_prices[i]);
 		}
 		
-		
 		/* 此处应有事务开始 */
+		
 		int order_id = 0;
 		if(member_phone.length() > 0) {
 			// 通过member_phone获取member_id

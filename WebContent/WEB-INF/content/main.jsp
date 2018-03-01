@@ -54,15 +54,17 @@
 				</ul>
 				<ul class="digital">
 					<li class="glyphicon glyphicon-time"></li>
-					<li id="time"></li>
+					<li id="time" style="display:inline-block; width: 47px;"></li>
 				</ul>
-				<ul class="running-text">
-					<li class="glyphicon glyphicon-flag"></li>
-					<li>松子  婷婷 ￥99.00</li>
+				<ul id="run_data" class="running-text">
+					<li id="run_hello">
+						<span class="glyphicon glyphicon-comment"></span>
+					</li>
 				</ul>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
+					<li><span id="tp-weather-widget" style="display: block; padding-top: 10px;"></span></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">Sales</a>
 						<ul class="dropdown-menu">
 							<li><a data-url="makeOrder"> <span
@@ -108,14 +110,13 @@
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>测试页面
 							</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">
-						${sessionScope.user.name }</a>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="font-style: italic;">
+						<span class="glyphicon glyphicon-user" style="display: inline-block; width: 20px; height: 20px;"></span>${sessionScope.user.loginname }</a>
 						<ul class="dropdown-menu">
-							<li><a><span class="glyphicon glyphicon-user"
-									style="width: 25px"> </span>${sessionScope.user.loginname }</a></li>
+							<li><a><span class="glyphicon glyphicon-credit-card"
+									style="width: 25px"></span><span id="top_username">${sessionScope.user.name }</span></a></li>
 							<li><a><span class="glyphicon glyphicon-phone"
-									style="width: 25px"> </span>${sessionScope.user.phone }</a></li>
+									style="width: 25px"></span><span>${sessionScope.user.phone }</span></a></li>
 							<li class="divider"></li>
 							<li><a href="logout"> <span
 									class="glyphicon glyphicon-log-out" style="width: 25px"></span>注销登录
@@ -237,7 +238,8 @@
 												pattern="yyyy-MM-dd HH:mm:ss" /></td>
 										<td><fmt:formatNumber value="${order.id }"
 												pattern="00000000" /></td>
-										<td>${order.sum_money }</td>
+										<td><fmt:formatNumber value="${order.sum_money }"
+												pattern=".00" /></td>
 										<td>${order.user.name }</td>
 										<td>
 											<c:forEach items="${order.staffs }" var="staff">
@@ -293,6 +295,9 @@
 	<script src="assets/dataTables/buttons.print.min.js"></script>
 	<script src="assets/dataTables/buttons.colVis.min.js"></script>
 	
+	<script src="assets/newsTicker/jquery.newsTicker.min.js"></script>
+	<script src="assets/thinkPageWeather.js"></script>
+	
 	<script src="assets/toastr/toastr.min.js"></script>
 
 	<script src="assets/echarts/echarts-theme.js"></script>
@@ -306,5 +311,6 @@
 
 	<script src="assets/json2.js"></script>
 
+	
 </body>
 </html>

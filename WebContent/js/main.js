@@ -5,7 +5,9 @@
 $(document).ready(function() {
 	
 	generateDate();
+	generateScrollingData();
 	
+	// 设置全局toastr属性
 	toastr.options = {
         positionClass: "toast-bottom-right",  
         showDuration: "500",  
@@ -13,6 +15,7 @@ $(document).ready(function() {
         timeOut: 2500
 	};
 	
+	// 搜索框动画
 	$("#search_menu").on("focus", function() {
 	    $("#search_menu").css("color","black");
 	    $("#search_icon").fadeIn("slow");
@@ -94,12 +97,6 @@ $(document).ready(function() {
 });
 
 // 设置顶部栏时间
-function checkTime(i) {
-	if (i<10){
-		i="0" + i;
-	}
-	return i;
-}
 function generateDate() {
 	var week = ["日","一","二","三","四","五","六"];
 	var now = new Date();
@@ -108,6 +105,43 @@ function generateDate() {
 	
 	$("#date").text(date);
 	$("#time").text(time);
+}
+function checkTime(i) {
+	if (i<10){
+		i="0" + i;
+	}
+	return i;
+}
+
+// 初始化滚动列表
+function generateScrollingData() {
+	var data = [];
+	$("#orders_table").find("tr").each(function(index) {
+		if(2<=index && index <=4) {
+	    	var str = $(this).find("td").eq(4).text() +" ￥"+ $(this).find("td").eq(2).text();
+	    	toastr.info(str);
+	    	data.push(str);
+		}
+    });
+	
+	$("#run_hello").append("您好！<i>" + $("#top_username").text() + "&nbsp;</i>");
+	
+	for(var i=0; i<data.length; i++) {
+		$("#run_data").append("<li>" +
+				"<span class='glyphicon glyphicon-flag'></span>&nbsp;" +
+				data[i] + "</li>");
+	}
+	
+	$('#run_data').newsTicker({
+        row_height: 14,
+        max_rows: 1,
+        duration: 8000,
+        pauseOnHover: 1,
+        hasMoved: function() {
+        	// 去除问候
+        	$("#run_hello").remove();
+        }
+    });
 }
 
 // 通过ajax从后台获取数据并创建ECharts
