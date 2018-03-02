@@ -458,10 +458,10 @@ function payForOrder() {
 }
 
 // 退货
-function returnGoods(order_id) {
+function returnGoods(order_id, flag) {
 	
 	var items = document.getElementsByName("order_item");
-	var goods = [];
+	var goods = new Array();
 	
 	for(var item of items) {
 		if(item.checked) {
@@ -474,12 +474,38 @@ function returnGoods(order_id) {
 		return;
 	}
 	
-	var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
+	if(flag != 0) {
+		toastr.error("该笔订单已办理过一次退货！");
+		return;
+	}
+
+	if(goods.length == items.length) {
+		var confirmReturn = confirm("您已选择全部商品，确认退回以下商品且删除该笔订单？\n" + JSON.stringify(goods));
+	}else {
+		var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
+	}
+	
 	if (confirmReturn == false) {
 		return;
 	}
+	
 	// ajax退货请求
-	toastr.info(order_id + " " + JSON.stringify(goods));
+	$.ajax({
+		type: "POST",
+    	url: "returnGoods",
+    	data: {
+    		order_id: order_id,
+    		goods: goods
+    	},
+    	//dataType: "json", //返回类型为String，加上这句报error 200
+    	success: function(data) {
+    		toastr.info("退货成功！");
+    		showAtRight(data);
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
 }
 
 

@@ -97,4 +97,23 @@ public interface OrderService {
 	 * @return 删除一条库存结果
 	 */
 	int deleteStorage(int storage_id);
+	
+	/**
+	 * @param order_id 订单号
+	 * @param storage_id 商品编号
+	 * @return 删除结果
+	 */
+	int deleteSingleOrderDetail(int order_id, int storage_id);
+	
+	/**
+	 * @param order_id 订单编号
+	 * @return 更新订单数量、金额统计结果
+	 */
+	int updateOrderNumsAndMoney(int order_id);
+	
+	/**
+	 * @param order_id 订单编号
+	 * @return 删除订单结果
+	 */
+	int deleteOrder(int order_id);
 }

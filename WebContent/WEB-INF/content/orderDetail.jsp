@@ -40,7 +40,7 @@
 <body>
 <div class="container col-md-12">
     <div class="row">
-        <h2 class="page-header"">销售清单查询</h2>
+        <h2 class="page-header">销售清单查询</h2>
     </div>
     <div class="row">
         <div class="col-md-3">
@@ -143,7 +143,7 @@
                         <!--<b class="caret"></b>-->
                     </span>
                     <ul class="dropdown-menu dropdown-menu-right" style="margin-top: -10px;">
-                        <li><a onclick="returnGoods('${requestScope.order.id }')">退货</a></li>
+                        <li><a onclick="returnGoods('${requestScope.order.id }','${requestScope.order.return_flag }')">退货</a></li>
                         <li><a onclick="toastr.info('正在建设中..')">换货</a></li>
                     </ul>
                 </td>

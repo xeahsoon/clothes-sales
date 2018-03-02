@@ -279,7 +279,7 @@ public class OrderController {
 	}
 	
 	//添加订单备注
-	@ResponseBody 
+	@ResponseBody
 	@RequestMapping(value="/addRemark")
 	public Order addRemark(int id, String remark) {
 		   
@@ -287,6 +287,29 @@ public class OrderController {
 		Order order = orderService.findOrderById(id);
 		
 		return order;
+	}
+	
+	//销售退货
+	@ResponseBody
+	@RequestMapping(value="/returnGoods")
+	public String returnGoods(
+			@RequestParam(value = "order_id")int order_id,
+			@RequestParam(value = "goods[]")int[] goods) {
+
+		// 删除detail表 order_id中 goods
+		for(int storage_id: goods) {
+			orderService.deleteSingleOrderDetail(order_id, storage_id);
+		}
+		// 更新order数量和金额信息
+		orderService.updateOrderNumsAndMoney(order_id);
+		
+		// 如果order中nums为0，则删除order信息
+		int nums = orderService.findOrderById(order_id).getNums();
+		if(nums == 0) {
+			orderService.deleteOrder(order_id);
+		}
+		
+		return "orderDetail/" + order_id;
 	}
 	
 	//计算导购员业绩

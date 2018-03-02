@@ -2,6 +2,7 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +11,10 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.xeahsoon.pojo.OrderDetail;
 
+/**
+ * @author user
+ *
+ */
 public interface OrderDetailMapper {
 	
 	/*private int id;			//明细编号
@@ -65,5 +70,12 @@ public interface OrderDetailMapper {
 		@Result(column="dis_price", property="dis_price")
 	})
 	List<OrderDetail> listAllDetailsByID(@Param("order_id")int order_id);
-
+	
+	/**
+	 * @param order_id 订单号
+	 * @param storage_id 商品编号
+	 * @return 删除结果
+	 */
+	@Delete("delete from `order_detail` where order_id = #{order_id} and storage_id = #{storage_id}")
+	int deleteOneOrderDetail(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
 }

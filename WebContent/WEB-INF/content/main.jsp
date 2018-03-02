@@ -201,7 +201,6 @@
 							<div id="test_div_3" style="width: 175px; height: 200px; margin: 0 auto;"></div>
 						</div>
 					</div>
-
 					<h2 class="sub-header">清单</h2>
 					<div class="table-responsive">
 						<table id="orders_table" class="table table-striped table-hover">

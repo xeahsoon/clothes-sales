@@ -92,8 +92,6 @@ $(document).ready(function() {
 	        }
 	    ]
 	});
-
-	window.setInterval("generateDate()", 1000);
 });
 
 // 设置顶部栏时间
@@ -105,6 +103,8 @@ function generateDate() {
 	
 	$("#date").text(date);
 	$("#time").text(time);
+	
+	window.setTimeout("generateDate()", 1000);
 }
 function checkTime(i) {
 	if (i<10){

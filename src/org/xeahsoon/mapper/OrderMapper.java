@@ -2,6 +2,7 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
@@ -117,4 +118,20 @@ public interface OrderMapper {
 	 */
 	@Update("update `order` set print_count = print_count + 1 where id = #{order_id}")
 	int printOrder(@Param("order_id")int order_id);
+	
+	/**
+	 * @param order_id 订单编号
+	 * @return 更新订单数量、金额统计结果
+	 */
+	@Update("update `order` set nums = (select count(*) from `order_detail` where order_id = #{order_id}), "
+			+ "sum_money = (select COALESCE(sum(dis_price),0) from `order_detail` where order_id = #{order_id}) "
+			+ "where id = #{order_id}")
+	int updateOrderNumAndeMoney(@Param("order_id")int order_id);
+	
+	/**
+	 * @param order_id 订单号
+	 * @return 删除订单结果
+	 */
+	@Delete("delete from `order` where id = #{order_id}")
+	int deleteOrder(@Param("order_id")int order_id);
 }
