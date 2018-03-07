@@ -2,6 +2,7 @@ package org.xeahsoon.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
 
@@ -99,21 +100,30 @@ public interface OrderService {
 	int deleteStorage(int storage_id);
 	
 	/**
+	 * @param id 条形码
+	 * @param good_id 款号
+	 * @param color 颜色
+	 * @param size 大小
+	 * @return 插入结果
+	 */
+	int returnToStorage(int id, int good_id, String color, String size);
+	
+	/**
 	 * @param order_id 订单号
 	 * @param storage_id 商品编号
-	 * @return 删除结果
+	 * @return 更新return_flag，标记为已退货
 	 */
-	int deleteSingleOrderDetail(int order_id, int storage_id);
+	int updateDetailFlag(int order_id, int storage_id);
 	
 	/**
 	 * @param order_id 订单编号
-	 * @return 更新订单数量、金额统计结果
+	 * @return 更新订单退货标记结果
+	 */
+	int updateOrderFlag(int order_id);
+	
+	/**
+	 * @param order_id 订单编号
+	 * @return 更新订单中return_flag标记为0的数量、金额统计结果
 	 */
 	int updateOrderNumsAndMoney(int order_id);
-	
-	/**
-	 * @param order_id 订单编号
-	 * @return 删除订单结果
-	 */
-	int deleteOrder(int order_id);
 }

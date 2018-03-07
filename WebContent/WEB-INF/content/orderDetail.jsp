@@ -104,6 +104,7 @@
             </thead>
             <tbody>
             <c:forEach items="${order.details }" var="detail">
+            	<c:if test="${detail.return_flag == 0 }">
             	<tr>
             		<td><fmt:formatNumber value="${detail.storage_id }" pattern="00000000000"/></td>
             		<td><fmt:formatNumber value="${detail.good.id }" pattern="00000000"/></td>
@@ -115,6 +116,21 @@
             		<td>${detail.dis_price }</td>	
             		<td><input type="checkbox" name="order_item" value="<fmt:formatNumber value='${detail.storage_id }' pattern='00000000000'/>"></td>
             	</tr>
+            	</c:if>
+            	<c:if test="${detail.return_flag == 1 }">
+            	<tr  style="color: #888;">
+            		<td><fmt:formatNumber value="${detail.storage_id }" pattern="00000000000"/></td>
+            		<td><fmt:formatNumber value="${detail.good.id }" pattern="00000000"/></td>
+            		<td>${detail.good.type }</td>
+            		<td>${detail.color }</td>
+            		<td>${detail.size }</td>
+            		<td>${detail.price }</td>
+            		<td><fmt:formatNumber value="${detail.discount }" pattern="0.00" /></td>
+            		<td>${detail.dis_price }</td>	
+            		<td><span class="glyphicon glyphicon-tag" title="已退货 2018-3-5 16:56:18"></span></td>
+            	</tr>
+            	</c:if>
+            	
             </c:forEach>
             
             <tr style="border-bottom: 2px solid #ddd">

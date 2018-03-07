@@ -460,14 +460,17 @@ function payForOrder() {
 // 退货
 function returnGoods(order_id, flag) {
 	
-	var items = document.getElementsByName("order_item");
+	var items = $("input[name='order_item']:checked");
 	var goods = new Array();
-	
-	for(var item of items) {
-		if(item.checked) {
-			goods.push(item.value);
-		}
-	}
+	$(items).each(function() {
+		var good = {
+			id: $(this).val(),
+			good_id: $(this).parents("tr").find("td").eq(1).text(),
+			color: $(this).parents("tr").find("td").eq(3).text(),
+			size: $(this).parents("tr").find("td").eq(4).text()
+		};
+		goods.push(good);
+	});
 	
 	if(goods.length <= 0) {
 		toastr.error("请先勾选你所要退货的商品！");
@@ -479,11 +482,7 @@ function returnGoods(order_id, flag) {
 		return;
 	}
 
-	if(goods.length == items.length) {
-		var confirmReturn = confirm("您已选择全部商品，确认退回以下商品且删除该笔订单？\n" + JSON.stringify(goods));
-	}else {
-		var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
-	}
+	var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
 	
 	if (confirmReturn == false) {
 		return;
@@ -495,9 +494,10 @@ function returnGoods(order_id, flag) {
     	url: "returnGoods",
     	data: {
     		order_id: order_id,
-    		goods: goods
+    		json_goods: JSON.stringify(goods)
     	},
-    	//dataType: "json", //返回类型为String，加上这句报error 200
+    	// 返回类型为String
+    	dataType: "text",
     	success: function(data) {
     		toastr.info("退货成功！");
     		showAtRight(data);
@@ -507,7 +507,6 @@ function returnGoods(order_id, flag) {
 		}
 	});
 }
-
 
 // 显示商品图片 
 function placeGoodPicture(picture, type, img) {

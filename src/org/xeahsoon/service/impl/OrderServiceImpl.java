@@ -113,17 +113,22 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int deleteSingleOrderDetail(int order_id, int storage_id) {
-		return orderDetailMapper.deleteOneOrderDetail(order_id, storage_id);
+	public int returnToStorage(int id, int good_id, String color, String size) {
+		return storageMapper.returnToStorage(id, good_id, color, size);
 	}
 
+	@Override
+	public int updateDetailFlag(int order_id, int storage_id) {
+		return orderDetailMapper.updateDetailFlag(order_id, storage_id);
+	}
+
+	@Override
+	public int updateOrderFlag(int order_id) {
+		return orderMapper.updateOrderReturnFlag(order_id);
+	}
+	
 	@Override
 	public int updateOrderNumsAndMoney(int order_id) {
 		return orderMapper.updateOrderNumAndeMoney(order_id);
-	}
-
-	@Override
-	public int deleteOrder(int order_id) {
-		return orderMapper.deleteOrder(order_id);
 	}
 }

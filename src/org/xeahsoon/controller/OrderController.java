@@ -23,6 +23,9 @@ import org.xeahsoon.service.OrderService;
 import org.xeahsoon.service.StaffService;
 import org.xeahsoon.service.StorageService;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 @Controller
 public class OrderController {
 	
@@ -292,22 +295,27 @@ public class OrderController {
 	//销售退货
 	@ResponseBody
 	@RequestMapping(value="/returnGoods")
-	public String returnGoods(
-			@RequestParam(value = "order_id")int order_id,
-			@RequestParam(value = "goods[]")int[] goods) {
-
-		// 删除detail表 order_id中 goods
-		for(int storage_id: goods) {
-			orderService.deleteSingleOrderDetail(order_id, storage_id);
-		}
-		// 更新order数量和金额信息
-		orderService.updateOrderNumsAndMoney(order_id);
+	public String returnGoods(int order_id, String json_goods) {
 		
-		// 如果order中nums为0，则删除order信息
-		int nums = orderService.findOrderById(order_id).getNums();
-		if(nums == 0) {
-			orderService.deleteOrder(order_id);
+		// 解析前台传过来的json字符串
+		JSONArray storage = JSONArray.parseArray(json_goods);
+		
+		for (int i = 0; i < storage.size(); i++) {
+			
+			JSONObject obj = storage.getJSONObject(i);
+			
+			// 将detail表goods的return_flag设为1
+			orderService.updateDetailFlag(order_id, obj.getIntValue("id"));
+			
+			// 重新存储进storage表
+			orderService.returnToStorage(obj.getIntValue("id"), obj.getIntValue("good_id"), obj.getString("color"), obj.getString("size"));
 		}
+
+		// 更新订单return_flag标记为1
+		orderService.updateOrderFlag(order_id);
+		
+		// 重新统计订单中return_flag标记为0的数量及金额
+		orderService.updateOrderNumsAndMoney(order_id);
 		
 		return "orderDetail/" + order_id;
 	}

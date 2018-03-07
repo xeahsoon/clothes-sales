@@ -68,5 +68,4 @@ public interface GoodMapper {
 			select = "org.xeahsoon.mapper.GoodMapper.listGoodSize"))
 	})
 	Good findLastGood();
-
 }

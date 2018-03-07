@@ -13,8 +13,29 @@
         
     <!-- 自动扫描该包，SpringMVC会将包下用了@controller注解的类注册为Spring的controller -->
     <context:component-scan base-package="org.xeahsoon.controller"/>
-    <!-- 设置默认配置方案 -->
-    <mvc:annotation-driven/>
+    <!-- 设置配置方案 -->
+    <mvc:annotation-driven>
+    	<!-- 设置不使用默认的消息转换器 -->
+        <mvc:message-converters register-defaults="false">
+        	<!-- 配置Spring的转换器 -->
+        	<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <!-- 配置fastjson中实现HttpMessageConverter接口的转换器 -->
+            <bean id="fastJsonHttpMessageConverter" 
+            	class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <!-- 加入支持的媒体类型：返回contentType -->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!-- 这里顺序不能反，一定先写text/html,不然ie下会出现下载提示 -->
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!-- 使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
     <!-- 定义Spring MVC的拦截器 -->

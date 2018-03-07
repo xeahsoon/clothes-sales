@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.xeahsoon.pojo.OrderDetail;
 
 /**
@@ -38,7 +39,7 @@ public interface OrderDetailMapper {
   `discount` double(4,2) NOT NULL DEFAULT '1.00' COMMENT '折扣',
   `dis_price` double(8,2) NOT NULL DEFAULT '0.00' COMMENT '折后价',
 	*/
-	
+	// 为何一定要用 '${size}' ？？
 	@Insert("insert into order_detail(order_id, storage_id, good_id, color, size, price, discount, dis_price) "
 			+ "values(#{order_id}, #{storage_id}, #{good_id}, #{color}, '${size}', #{price}, #{discount}, #{dis_price})")
 	int insertDetail(
@@ -67,15 +68,16 @@ public interface OrderDetailMapper {
 		@Result(column="size", property="size"),
 		@Result(column="discount", property="discount"),
 		@Result(column="price", property="price"),
-		@Result(column="dis_price", property="dis_price")
+		@Result(column="dis_price", property="dis_price"),
+		@Result(column="return_flag", property="return_flag")
 	})
 	List<OrderDetail> listAllDetailsByID(@Param("order_id")int order_id);
 	
 	/**
 	 * @param order_id 订单号
-	 * @param storage_id 商品编号
-	 * @return 删除结果
+	 * @param storage_id 商品号
+	 * @return 更新return_flag，标记为已退货
 	 */
-	@Delete("delete from `order_detail` where order_id = #{order_id} and storage_id = #{storage_id}")
-	int deleteOneOrderDetail(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
+	@Update("update `order_detail` set return_flag = 1 where order_id = #{order_id} and storage_id = #{storage_id}")
+	int updateDetailFlag(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
 }

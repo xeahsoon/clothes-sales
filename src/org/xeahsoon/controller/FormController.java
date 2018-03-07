@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.service.OrderService;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * @author xeahsoon
  * 动态页面转发控制器
@@ -24,7 +27,12 @@ public class FormController{
 	 * Echarts配置data类
 	 */
 	class EChartsData {
+		
+		// 用ordinal指定字段的顺序，如不指定，则会按照字段名排序
+		@JSONField(ordinal = 1)
 		private double value;
+
+		@JSONField(ordinal = 2)
 		private String name;
 		
 		public double getValue() {
@@ -85,7 +93,7 @@ public class FormController{
 			data.setName("" + diaName[diaNumber] + (i+1));
 			statics.add(data);
 		}
-		
+
 		return statics;
 	}
 }

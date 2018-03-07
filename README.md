@@ -15,6 +15,8 @@ bootstrap-datetimepicker bootstrap时间选择器<br>
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/login.png)
 #### 主页面
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/main.png)
+#### 天气展示
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/weather.png)
 #### 销售打单
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/make_order.png)
 #### 订单详情

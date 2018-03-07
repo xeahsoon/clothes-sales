@@ -121,17 +121,17 @@ public interface OrderMapper {
 	
 	/**
 	 * @param order_id 订单编号
-	 * @return 更新订单数量、金额统计结果
+	 * @return 更新订单退货标记结果
 	 */
-	@Update("update `order` set nums = (select count(*) from `order_detail` where order_id = #{order_id}), "
-			+ "sum_money = (select COALESCE(sum(dis_price),0) from `order_detail` where order_id = #{order_id}) "
-			+ "where id = #{order_id}")
-	int updateOrderNumAndeMoney(@Param("order_id")int order_id);
+	@Update("update `order` set return_flag = 1 where id = #{order_id}")
+	int updateOrderReturnFlag(@Param("order_id")int order_id);
 	
 	/**
-	 * @param order_id 订单号
-	 * @return 删除订单结果
+	 * @param order_id 订单编号
+	 * @return 更新订单中return_flag标记为0的数量、金额统计结果
 	 */
-	@Delete("delete from `order` where id = #{order_id}")
-	int deleteOrder(@Param("order_id")int order_id);
+	@Update("update `order` set nums = (select count(*) from `order_detail` where order_id = #{order_id} and return_flag = 0), "
+			+ "sum_money = (select COALESCE(sum(dis_price),0) from `order_detail` where order_id = #{order_id} and return_flag = 0) "
+			+ "where id = #{order_id}")
+	int updateOrderNumAndeMoney(@Param("order_id")int order_id);
 }

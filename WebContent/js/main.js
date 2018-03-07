@@ -157,6 +157,8 @@ function getChartData(number, name, chart) {
 	$.ajax({
 		type : "POST",
 		url : "getDiagram/" + number,
+		// 预期服务器返回的数据类型
+		dataType: "json",
 		success : function(data) {
 			// 使用后台传回的json数据设置图表选项
 			chart.setOption(createOption(name, data));

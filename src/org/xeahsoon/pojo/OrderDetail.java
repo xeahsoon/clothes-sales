@@ -7,19 +7,22 @@ import java.io.Serializable;
 CREATE TABLE `order_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `order_id` int(8) unsigned zerofill NOT NULL COMMENT '订单号',
-  `storage_id` int(13) unsigned zerofill NOT NULL COMMENT '条形码',
+  `storage_id` int(11) unsigned zerofill NOT NULL COMMENT '条形码',
   `good_id` int(8) unsigned zerofill NOT NULL COMMENT '款号',
   `color` varchar(8) NOT NULL COMMENT '颜色',
   `size` varchar(4) NOT NULL COMMENT '大小',
-  `discount` double(4,2) NOT NULL DEFAULT '1.00' COMMENT '折扣',
   `price` double(6,2) NOT NULL COMMENT '单价',
+  `discount` double(4,2) NOT NULL DEFAULT '1.00' COMMENT '折扣',
   `dis_price` double(8,2) NOT NULL DEFAULT '0.00' COMMENT '折后价',
+  `return_flag` int(11) DEFAULT '0' COMMENT '退货标记',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_code` (`storage_id`) USING BTREE,
   KEY `fk_od_order` (`order_id`),
-  KEY `uq_code` (`storage_id`) USING BTREE,
-  CONSTRAINT `fk_od_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  KEY `fk_od_good` (`good_id`),
+  CONSTRAINT `fk_od_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
  */
+
 public class OrderDetail implements Serializable{
 	
 	private static final long serialVersionUID = -5406066064941013624L;
@@ -34,6 +37,7 @@ public class OrderDetail implements Serializable{
 	private double discount;		//折扣
 	private double price;			//单价
 	private double dis_price;
+	private int return_flag;
 	
 	public int getId() {
 		return id;
@@ -89,11 +93,17 @@ public class OrderDetail implements Serializable{
 	public void setDis_price(double dis_price) {
 		this.dis_price = dis_price;
 	}
+	public int getReturn_flag() {
+		return return_flag;
+	}
+	public void setReturn_flag(int return_flag) {
+		this.return_flag = return_flag;
+	}
 	
 	@Override
 	public String toString() {
 		return "OrderDetail [id=" + id + ", order_id=" + order_id + ", storage_id=" + storage_id + ", good=" + good
 				+ ", color=" + color + ", size=" + size + ", discount=" + discount + ", price=" + price + ", dis_price="
-				+ dis_price + "]";
+				+ dis_price + ", return_flag=" + return_flag + "]";
 	}
 }
