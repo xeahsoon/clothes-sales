@@ -17,6 +17,7 @@ CREATE TABLE `order` (
   `user_id` int(4) unsigned zerofill NOT NULL COMMENT '收银员',
   `member_id` int(11) unsigned DEFAULT NULL COMMENT '会员卡号',
   `return_flag` int(11) NOT NULL DEFAULT '0' COMMENT '退货标记',
+  `return_date` timestamp NULL DEFAULT NULL COMMENT '退货日期',
   PRIMARY KEY (`id`),
   KEY `fk_order_user` (`user_id`),
   KEY `fk_order_member` (`member_id`),
@@ -38,6 +39,7 @@ public class Order implements Serializable{
 	private User user;
 	private Member member;
 	private int return_flag;
+	private Date return_date;
 	
 	private List<OrderStaff> staffs;
 	private List<OrderDetail> details;
@@ -102,6 +104,12 @@ public class Order implements Serializable{
 	public void setReturn_flag(int return_flag) {
 		this.return_flag = return_flag;
 	}
+	public Date getReturn_date() {
+		return return_date;
+	}
+	public void setReturn_date(Date return_date) {
+		this.return_date = return_date;
+	}
 	public List<OrderStaff> getStaffs() {
 		return staffs;
 	}
@@ -119,7 +127,7 @@ public class Order implements Serializable{
 	public String toString() {
 		return "Order [id=" + id + ", create_date=" + create_date + ", print_count=" + print_count + ", nums=" + nums
 				+ ", sum_money=" + sum_money + ", pay_mode=" + pay_mode + ", remark=" + remark + ", user=" + user
-				+ ", member=" + member + ", return_flag=" + return_flag + ", staffs=" + staffs + ", details=" + details
-				+ "]";
+				+ ", member=" + member + ", return_flag=" + return_flag + ", return_date=" + return_date + ", staffs="
+				+ staffs + ", details=" + details + "]";
 	}
 }

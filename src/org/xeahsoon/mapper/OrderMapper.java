@@ -61,6 +61,7 @@ public interface OrderMapper {
 		@Result(column="pay_mode", property="pay_mode"),
 		@Result(column="remark", property="remark"),
 		@Result(column="return_flag", property="return_flag"),
+		@Result(column="return_date", property="return_date"),
 		@Result(column="user_id", property="user",
 		one=@One(
 			select = "org.xeahsoon.mapper.UserMapper.selectUserById")),
@@ -89,6 +90,7 @@ public interface OrderMapper {
 		@Result(column="pay_mode", property="pay_mode"),
 		@Result(column="remark", property="remark"),
 		@Result(column="return_flag", property="return_flag"),
+		@Result(column="return_date", property="return_date"),
 		@Result(column="user_id", property="user",
 		one=@One(
 			select = "org.xeahsoon.mapper.UserMapper.selectUserById")),
@@ -121,9 +123,10 @@ public interface OrderMapper {
 	
 	/**
 	 * @param order_id 订单编号
-	 * @return 更新订单退货标记结果
+	 * @return 更新订单退货标记及退货时间结果
+	 * !!Attention 更新多个关键字中间用逗号隔开
 	 */
-	@Update("update `order` set return_flag = 1 where id = #{order_id}")
+	@Update("update `order` set return_flag = '1', return_date = CURRENT_TIMESTAMP where id = #{order_id}")
 	int updateOrderReturnFlag(@Param("order_id")int order_id);
 	
 	/**

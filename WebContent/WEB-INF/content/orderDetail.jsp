@@ -127,12 +127,10 @@
             		<td>${detail.price }</td>
             		<td><fmt:formatNumber value="${detail.discount }" pattern="0.00" /></td>
             		<td>${detail.dis_price }</td>	
-            		<td><span class="glyphicon glyphicon-tag" title="已退货 2018-3-5 16:56:18"></span></td>
+            		<td><span class="glyphicon glyphicon-tag" title="已退货&nbsp;<fmt:formatDate value='${order.return_date }' type='both'/>"></span></td>
             	</tr>
             	</c:if>
-            	
             </c:forEach>
-            
             <tr style="border-bottom: 2px solid #ddd">
                 <td colspan="4">
                     <label>备注：&nbsp;&nbsp;</label>

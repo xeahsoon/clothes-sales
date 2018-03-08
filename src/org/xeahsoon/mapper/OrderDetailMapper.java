@@ -78,6 +78,6 @@ public interface OrderDetailMapper {
 	 * @param storage_id 商品号
 	 * @return 更新return_flag，标记为已退货
 	 */
-	@Update("update `order_detail` set return_flag = 1 where order_id = #{order_id} and storage_id = #{storage_id}")
+	@Update("update `order_detail` set return_flag = '1' where order_id = #{order_id} and storage_id = #{storage_id}")
 	int updateDetailFlag(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
 }
