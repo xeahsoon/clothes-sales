@@ -71,7 +71,7 @@
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>销售打单
 							</a></li>
 							<li><a data-url="orderDetail"> <span
-									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>销售单管理
+									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>清单明细
 							</a></li>
 						</ul></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">Statics</a>
@@ -94,7 +94,7 @@
 							<li><a href="#"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存出货
 							</a></li>
-							<li><a href="#"> <span
+							<li><a data-url="checkStorage"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存盘点
 							</a></li>
 						</ul></li>
@@ -145,7 +145,7 @@
 				<div id="list1" class="collapse in">
 					<ul class="nav nav-sidebar">
 						<li><a data-url="makeOrder">销售打单</a></li>
-						<li><a data-url="orderDetail">销售单管理</a></li>
+						<li><a data-url="orderDetail">清单明细</a></li>
 					</ul>
 				</div>
 
@@ -167,7 +167,7 @@
 						<li><a data-url="searchGood">商品资料查询</a></li>
 						<li><a href="#">库存进货</a></li>
 						<li><a href="#">库存出货</a></li>
-						<li><a href="#">库存盘点</a></li>
+						<li><a data-url="checkStorage">库存盘点</a></li>
 					</ul>
 				</div>
 
@@ -302,8 +302,9 @@
 	<script src="assets/echarts/echarts-theme.js"></script>
 	<script src="assets/echarts/echarts.js"></script>
 
-	<script src="assets/jqprint/browser.js"></script>
-	<script src="assets/jqprint/jquery.jqprint-0.3.js"></script>
+	<!-- <script src="assets/jqprint/browser.js"></script> -->
+	<!-- <script src="assets/jqprint/jquery.jqprint-0.3.js"></script> -->
+	<script src="assets/printArea/jquery.printarea.js"></script>
 	
 	<script src="assets/quicksearch/jquery.quicksearch.js"></script>
 	<script src="assets/bootstrap-suggest/bootstrap-suggest.js"></script>

@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>商品信息</title>
     
     <script type="text/javascript" class="init">
         $(document).ready(function() {

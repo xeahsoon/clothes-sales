@@ -77,9 +77,10 @@
                     $(document).ready(function() {
                         $("#printButton").click(function(){
                         	var id = "${order.id}";
-                            $("#div_print").jqprint();
+                            //$("#div_print").jqprint();
+                            $("#div_print").printArea();
                             printOrder(id);
-                            $(".close").click();
+                            $("#printModal").modal("hide");
                         });
                     });
                     

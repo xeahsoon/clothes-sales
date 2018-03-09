@@ -450,6 +450,8 @@ function payForOrder() {
     		} else {
     			toastr.error("支付失败！");
     		}
+    		// 刷新销售页面
+    		showAtRight("makeOrder");
 		},
 		error: function(jqXHR) {
 			toastr.error("发生错误： " + jqXHR.status);
@@ -472,13 +474,13 @@ function returnGoods(order_id, flag) {
 		goods.push(good);
 	});
 	
-	if(goods.length <= 0) {
-		toastr.error("请先勾选你所要退货的商品！");
+	if(flag != 0) {
+		toastr.error("该笔订单已办理过一次退货！");
 		return;
 	}
 	
-	if(flag != 0) {
-		toastr.error("该笔订单已办理过一次退货！");
+	if(goods.length <= 0) {
+		toastr.error("请先勾选你所要退货的商品！");
 		return;
 	}
 	

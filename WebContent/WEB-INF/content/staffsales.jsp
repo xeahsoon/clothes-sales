@@ -7,6 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>导购员业绩</title>
     <script>
     	$(document).ready(function() {
     		var data = '${requestScope.sales_list }';

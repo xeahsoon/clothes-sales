@@ -1,6 +1,5 @@
 package org.xeahsoon.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.service.OrderService;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author xeahsoon
@@ -23,32 +22,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 @Controller
 public class FormController{
 	
-	/**
-	 * Echarts配置data类
-	 */
-	class EChartsData {
-		
-		// 用ordinal指定字段的顺序，如不指定，则会按照字段名排序
-		@JSONField(ordinal = 1)
-		private double value;
-
-		@JSONField(ordinal = 2)
-		private String name;
-		
-		public double getValue() {
-			return value;
-		}
-		public void setValue(double value) {
-			this.value = value;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
-
 	@Autowired
 	@Qualifier("orderService")
 	private OrderService orderService;
@@ -81,19 +54,17 @@ public class FormController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getDiagram/{diaNumber}")
-	public List<EChartsData> sendDiagramData(@PathVariable int diaNumber) {
+	public JSONArray sendDiagramData(@PathVariable int diaNumber) {
 		
 		String[] diaName = {"商品金额","商品数量","员工业绩","商品库存"};
-		
-		List<EChartsData> statics = new ArrayList<EChartsData>();
+		JSONArray statics = new JSONArray();
 		
 		for(int i=0; i<Math.floor(Math.random()*3)+5; i++) {
-			EChartsData data = new EChartsData();
-			data.setValue(Math.floor(Math.random()*100));
-			data.setName("" + diaName[diaNumber] + (i+1));
-			statics.add(data);
+			JSONObject obj = new JSONObject();
+			obj.put("value", Math.floor(Math.random()*100));
+			obj.put("name", "" + diaName[diaNumber] + (i+1));
+			statics.add(obj);
 		}
-
 		return statics;
 	}
 }

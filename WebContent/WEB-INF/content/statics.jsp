@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>销售统计</title>
 </head>
 <body>
 <div class="container col-md-12">

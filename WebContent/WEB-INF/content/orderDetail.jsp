@@ -10,31 +10,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- 反选商品 -->
+    <title>订单明细</title>
     <script>
-        $(document).ready(function(){
-            var i=0;
-            $("#check_ok").click(function(){
-                $(":checkbox").click();
-                $("#check_ok").hide();
-                $("#check_remove").slideDown();
-            });
-
-            $("#check_remove").click(function(){
-                $(":checkbox").click();
-                $("#check_remove").hide();
-                $("#check_ok").fadeIn();
-            });
-            
-            $("#search_id").keydown(function(e) {
-            	var theEvent = window.event || e;
-        		var code = theEvent.keyCode || theEvent.which;
-            	if(code == 13) {
-            		search();
-            	}
-            });
-        });
+        $.getScript("js/orderDetail.js");
     </script>
 </head>
 <body>
