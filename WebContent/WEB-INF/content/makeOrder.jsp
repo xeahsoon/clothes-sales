@@ -176,13 +176,13 @@
     	    });
             
             // 商品款号搜索建议
-    	    $("#good_id").bsSuggest({
-    			url : "goodSuggest",
+    	    $("#bar_code").bsSuggest({
+    			url : "storageSuggest",
     			/*effectiveFields: ["userName", "shortAccount"],
     			searchFields: [ "shortAccount"],*/
     			effectiveFieldsAlias : {
-    				id : "编号",
-    				type : "类型"
+    				id : "条形码",
+    				info : "商品信息"
     			},
     			autoSelect : true,
     			autoMinWidth : false,
@@ -192,8 +192,8 @@
     			showBtn : false, //不显示下拉按钮
     			delayUntilKeyup : true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据
     			clearable : true,
-    	        inputWarnColor: 'rgba(255,0,0,.1)', //输入框内容不是下拉列表选择时的警告色
-    			processData : function(json) { //url 获取数据时，对数据的处理，作为 getData 的回调函数                
+    	        inputWarnColor: 'rgba(255,0,0,0.1)', //输入框内容不是下拉列表选择时的警告色
+    			processData : function(json) { //url 获取数据时，对数据的处理，作为 getData 的回调函数
     				var i, len, data = {
     					value : []
     				};
@@ -203,9 +203,8 @@
     				len = json.length;
     				for (i = 0; i < len; i++) {
     					data.value.push({
-    						"id" : json[i].id,
-    						"type" : json[i].type,
-    						"price" : json[i].price
+    						"id" : (Array(11).join(0) + json[i].id).slice(-11), //填充0
+    						"info" : json[i].good_id + "/" + json[i].color + "/" + json[i].size
     					});
     				}
     				/* var data = JSON.parse(json); */
@@ -214,9 +213,7 @@
     			}
     		});
         </script>
-
     </head>
-    
     <body>
         <div class="container col-md-12" style="background-color: transparent;">
             <div class="row">
@@ -285,36 +282,27 @@
                 </td>
                 </tr>
                 </table>
-
-                <div class="table-responsive" style="margin-top: 30px">
+                <div style="margin-top: 30px">
                     <h3 class="page-header">销售</h3>
                 </div>
-                <table class="order-info">
+                <table>
                 <tr>
                 <td>
-                    <div class="input-group">
-                        <span class="input-group-addon">条形码：</span>
-                        <input id="bar_code" type="text" class="form-control" autofocus>
-                    </div>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">款号：</span>
-                        <input type="text" id="good_id" class="form-control">
-                        <div class="input-group-btn">
-	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-	                            <span class="caret"></span>
-	                        </button>
-	                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-	                        </ul>
-	                    </div>
-                    </div>
-                </td>
-                <td>
+	                <div class="input-group">
+	                    <span class="input-group-addon" style="border-top-left-radius: 4px; border-bottom-left-radius: 4px; 
+	                    	border-right: none;">条形码：</span>
+	                    <input id="bar_code" type="text" class="form-control" autofocus />
+	                    <div class="input-group-btn">
+		                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		                        <span class="caret"></span>
+		                    </button>
+		                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+		                    </ul>
+	                 	</div>
+	                </div>
                 </td>
                 </tr>
                 </table>
-
                 <div class="table-responsive">
                     <table id="temp_order_table" class="table table-striped">
                         <thead>
@@ -368,5 +356,4 @@
             </form>
     	</div>
     </body>
-
 </html>

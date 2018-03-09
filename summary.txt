@@ -1,5 +1,7 @@
-mysqldump:
+﻿mysqldump:
   mysqldump -u root -p sales_db > D:/sales.sql
   句尾不可以有分号
 SQL update:
   更新多个关键字中间用逗号隔开而不是and
+@Transactional
+  注解操作事务具体怎么实现？

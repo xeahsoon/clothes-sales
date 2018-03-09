@@ -238,7 +238,7 @@
 										<td><fmt:formatNumber value="${order.id }"
 												pattern="00000000" /></td>
 										<td><fmt:formatNumber value="${order.sum_money }"
-												pattern=".00" /></td>
+												pattern="0.00" /></td>
 										<td>${order.user.name }</td>
 										<td>
 											<c:forEach items="${order.staffs }" var="staff">

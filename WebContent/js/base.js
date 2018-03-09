@@ -481,8 +481,12 @@ function returnGoods(order_id, flag) {
 		toastr.error("该笔订单已办理过一次退货！");
 		return;
 	}
-
-	var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + JSON.stringify(goods));
+	
+	var goods_str = "";
+	for(var good of goods) {
+		goods_str += "[" + good.id + " " + good.good_id + "/" + good.color + "/" + good.size + "]\n";
+	}
+	var confirmReturn = confirm("该操作只可进行一次，确认退回以下商品？\n" + goods_str);
 	
 	if (confirmReturn == false) {
 		return;

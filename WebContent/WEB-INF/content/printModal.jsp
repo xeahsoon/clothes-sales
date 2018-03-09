@@ -47,10 +47,14 @@
 									<td>${detail.price }</td>
 									<td><fmt:formatNumber value="${detail.discount }"
 											pattern="0.00" /></td>
-									<td>${detail.dis_price }</td>
+									<c:if test="${detail.return_flag == 0 }">
+										<td>${detail.dis_price }</td>
+									</c:if>
+									<c:if test="${detail.return_flag == 1 }">
+										<td>${detail.dis_price }*</td>
+									</c:if>
 								</tr>
 							</c:forEach>
-
 							<tr style="border-bottom: 2px solid #ddd">
 								<td colspan="3">合计</td>
 								<td>${order.nums }件</td>
@@ -59,19 +63,13 @@
 						</tbody>
 					</table>
 				</div>
-
-				<p>
-					收银：<span>${order.user.name }</span>
-				</p>
-				<p>
-					导购：
+				<p>收银：<span>${order.user.name }</span></p>
+				<p>导购：
 					<c:forEach items="${order.staffs }" var="staff">
 						<span>${staff.staff.name }</span>
 					</c:forEach>
 				</p>
-				<p>
-					银行卡付款： <span>${order.sum_money }</span>
-				</p>
+				<p>银行卡付款： <span>${order.sum_money }</span></p>
 				<p>备注：${order.remark }</p>
 			</div>
 			<div class="modal-footer" id="footer">

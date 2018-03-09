@@ -8,6 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,6 +126,16 @@ public class OrderController {
 		model.addAttribute("temp_list", temp_list);
 		
 		return "makeOrder";
+	}
+	
+	// 商品查找建议
+	@ResponseBody
+	@RequestMapping("/storageSuggest")
+	public List<Storage> storageSuggest() {
+		
+		List<Storage> storage_list = storageService.listAllGoods();
+		
+		return storage_list;
 	}
 	
 	// 读取商品条形码
@@ -292,30 +305,32 @@ public class OrderController {
 		return order;
 	}
 	
-	//销售退货
+	// 销售退货
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 	@ResponseBody
 	@RequestMapping(value="/returnGoods")
 	public String returnGoods(int order_id, String json_goods) {
 		
 		// 解析前台传过来的json字符串
 		JSONArray storage = JSONArray.parseArray(json_goods);
-		
-		for (int i = 0; i < storage.size(); i++) {
+		try {
+			for (int i = 0; i < storage.size(); i++) {
+				JSONObject obj = storage.getJSONObject(i);
+				// 将detail表goods的return_flag设为1
+				orderService.updateDetailFlag(order_id, obj.getIntValue("id"));
+				// 重新存储进storage表
+				orderService.returnToStorage(obj.getIntValue("id"), obj.getIntValue("good_id"), obj.getString("color"), obj.getString("size"));
+			}
 			
-			JSONObject obj = storage.getJSONObject(i);
-			
-			// 将detail表goods的return_flag设为1
-			orderService.updateDetailFlag(order_id, obj.getIntValue("id"));
-			
-			// 重新存储进storage表
-			orderService.returnToStorage(obj.getIntValue("id"), obj.getIntValue("good_id"), obj.getString("color"), obj.getString("size"));
+			// 更新订单return_flag标记为1
+			orderService.updateOrderFlag(order_id);
+			// 重新统计订单中return_flag标记为0的数量及金额
+			orderService.updateOrderNumsAndMoney(order_id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			// 为何抛出RuntimeException后仍然不回滚？
+			throw new RuntimeException(e);
 		}
-
-		// 更新订单return_flag标记为1
-		orderService.updateOrderFlag(order_id);
-		
-		// 重新统计订单中return_flag标记为0的数量及金额
-		orderService.updateOrderNumsAndMoney(order_id);
 		
 		return "orderDetail/" + order_id;
 	}
