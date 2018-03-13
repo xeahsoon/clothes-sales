@@ -532,3 +532,24 @@ function placeGoodPicture(picture, type, img) {
 		img.src = "images/goods/" + picture;
 	}
 }
+
+// 清空盘点
+function uncheckAllStorages() {
+	if(confirm("确定清空所有盘点信息？该操作不可恢复")) {
+		$.ajax({
+			type: "POST",
+			url: "uncheckAllStorages",
+			success: function(data) {
+				if(data > 0) {
+					toastr.success("清空盘点信息成功！");
+		    		showAtRight("checkStorage");
+				} else {
+					toastr.error("没有盘点信息");
+				}
+			},
+			error: function(jqXHR) {
+				toastr.error("发生错误： " + jqXHR.status);
+			}
+		});
+	}
+}

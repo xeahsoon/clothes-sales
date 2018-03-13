@@ -25,6 +25,7 @@ $(document).ready(function() {
         	} */
         }
     });
+    
     // 支付操作按钮
     $("#paylist li").on("click", function() {
         var i = $("#paylist li").index(this);
@@ -71,8 +72,8 @@ $(document).ready(function() {
     $("#bar_code").keydown(function(e) {
     	//监听回车
     	var theEvent = window.event || e;
-		var code = theEvent.keyCode || theEvent.which;
-    	if(code == 13) {
+		var keycode = theEvent.keyCode || theEvent.which;
+    	if(keycode == 13) {
     		var code = document.getElementById("bar_code").value;
     		var pre = code.substr(0, 2);
     		if(pre == "z/" || pre == "Z/") {

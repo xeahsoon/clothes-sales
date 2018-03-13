@@ -10,5 +10,15 @@ public interface StorageService {
 	
 	List<Storage> listAllGoods();
 	
+	List<Storage> listUncheckedStorages();
+	
+	List<Storage> listCheckedStorages();
+	
+	int getStorageCheckFlag(int id);
+	
+	int checkOneStorage(int id);
+	
+	int uncheckAllStorages();
+	
 	Storage getStorageWithId(int id);
 }

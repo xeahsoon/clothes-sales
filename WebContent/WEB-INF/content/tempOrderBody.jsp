@@ -3,6 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<c:if test="${empty requestScope.temp_list}">
+	<tr>
+		<td colspan="9" style="text-align: center;">表中数据为空</td>
+	</tr>
+</c:if>
 <c:forEach items="${requestScope.temp_list }" var="temp">
 	<tr>
 		<td><fmt:formatNumber value="${temp.storage_id }"

@@ -67,9 +67,7 @@ function showAtRight(url) {
                 document.getElementById("content").innerHTML=xmlHttp.responseText;	//重设页面中id="content"的div里的内容
                 executeScript(xmlHttp.responseText);	//执行从服务器返回的页面内容里包含的JavaScript函数
                 
-                if(url.search("makeOrder") != -1) {
-                	$("#bar_code").focus();
-                }
+                $("#bar_code").focus();
             }
             //错误状态处理
             else if (xmlHttp.status == 404){

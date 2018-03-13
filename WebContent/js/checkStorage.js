@@ -1,4 +1,38 @@
 $(document).ready(function() {
+	
+	// 盘点单间货品
+    $("#bar_code").keydown(function(e) {
+    	//监听回车
+    	var theEvent = window.event || e;
+		var keycode = theEvent.keyCode || theEvent.which;
+    	if(keycode == 13) {
+    		var code = document.getElementById("bar_code").value;
+    		if(isNaN(code) || code.length == 0) {
+    			toastr.error("请输入正确的条形码！");
+    		} else {
+    			$.ajax({
+    				type: "POST",
+    				url: "checkOneStorage",
+    				data: {
+    					id: document.getElementById("bar_code").value
+    				},
+    				success: function(data) {
+    					if(data == 1) {
+        					showAtRight("checkStorage");
+    					} else if(data == 0) {
+    						toastr.error("该条形码不存在！");
+    					} else if(data == -1) {
+    						toastr.error("该唯一码已盘点！");
+    					}
+    				},
+    				error: function(jqXHR) {
+    					toastr.error("发生错误： " + jqXHR.status);
+    				}
+    			});
+    		}
+    	}
+	});
+	
 	var config = null;
 	$.ajax({
 		type: "GET",
@@ -13,6 +47,7 @@ $(document).ready(function() {
 			toastr.error("获取Chinese.json文件失败: " + jqXHR.status);
 		}
 	});
+	
 	//创建DateTable
     $('#uncheckedTable').DataTable( {
     	"language": config,

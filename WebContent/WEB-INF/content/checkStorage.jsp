@@ -20,12 +20,12 @@
         <div class="col-md-3">
 	        <div class="input-group">
 	            <span class="input-group-addon">条形码：</span>
-	            <input type="text" class="form-control">
+	            <input type="text" id="bar_code" class="form-control">
 	        </div>
         </div>
         <div class="col-md-3 pull-right">
 	        <input type="button" value="结算盘点" class="btn btn-primary pull-right">
-	        <input type="button" value="清空盘点" class="btn btn-default pull-right" style="margin-right: 15px;">
+	        <input type="button" value="清空盘点" class="btn btn-default pull-right" onclick="uncheckAllStorages()" style="margin-right: 15px;">
         </div>
     </div>
     <div style="margin-top: 30px">
@@ -55,14 +55,14 @@
 	        </tr>
 	        </tfoot>
 	        <tbody>
-	        <c:forEach begin="0" end="24" var="i">
+	        <c:forEach items="${requestScope.unchecked_list }" var="unchecked">
 		       	<tr>
-		       		<td><fmt:formatNumber value="${i+1 }" pattern="00000000000"/></td>
-		       		<td>18201014</td>
-		       		<td>外套</td>
-		       		<td>蓝色</td>
-		       		<td>S</td>
-		       		<td>${(i+1) * 10 }.00</td>
+		       		<td><fmt:formatNumber value="${unchecked.id }" pattern="00000000000"/></td>
+		       		<td>${unchecked.good.id }</td>
+		       		<td>${unchecked.good.type }</td>
+		       		<td>${unchecked.color }</td>
+		       		<td>${unchecked.size }</td>
+		       		<td>${unchecked.good.price }</td>
 		       	</tr>
 	        </c:forEach>
 	        </tbody>
@@ -91,14 +91,14 @@
 	        </tr>
 	        </tfoot>
 	        <tbody>
-	        <c:forEach begin="0" end="88" var="i">
+	        <c:forEach items="${requestScope.checked_list }" var="checked">
 		       	<tr>
-		       		<td><fmt:formatNumber value="${i+1 }" pattern="00000000000"/></td>
-		       		<td>18201014</td>
-		       		<td>外套</td>
-		       		<td>蓝色</td>
-		       		<td>S</td>
-		       		<td>${(i+1) * 11 }.00</td>
+		       		<td><fmt:formatNumber value="${checked.id }" pattern="00000000000"/></td>
+		       		<td>${checked.good.id }</td>
+		       		<td>${checked.good.type }</td>
+		       		<td>${checked.color }</td>
+		       		<td>${checked.size }</td>
+		       		<td>${checked.good.price }</td>
 		       	</tr>
 	        </c:forEach>
 	        </tbody>

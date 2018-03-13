@@ -24,10 +24,34 @@ public class StorageServiceImpl implements StorageService {
 	public List<Storage> listAllGoods() {
 		return storageMapper.listAllStorages();
 	}
+	
+	@Override
+	public List<Storage> listUncheckedStorages() {
+		return storageMapper.listUncheckedStorages();
+	}
+
+	@Override
+	public List<Storage> listCheckedStorages() {
+		return storageMapper.listCheckedStorages();
+	}
+
+	@Override
+	public int getStorageCheckFlag(int id) {
+		return storageMapper.getStorageCheckFlag(id);
+	}
+
+	@Override
+	public int checkOneStorage(int id) {
+		return storageMapper.checkOneStorage(id);
+	}
+
+	@Override
+	public int uncheckAllStorages() {
+		return storageMapper.uncheckAllStorages();
+	}
 
 	@Override
 	public Storage getStorageWithId(int id) {
 		return storageMapper.getStorageWithId(id);
 	}
-
 }

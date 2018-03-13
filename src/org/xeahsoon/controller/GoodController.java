@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Good;
+import org.xeahsoon.pojo.Storage;
 import org.xeahsoon.service.GoodService;
+import org.xeahsoon.service.StorageService;
 
 @Controller
 public class GoodController {
@@ -21,6 +23,10 @@ public class GoodController {
 	@Autowired
 	@Qualifier("goodService")
 	private GoodService goodService;
+	
+	@Autowired
+	@Qualifier("storageService")
+	private StorageService storageService;
 
 	/**
 	 * @param model
@@ -45,7 +51,7 @@ public class GoodController {
 	@ResponseBody
 	@RequestMapping("/checkGoodID")
 	public int checkGoodID(int id) {
-		Good good = goodService.findGoodInfoWithID(id);
+		Good good = goodService.findSimpleGoodInfoById(id);
 		if(good != null) {
 			return 1;
 		}
@@ -65,6 +71,45 @@ public class GoodController {
 		model.addAttribute("good_list", good_list);
 		
 		return "searchGood";
+	}
+	
+	/**
+	 * @param model
+	 * @return 转发库存盘点页面
+	 */
+	@RequestMapping("/checkStorage")
+	public String checkStorage(Model model) {
+		
+		List<Storage> unchecked_list = storageService.listUncheckedStorages();
+		List<Storage> checked_list = storageService.listCheckedStorages();
+		
+		model.addAttribute("unchecked_list", unchecked_list);
+		model.addAttribute("checked_list", checked_list);
+		
+		return "checkStorage";
+	}
+	
+	/**
+	 * @param id 商品条形码
+	 * @return 盘点单件货品结果
+	 */
+	@ResponseBody
+	@RequestMapping("/checkOneStorage")
+	public int checkOneStorage(int id) {
+		int flag = storageService.getStorageCheckFlag(id);
+		if(flag == 1) {
+			return -1;
+		}
+		return storageService.checkOneStorage(id);
+	}
+	
+	/**
+	 * @return 清空所有盘点结果
+	 */
+	@ResponseBody
+	@RequestMapping("/uncheckAllStorages")
+	public int uncheckAllStorages() {
+		return storageService.uncheckAllStorages();
 	}
 	
 	/**

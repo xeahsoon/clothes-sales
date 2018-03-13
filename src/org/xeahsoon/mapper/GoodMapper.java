@@ -21,11 +21,17 @@ public interface GoodMapper {
 	
 	@Select("select * from good_size where good_id = #{id}")
 	List<GoodSize> listGoodSize(@Param("id")int id);
-	
+
+	/**
+	 * @param id 商品编号
+	 * @return 商品信息
+	 */
+	@Select("select * from good where id = #{id}")
+	Good findSimpleGoodInfoByID(@Param("id")int id);
 	
 	/**
 	 * @param id 商品ID
-	 * @return 指定ID的商品信息
+	 * @return 指定ID的商品信息，包括所有颜色和尺码
 	 */
 	@Select("select * from good where id = #{id}")
 	@Results({
@@ -42,7 +48,6 @@ public interface GoodMapper {
 			select = "org.xeahsoon.mapper.GoodMapper.listGoodSize"))
 	})
 	Good findGoodInfoWithID(@Param("id")int id);
-	
 
 	/**
 	 * @return 系统内所有商品信息
