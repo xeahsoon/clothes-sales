@@ -88,11 +88,8 @@
 							<li><a data-url="searchGood"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>商品资料查询
 							</a></li>
-							<li><a href="#"> <span
+							<li><a data-url="storageIn"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存进货
-							</a></li>
-							<li><a href="#"> <span
-									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存出货
 							</a></li>
 							<li><a data-url="checkStorage"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存盘点
@@ -100,11 +97,14 @@
 						</ul></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">System</a>
 						<ul class="dropdown-menu">
-							<li><a data-url="member"> <span
-									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>会员管理
+							<li><a data-url="good"> <span
+									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>商品信息管理
 							</a></li>
 							<li><a data-url="staff"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>导购员管理
+							</a></li>
+							<li><a data-url="member"> <span
+									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>会员管理
 							</a></li>
 							<li><a data-url="test"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>测试页面
@@ -165,8 +165,7 @@
 				<div id="list3" class="collapse">
 					<ul class="nav nav-sidebar">
 						<li><a data-url="searchGood">商品资料查询</a></li>
-						<li><a href="#">库存进货</a></li>
-						<li><a href="#">库存出货</a></li>
+						<li><a data-url="storageIn">库存进货</a></li>
 						<li><a data-url="checkStorage">库存盘点</a></li>
 					</ul>
 				</div>
@@ -176,8 +175,9 @@
 				</div>
 				<div id="list4" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a data-url="member">会员管理</a></li>
+						<li><a data-url="good">商品信息管理</a></li>
 						<li><a data-url="staff">导购员管理</a></li>
+						<li><a data-url="member">会员管理</a></li>
 						<li><a data-url="test">测试页面</a></li>
 					</ul>
 				</div>

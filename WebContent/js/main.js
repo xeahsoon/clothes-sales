@@ -78,7 +78,7 @@ $(document).ready(function() {
 			"orderable" : false,
 			"targets" : 8
 		}],
-		"dom" : 'Bfrtip',
+		"dom" : "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-4'i><'col-sm-8'p>>",
 		"buttons" : [
 			{
 				extend: 'copy',

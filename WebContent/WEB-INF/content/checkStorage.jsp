@@ -17,7 +17,7 @@
         <h2 class="page-header">库存盘点</h2>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
 	        <div class="input-group">
 	            <span class="input-group-addon">条形码：</span>
 	            <input type="text" class="form-control">
@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-3 pull-right">
 	        <input type="button" value="结算盘点" class="btn btn-primary pull-right">
-	        <input type="button" value="清空盘点" class="btn btn-default pull-right" style="margin-right: 20px;">
+	        <input type="button" value="清空盘点" class="btn btn-default pull-right" style="margin-right: 15px;">
         </div>
     </div>
     <div style="margin-top: 30px">
@@ -91,7 +91,7 @@
 	        </tr>
 	        </tfoot>
 	        <tbody>
-	        <c:forEach begin="0" end="24" var="i">
+	        <c:forEach begin="0" end="88" var="i">
 		       	<tr>
 		       		<td><fmt:formatNumber value="${i+1 }" pattern="00000000000"/></td>
 		       		<td>18201014</td>
