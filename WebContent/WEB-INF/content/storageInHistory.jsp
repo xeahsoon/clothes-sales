@@ -25,10 +25,10 @@
 		</div>
 	</div>
     <div style="margin-top:30px;">
-        <h3 class="page-header">查询结果</h3>
+        <h3 class="page-header"><font title="默认显示近16项结果">查询结果</font></h3>
     </div>
     <div class="row panel-list">
-	<c:forEach begin="1" end="9" var="i">
+	<c:forEach begin="1" end="16" var="i">
 	<div class="col-md-6 panel-item">
 		<div class="panel panel-default">
 		    <div class="panel-heading">

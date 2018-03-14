@@ -32,7 +32,7 @@
     </div>
     
     <div class="table-responsive" style="margin-top: 30px">
-        <h3 class="page-header">清单明细</h3>
+        <h3 class="page-header"><font title="默认显示最近一笔订单明细">清单明细</font></h3>
         <table class="table table-striped table-condensed" id="info">
             <style>
                #info td:nth-child(3n) {
