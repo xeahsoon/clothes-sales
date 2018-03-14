@@ -1,6 +1,5 @@
 $(document).ready(function() {
-	
-	// 盘点单间货品
+	// 盘点单件货品
     $("#bar_code").keydown(function(e) {
     	//监听回车
     	var theEvent = window.event || e;
@@ -22,7 +21,7 @@ $(document).ready(function() {
     					} else if(data == 0) {
     						toastr.error("该条形码不存在！");
     					} else if(data == -1) {
-    						toastr.error("该唯一码已盘点！");
+    						toastr.error("该唯一码已读取！");
     					}
     				},
     				error: function(jqXHR) {
@@ -49,8 +48,13 @@ $(document).ready(function() {
 	});
 	
 	//创建DateTable
-    $('#uncheckedTable').DataTable( {
+    var uncheckedTable = $('#uncheckedTable').DataTable( {
     	"language": config,
+    	"buttons": [{
+    		extend: "excel",
+    		title: "迈克服装收银系统-未盘明细",
+    		sheetName: $("li#date").text()
+    	}],
     	"dom": "<'row'<'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-2'i><'col-sm-10'p>>",
         "lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]],
         "footerCallback": function ( row, data, start, end, display ) {
@@ -82,8 +86,15 @@ $(document).ready(function() {
             );
         }
     });
-    $('#checkedTable').DataTable( {
+    uncheckedTable.buttons().container().appendTo("#controlButtons");
+    
+    var checkedTable = $('#checkedTable').DataTable( {
     	"language": config,
+    	"buttons": [{
+    		extend: "excel",
+    		title: "迈克服装收银系统-已盘明细",
+    		sheetName: $("li#date").text()
+    	}],
     	"dom": "<'row'<'col-sm-6'l><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-2'i><'col-sm-10'p>>",
         "lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]],
         "footerCallback": function ( row, data, start, end, display ) {
@@ -114,5 +125,15 @@ $(document).ready(function() {
                 '￥'+pageTotal +' / ￥'+ total
             );
         }
+    });
+    checkedTable.buttons().container().appendTo("#controlButtons");
+    
+    $("a[data-file]").on("click", function() {
+    	var target = $(this).data("file");
+    	if($("#"+target+" tbody").find("td").eq("0").text() == "表中数据为空") {
+    		toastr.error("当前表数据为空！");
+    	} else {
+    		$("a[aria-controls="+target+"]").trigger("click");
+    	}
     });
 });

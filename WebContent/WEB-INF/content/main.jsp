@@ -14,7 +14,7 @@
 	<meta name="author" content="xeahsoon">
 	<link rel="icon" href="images/icon_blue.png">
 	
-	<title>迈克服装收银系统-首页</title>
+	<title>迈克服装收银系统</title>
 	
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/bootstrap-multiselect/bootstrap-multiselect.css">

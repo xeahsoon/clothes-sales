@@ -23,9 +23,25 @@
 	            <input type="text" id="bar_code" class="form-control">
 	        </div>
         </div>
-        <div class="col-md-3 pull-right">
-	        <input type="button" value="结算盘点" class="btn btn-primary pull-right">
-	        <input type="button" value="清空盘点" class="btn btn-default pull-right" onclick="uncheckAllStorages()" style="margin-right: 15px;">
+        <div id="controlButtons" class="col-md-3 pull-right">
+        	<style>
+        	.buttons-excel{
+        		display: none;
+        	}
+        	</style>
+        	<div class="btn-group" style="padding-left: 45px;">
+				<button type="button" class="btn btn-default dropdown-toggle" 
+						data-toggle="dropdown">
+					导出文件 <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" style="margin-left: 45px;">
+					<li><a data-file="uncheckedTable">未盘点Excel</a></li>
+					<li><a data-file="checkedTable">已盘点Excel</a></li>
+				</ul>
+			</div>
+        	
+        	<!-- <input type="button" value="结算盘点" class="btn btn-primary pull-right"> -->
+	        <input type="button" value="清空盘点" class="btn btn-primary pull-right" onclick="uncheckAllStorages()">
         </div>
     </div>
     <div style="margin-top: 30px">

@@ -100,7 +100,7 @@ $(document).ready(function() {
     					if(data == -1) {
     						toastr.info("未找到该商品信息！");
     					} else if(data == 0) {
-    						toastr.info("该唯一码已扫过！");
+    						toastr.info("该唯一码已读取！");
     					} else {
     						$.ajax({
     							url: "refreshTempOrder",
