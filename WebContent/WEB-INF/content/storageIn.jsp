@@ -20,24 +20,17 @@
     
     	<div class="col-md-3">
 	        <div class="input-group">
-	            <span class="input-group-addon">款号：</span>
-	            <input type="text" class="form-control" placeholder="请输入款号..">
+	            <span class="input-group-addon">条形码：</span>
+	            <input type="text" class="primary-input form-control" id="bar_code" placeholder="请输入商品条形码..">
             </div>
         </div>
     	<div class="col-md-3" style="width: 200px">
 	        <div class="input-group">
 	            <span class="input-group-addon">款号：</span>
 				<select id="good_select">
-					<option>17200001</option>
-					<option>17200002</option>
-					<option>17200003</option>
-					<option>17200004</option>
-					<option>17200005</option>
-					<option>17200006</option>
-					<option>17200007</option>
-					<option>17200008</option>
-					<option>17200009</option>
-					<option>17200010</option>
+				<c:forEach items="${requestScope.good_list }" var="good">
+					<option value="${good.id }">${good.id }</option>
+				</c:forEach>
 				</select>
 	        </div>
         </div>
@@ -97,10 +90,10 @@
         	</tr>
         	</tfoot>
         	<tbody>
-        	<c:forEach begin="1" end="9" var="i">
+        	<c:forEach begin="1" end="50" var="i">
        		<tr>
-       			<td>0000000000${i }</td>
-       			<td>0000000${i }</td>
+       			<td>000000000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
+       			<td>000000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
        			<td>T恤</td>
        			<td>白色</td>
        			<td>L</td>
@@ -111,6 +104,7 @@
         	</tbody>
         </table>
     </div>
+
 </div>
 </body>
 </html>

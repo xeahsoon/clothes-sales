@@ -117,3 +117,9 @@
 .copyright_2JjcV5R {
 	display: none;
 }
+.panel-list .panel-heading {
+	border-bottom: none;
+}
+.panel-list .panel-body {
+	border-top: 1px solid #ddd;
+}

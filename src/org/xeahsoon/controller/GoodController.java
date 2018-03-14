@@ -73,6 +73,16 @@ public class GoodController {
 		return "searchGood";
 	}
 	
+	@RequestMapping("/storageIn")
+	public String storageIn(Model model) {
+		
+		List<Good> good_list = goodService.listAllGoods();
+		
+		model.addAttribute("good_list", good_list);
+		
+		return "storageIn";
+	}
+	
 	/**
 	 * @param model
 	 * @return 转发库存盘点页面

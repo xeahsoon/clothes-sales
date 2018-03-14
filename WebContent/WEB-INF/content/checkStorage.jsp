@@ -20,7 +20,7 @@
         <div class="col-md-3">
 	        <div class="input-group">
 	            <span class="input-group-addon">条形码：</span>
-	            <input type="text" id="bar_code" class="form-control">
+	            <input type="text" id="bar_code" class="primary-input form-control" placeholder="请输入商品条形码..">
 	        </div>
         </div>
         <div id="controlButtons" class="col-md-3 pull-right">

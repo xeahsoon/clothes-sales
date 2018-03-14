@@ -33,7 +33,7 @@
                         <span class="input-group-addon" style="border-radius: 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none;">
                         	会员：
                         </span>
-                        <input type="text" id="member_phone" class="form-control">
+                        <input type="text" id="member_phone" class="form-control" placeholder="请输入会员卡号..">
                         <div class="input-group-btn">
 	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	                            <span class="caret"></span>
@@ -89,7 +89,7 @@
 	                <div class="input-group">
 	                    <span class="input-group-addon" style="border-top-left-radius: 4px; border-bottom-left-radius: 4px; 
 	                    	border-right: none;">条形码：</span>
-	                    <input id="bar_code" type="text" class="form-control" autofocus />
+	                    <input id="bar_code" type="text" class="primary-input form-control" placeholder="请输入商品条形码.." autofocus />
 	                    <div class="input-group-btn">
 		                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 		                        <span class="caret"></span>

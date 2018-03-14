@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-3">
 	        <div class="input-group pull-left">
-	            <input type="text" id="search_id" name="search_id" class="form-control" autofocus placeholder="请输入流水单号..">
+	            <input type="text" id="search_id" name="search_id" class="primary-input form-control" autofocus placeholder="请输入流水单号..">
 	        	<input type="hidden" id="search_url" value="checkOrderID"/>
 	        	<input type="hidden" id="search_name" value="orderDetail"/>
 	            <span class="input-group-addon searcher" onclick="search()">查询</span>

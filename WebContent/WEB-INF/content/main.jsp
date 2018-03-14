@@ -91,6 +91,9 @@
 							<li><a data-url="storageIn"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存进货
 							</a></li>
+							<li><a data-url="storageInHistory"> <span
+									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>入库查询
+							</a></li>
 							<li><a data-url="checkStorage"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>库存盘点
 							</a></li>
@@ -166,6 +169,7 @@
 					<ul class="nav nav-sidebar">
 						<li><a data-url="searchGood">商品资料查询</a></li>
 						<li><a data-url="storageIn">库存进货</a></li>
+						<li><a data-url="storageInHistory">入库查询</a></li>
 						<li><a data-url="checkStorage">库存盘点</a></li>
 					</ul>
 				</div>

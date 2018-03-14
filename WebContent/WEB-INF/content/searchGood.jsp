@@ -43,7 +43,7 @@
                 	<span class="input-group-addon"><span class="glyphicon glyphicon-filter"></span></span>
 		        	<input type="hidden" id="search_url" value="checkGoodID"/>
 		        	<input type="hidden" id="search_name" value="searchGood"/>
-		            <input id="keyword" type="text" class="form-control" placeholder="请输入搜索关键字..">
+		            <input id="keyword" type="text" class="primary-input form-control" placeholder="请输入搜索关键字..">
 		        </div>
                 
                 <div style="margin-top: 30px">

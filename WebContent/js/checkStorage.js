@@ -131,7 +131,7 @@ $(document).ready(function() {
     $("a[data-file]").on("click", function() {
     	var target = $(this).data("file");
     	if($("#"+target+" tbody").find("td").eq("0").text() == "表中数据为空") {
-    		toastr.error("当前表数据为空！");
+    		toastr.error("导出数据为空！");
     	} else {
     		$("a[aria-controls="+target+"]").trigger("click");
     	}
