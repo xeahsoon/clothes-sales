@@ -310,6 +310,8 @@
 	<!-- <script src="assets/jqprint/jquery.jqprint-0.3.js"></script> -->
 	<script src="assets/printArea/jquery.printarea.js"></script>
 	
+	<script src="assets/bootstrap-filestyle/bootstrap-filestyle.min.js"></script>
+	
 	<script src="assets/quicksearch/jquery.quicksearch.js"></script>
 	<script src="assets/bootstrap-suggest/bootstrap-suggest.js"></script>
 

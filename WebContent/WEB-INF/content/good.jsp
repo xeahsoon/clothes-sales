@@ -73,35 +73,69 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">新增商品信息</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" style="min-height: 491px;">
 				<div class="input-group">
 					<span class="input-group-addon">款号</span>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" placeholder="请输入商品款号..">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">类型</span>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" placeholder="请输入商品类型..">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">面料</span>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" placeholder="请输入商品面料..">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">价格</span>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" placeholder="请输入商品价格..">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">颜色</span>
-					<input type="text" class="form-control">
+					<input type="text" id="good_color" class="form-control" placeholder="请输入商品颜色..">
 				</div><br>
 				<div class="input-group">
 					<span class="input-group-addon">大小</span>
-					<input type="text" class="form-control">
+					<select id="good_size" class="select" multiple="multiple">
+					<optgroup label="上衣尺码">
+						<option>S</option>
+						<option>M</option>
+						<option>L</option>
+						<option>XL</option>
+						<option>XXL</option>
+						<option>XXXL</option>
+					</optgroup>
+					<optgroup label="裤子尺码">
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+						<option>32</option>
+						<option>33</option>
+						<option>34</option>
+						<option>35</option>
+						<option>36</option>
+					</optgroup>
+					<optgroup label="鞋子尺码">
+						<option>38</option>
+						<option>39</option>
+						<option>40</option>
+						<option>41</option>
+						<option>42</option>
+						<option>42</option>
+					</optgroup>
+					</select>
 				</div><br>
-				<div class="input-group">
-					<span class="input-group-addon">图片</span>
-					<input type="text" class="form-control">
-				</div><br>
+				<div>
+					<!-- <div class="input-group">
+						<span class="input-group-addon">图片</span>
+						<input id="good_file" type="text" class="form-control" placeholder="请选择商品图片..">
+					</div> -->
+					<input id="good_file" type="file"><br>
+					<div class="thumbnail">
+						<img id="good_img" src="images/category/t-shirt.jpg" alt="暂无预览">
+					</div>
+				</div>
 				<div>
 					<input type="button" value="保存" class="btn btn-primary pull-right">
 					<input type="button" value="取消" class="btn btn-default pull-right" style="margin-right:15px;">
