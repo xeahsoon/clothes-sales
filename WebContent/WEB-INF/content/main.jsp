@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" href="assets/dataTables/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="assets/dataTables/css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" href="assets/dataTables/css/select.bootstrap.min.css">
 	<link rel="stylesheet" href="assets/toastr/toastr.min.css">
 	<link rel="stylesheet" href="css/dashboard.css">
 	<link rel="stylesheet" href="css/base.css">
@@ -289,6 +290,7 @@
 	<script src="assets/dataTables/jquery.dataTables.min.js"></script>
 	<script src="assets/dataTables/dataTables.bootstrap.min.js"></script>
 	<script src="assets/dataTables/dataTables.buttons.min.js"></script>
+	<script src="assets/dataTables/dataTables.select.min.js"></script>
 	<script src="assets/dataTables/buttons.bootstrap.min.js"></script>
 	
 	<script src="assets/dataTables/jszip.min.js"></script>
