@@ -35,5 +35,19 @@ public interface GoodService {
 	 * @return 新进商品
 	 */
 	Good findLastGood();
+	
+	int addNewGood(int id, String type, String fabric, double price);
+	
+	int addGoodColor(int id, String color);
+	
+	int addGoodSize(int id, String size);
+	
+	int emptyGoodColor(int id);
+	
+	int emptyGoodSize(int id);
+	
+	int updateGood(String type, String fabric, double price, int id);
+	
+	int updateGoodPicture(String picture, int id);
 
 }

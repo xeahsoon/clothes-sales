@@ -50,4 +50,38 @@ public class GoodServiceImpl implements GoodService {
 		return goodMapper.findLastGood();
 	}
 
+	@Override
+	public int addNewGood(int id, String type, String fabric, double price) {
+		return goodMapper.addNewGood(id, type, fabric, price);
+	}
+
+	@Override
+	public int addGoodColor(int id, String color) {
+		return goodMapper.addGoodColor(id, color);
+	}
+
+	@Override
+	public int addGoodSize(int id, String size) {
+		return goodMapper.addGoodSize(id, size);
+	}
+
+	@Override
+	public int emptyGoodColor(int id) {
+		return goodMapper.emptyGoodColor(id);
+	}
+
+	@Override
+	public int emptyGoodSize(int id) {
+		return goodMapper.emptyGoodSize(id);
+	}
+
+	@Override
+	public int updateGood(String type, String fabric, double price, int id) {
+		return goodMapper.updateGood(type, fabric, price, id);
+	}
+
+	@Override
+	public int updateGoodPicture(String picture, int id) {
+		return goodMapper.updateGoodPicture(picture, id);
+	}
 }

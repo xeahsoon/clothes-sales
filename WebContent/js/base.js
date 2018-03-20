@@ -553,3 +553,44 @@ function uncheckAllStorages() {
 		});
 	}
 }
+
+function saveGood() {
+	var data = {};
+	data["id"] = $("#good_id").val();
+	data["type"] = $("#good_type").val();
+	data["fabric"] = $("#good_fabric").val();
+	data["price"] = $("#good_price").val();
+	
+	var color = new Array();
+    $("#good_color option:selected").each(function() {
+    	color.push($(this).val());
+    })
+    var size = new Array();
+    $("#good_size option:selected").each(function() {
+    	size.push($(this).val());
+    })
+	data["color"] = color;
+    data["size"] = size;
+    data["opt"] = $("#save").data("opt");
+	
+	$.ajax({
+		url: "saveGood",
+		type: "POST",
+		data: {
+			params: JSON.stringify(data)
+		},
+		success: function(data) {
+			if(data == 1) {
+				showAtRight("good");
+				toastr.success("操作成功！");
+			} else if(data == -1){
+				toastr.error("商品款号已存在！");
+			} else {
+				toastr.error("操作失败！");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+}

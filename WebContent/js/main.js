@@ -88,6 +88,8 @@ $(document).ready(function() {
 	            text: "<span class='glyphicon glyphicon-stats table-buttons' title='列可视调整'></span>"
 	        },{
 				extend: 'excel',
+	    		title: "迈克服装收银系统-历史清单",
+	    		sheetName: $("li#date").text(),
 	            text: "<span class='glyphicon glyphicon-download-alt table-buttons' title='导出Excel'></span>"
 	        }
 	    ]

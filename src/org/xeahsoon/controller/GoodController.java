@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Good;
 import org.xeahsoon.pojo.Storage;
 import org.xeahsoon.service.GoodService;
 import org.xeahsoon.service.StorageService;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class GoodController {
@@ -129,6 +134,43 @@ public class GoodController {
 		model.addAttribute("good_list", good_list);
 		
 		return "good";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/saveGood")
+	public int addNewGood(@RequestParam String params) {
+		JSONObject data = JSONObject.parseObject(params);
+		JSONArray color = data.getJSONArray("color");
+		JSONArray size = data.getJSONArray("size");
+		int good_id = data.getIntValue("id");
+		String opt = data.getString("opt");
+		// 基础信息
+		if("add".equals(opt)) {
+			try {
+				goodService.addNewGood(good_id, data.getString("type"), data.getString("fabric"), data.getDoubleValue("price"));
+			} catch(DuplicateKeyException e) {
+				return -1;
+			}
+		} else if("modify".equals(opt)) {
+			goodService.updateGood(data.getString("type"), data.getString("fabric"), data.getDoubleValue("price"), good_id);
+			goodService.emptyGoodColor(good_id);
+			goodService.emptyGoodSize(good_id);
+		}
+		// 添加商品颜色
+		for(int i=0; i<color.size(); i++) {
+			goodService.addGoodColor(good_id, color.getString(i));
+		}
+		// 添加商品尺码
+		for(int i=0; i<size.size(); i++) {
+			goodService.addGoodSize(good_id, size.getString(i));
+		}
+		// 更新存储图片
+		String picture = data.getString("picture");
+		if(picture != null) {
+			goodService.updateGoodPicture(picture, good_id);
+		}
+		
+		return 1;
 	}
 	
 	/**

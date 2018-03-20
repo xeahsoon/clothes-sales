@@ -12,9 +12,18 @@ $(document).ready(function() {
         "dom": "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-4'i><'col-sm-8'p>>",
         "lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]],
 		"buttons" : [{
+			extend: 'excel',
+			className : 'btn btn-default btn-sm',
+    		title: "迈克服装收银系统-商品信息",
+    		sheetName: $("li#date").text(),
+            text: "导出Excel"
+        },{
 			text : '新增',
 			className : 'btn btn-default btn-sm add',
 			action : function(e, dt, node, conf) {
+				$("#save").data("opt", "add");;
+				$("#good_id").attr("disabled", false);
+				
 				$("#right .panel-title").text("新增商品");
 				$("#left").animate({width: '76%'}, '888');
 				$("#right").show('888');
@@ -23,6 +32,7 @@ $(document).ready(function() {
 			text : '修改',
 			className : 'btn btn-default btn-sm modify',
 			action : function(e, dt, node, conf) {
+				$("#save").data("opt", "modify");
 				// 避免按钮属性为disabled仍触发事件
 				if($(node).attr("disabled")=="disabled"){
 					return;
@@ -33,6 +43,7 @@ $(document).ready(function() {
 				
 				var rowData = goodtable.rows( index ).data().toArray();
 				$("#good_id").val(rowData[0][0]);
+				$("#good_id").attr("disabled", true);
 				$("#good_type").val(rowData[0][1]);
 				$("#good_fabric").val(rowData[0][2]);
 				$("#good_price").val(rowData[0][3]);

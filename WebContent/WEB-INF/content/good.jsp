@@ -147,7 +147,7 @@
 					</div>
 				</div>
 				<div>
-					<input type="button" id="save" value="保存" class="btn btn-primary pull-right">
+					<input type="button" id="save" value="保存" class="btn btn-primary pull-right" onclick="saveGood()">
 					<input type="button" id="cancel" value="取消" class="btn btn-default pull-right" style="margin-right:15px;">
 				</div>
 			</div>
