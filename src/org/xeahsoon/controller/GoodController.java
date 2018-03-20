@@ -122,6 +122,15 @@ public class GoodController {
 		return storageService.uncheckAllStorages();
 	}
 	
+	@RequestMapping("/good")
+	public String sendGoodPage(Model model) {
+		
+		List<Good> good_list = goodService.listAllGoodsIncludeColorSize();
+		model.addAttribute("good_list", good_list);
+		
+		return "good";
+	}
+	
 	/**
 	 * 处理testData请求
 	 * */

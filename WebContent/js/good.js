@@ -16,7 +16,7 @@ $(document).ready(function() {
 			className : 'btn btn-default btn-sm add',
 			action : function(e, dt, node, conf) {
 				$("#right .panel-title").text("新增商品");
-				$("#left").animate({width: '75%'}, '888');
+				$("#left").animate({width: '76%'}, '888');
 				$("#right").show('888');
 			}
 		},{
@@ -28,23 +28,27 @@ $(document).ready(function() {
 					return;
 				}
 				$("#right .panel-title").text("修改商品");
-				$("#left").animate({width: '75%'});
+				$("#left").animate({width: '76%'});
 				$("#right").show();
-				/*$("#right").hide();
-				$("#left").animate({width: '100%'});*/
 				
 				var rowData = goodtable.rows( index ).data().toArray();
 				$("#good_id").val(rowData[0][0]);
 				$("#good_type").val(rowData[0][1]);
 				$("#good_fabric").val(rowData[0][2]);
 				$("#good_price").val(rowData[0][3]);
-				$("#good_color").val(rowData[0][4]);
-				$("#good_picture").val(rowData[0][6])
-
+				
+				var colors = rowData[0][4].split(" ");
+				$("#good_color").multiselect('select', colors);
+				
 				var sizes = rowData[0][5].split(" ");
-				for(var size of sizes) {
-					console.log(size);
-					$("#good_size option[value='"+size+"']").prop("selected", true);
+				$('#good_size').multiselect('select', sizes);
+				
+				var picture = rowData[0][6];
+				if(picture.length != 0) {
+					$("#good_img").attr('src', 'images/goods/'+picture);
+					$("#good_preview").show();
+				} else {
+					$("#good_preview").hide();
 				}
 			}
 		}]
@@ -67,13 +71,22 @@ $(document).ready(function() {
 		$("#right").hide('888');
 		$("#left").animate({width: '100%'}, '888');
 	});
+
+	$('#good_color').multiselect({
+    	maxHeight: 200,
+    	buttonWidth: 135,
+    	numberDisplayed: 5,
+        nonSelectedText: '请选择颜色..',
+        nSelectedText: '项选中',
+        allSelectedText: '全部选中'
+	});
 	
-	$('.select').multiselect({
+	$('#good_size').multiselect({
 		enableClickableOptGroups: true,
 		enableCollapsibleOptGroups: true,
         collapseOptGroupsByDefault: true,
     	maxHeight: 200,
-    	buttonWidth: 146,
+    	buttonWidth: 135,
     	numberDisplayed: 5,
         nonSelectedText: '请选择尺码..',
         nSelectedText: '项选中',

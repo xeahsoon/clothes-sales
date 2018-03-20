@@ -41,7 +41,13 @@ public class GoodServiceImpl implements GoodService {
 	}
 
 	@Override
+	public List<Good> listAllGoodsIncludeColorSize() {
+		return goodMapper.listAllGoodsIncludeColorSize();
+	}
+	
+	@Override
 	public Good findLastGood() {
 		return goodMapper.findLastGood();
 	}
+
 }

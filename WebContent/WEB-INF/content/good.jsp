@@ -48,15 +48,19 @@
 		        	</tr>
 		        	</tfoot>
 		        	<tbody>
-		        	<c:forEach begin="1" end="188">
+		        	<c:forEach items="${requestScope.good_list }" var="good">
 		        	<tr>
-		        	<td>17200101</td>
-		        	<td>T恤</td>
-		        	<td>100%棉</td>
-		        	<td>99.00</td>
-		        	<td>黑色 蓝色 白色</td>
-		        	<td>S M L XL XXL XXXL</td>
-		        	<td>17200101.jpg</td>
+		        	<td>${good.id }</td>
+		        	<td>${good.type }</td>
+		        	<td>${good.fabric }</td>
+		        	<td>${good.price }</td>
+		        	<td>
+						<c:forEach items="${good.good_color }" var="color">${color.good_color } </c:forEach>
+					</td>
+		        	<td>
+		        		<c:forEach items="${good.good_size }" var="size">${size.good_size } </c:forEach>
+		        	</td>
+		        	<td>${good.picture }</td>
 		        	</tr>
 		        	</c:forEach>
 		        	</tbody>
@@ -65,7 +69,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="right" style="float:right; padding:0px 15px; width:25%; display:none;">
+	<div id="right" style="float:right; padding:0px 15px; width:24%; display:none;">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">商品信息</h3>
@@ -85,11 +89,24 @@
 				</div>
 				<div class="input-group" style="margin: 15px 0px;">
 					<span class="input-group-addon">价格</span>
-					<input type="text" id="good_price" class="form-control" placeholder="价格..">
+					<input type="number" id="good_price" min="0" class="form-control" placeholder="价格..">
 				</div>
 				<div class="input-group" style="margin: 15px 0px;">
 					<span class="input-group-addon">颜色</span>
-					<input type="text" id="good_color" class="form-control" placeholder="颜色..">
+					<select id="good_color" class="select" multiple="multiple">
+						<option value="黑色">黑色</option>
+						<option value="白色">白色</option>
+						<option value="灰色">灰色</option>
+						<option value="浅灰色">浅灰色</option>
+						<option value="红色">红色</option>
+						<option value="粉色">粉色</option>
+						<option value="绿色">绿色</option>
+						<option value="军绿色">军绿色</option>
+						<option value="蓝色">蓝色</option>
+						<option value="浅蓝色">浅蓝色</option>
+						<option value="藏青色">藏青色</option>
+						<option value="棕色">棕色</option>
+					</select>
 				</div>
 				<div class="input-group" style="margin: 15px 0px;">
 					<span class="input-group-addon">大小</span>
@@ -119,6 +136,7 @@
 						<option value="40">40</option>
 						<option value="41">41</option>
 						<option value="42">42</option>
+						<option value="43">43</option>
 					</optgroup>
 					</select>
 				</div>

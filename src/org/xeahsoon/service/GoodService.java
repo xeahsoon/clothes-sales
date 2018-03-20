@@ -27,6 +27,11 @@ public interface GoodService {
 	List<Good> listAllGoods();
 	
 	/**
+	 * @return 所有商品信息包括颜色和尺码
+	 */
+	List<Good> listAllGoodsIncludeColorSize();
+	
+	/**
 	 * @return 新进商品
 	 */
 	Good findLastGood();

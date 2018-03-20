@@ -56,6 +56,25 @@ public interface GoodMapper {
 	List<Good> listAllGoods();
 	
 	/**
+	 * @return 所有商品信息包括颜色和尺码
+	 */
+	@Select("select * from good")
+	@Results({
+		@Result(id=true, column="id", property="id"),
+		@Result(column="type", property="type"),
+		@Result(column="fabric", property="fabric"),
+		@Result(column="price", property="price"),
+		@Result(column="picture", property="picture"),
+		@Result(column="id", property="good_color",
+		many=@Many(
+			select = "org.xeahsoon.mapper.GoodMapper.listGoodColor")),
+		@Result(column="id", property="good_size",
+		many=@Many(
+			select = "org.xeahsoon.mapper.GoodMapper.listGoodSize"))
+	})
+	List<Good> listAllGoodsIncludeColorSize();
+	
+	/**
 	 * @return 新进商品
 	 */
 	@Select("select * from good order by id desc LIMIT 1;")
