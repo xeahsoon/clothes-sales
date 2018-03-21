@@ -106,5 +106,5 @@ public interface StorageMapper {
 	 * @return 插入结果
 	 */
 	@Insert("insert into storage(id, good_id, color, size) values(#{id}, #{good_id}, #{color}, '${size}')")
-	int returnToStorage(@Param("id")int id, @Param("good_id")int good_id, @Param("color")String color, @Param("size")String size);
+	int insertOneStorage(@Param("id")int id, @Param("good_id")int good_id, @Param("color")String color, @Param("size")String size);
 }

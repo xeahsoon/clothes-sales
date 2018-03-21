@@ -554,6 +554,7 @@ function uncheckAllStorages() {
 	}
 }
 
+// 保存商品信息
 function saveGood() {
 	var data = {};
 	data["id"] = $("#good_id").val();
@@ -587,6 +588,119 @@ function saveGood() {
 				toastr.error("商品款号已存在！");
 			} else {
 				toastr.error("操作失败！");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+// 读取单间商品到StorageInTemp表
+function addToStorageInTemp() {
+	var stopFlag = false;
+	var storage_id = $("#bar_code").val();
+	if(storage_id.length == 0) {
+		toastr.error("请输入商品条形码");
+		return;
+	}
+	// 验证条形码在storage是否存在
+	$.ajax({
+		url: "checkStorageID",
+		type: "POST",
+		async: false,
+		data: {
+			id: storage_id
+		},
+		success: function(data) {
+			if(data == 1) {
+				toastr.error("该唯一码库存中已存在！");
+				stopFlag = true;
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+	// 如果ajax判断库存已存在，则跳出
+	if(stopFlag) {
+		return;
+	}
+	
+	var data={};
+	data["storage_id"] = storage_id;
+	data["good_id"] = $("#good_select").val();
+	data["type"] = $("#good_select option:selected").data("type");
+	data["color"] = $("#color_select").val();
+	data["size"] = $("#size_select").val();
+	data["price"] = $("#good_select option:selected").data("price");
+
+	$.ajax({
+		url: "addStorageInTemp",
+		type: "POST",
+		data: {
+			params: JSON.stringify(data)
+		},
+		success: function(data) {
+			if(data == 1) {
+				showAtRight("storageIn");
+				toastr.success("插入成功！");
+			} else if(data == -1) {
+				toastr.error("该唯一码已录入！");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+// 删除单个StorageInTemp
+function deleteOneStorageInTemp(id) {
+	
+	if(!confirm("确定删除该件商品？")) {
+		return;
+	}
+	
+	$.ajax({
+		url: "deleteStorageInTemp",
+		type: "POST",
+		data: {
+			id : id
+		},
+		success: function(data) {
+			if(data == 1) {
+				showAtRight("storageIn");
+				toastr.success("删除成功！");
+			} else {
+				toastr.error("删除失败");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+// 入库所有StorageInTemp商品
+function saveToStorageIn(user_id) {
+	
+	if(!confirm("确定入库当前页面所有商品？")) {
+		return;
+	}
+
+	$.ajax({
+		url: "saveTempToStorageIn",
+		type: "POST",
+		data: {
+			user_id: user_id
+		},
+		success: function(data) {
+			if(data == 1) {
+				showAtRight("storageInHistory");
+				toastr.success("入库成功！");
+			} else {
+				toastr.error("错误");
 			}
 		},
 		error: function(jqXHR) {

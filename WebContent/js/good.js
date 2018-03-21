@@ -16,7 +16,7 @@ $(document).ready(function() {
 			className : 'btn btn-default btn-sm',
     		title: "迈克服装收银系统-商品信息",
     		sheetName: $("li#date").text(),
-            text: "导出Excel"
+            text: "导出"
         },{
 			text : '新增',
 			className : 'btn btn-default btn-sm add',

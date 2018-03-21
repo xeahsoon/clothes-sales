@@ -7,6 +7,10 @@ $(document).ready(function() {
 	generateDate();
 	generateScrollingData();
 	
+	if(user != "admin") {
+		$(".super-entry").remove();
+	}
+	
 	// 设置全局toastr属性
 	toastr.options = {
         positionClass: "toast-bottom-right",  
@@ -82,12 +86,15 @@ $(document).ready(function() {
 		"buttons" : [
 			{
 				extend: 'copy',
+				className: 'btn btn-default btn-sm',
 	            text: "<span class='glyphicon glyphicon-duplicate table-buttons' title='复制文本'></span>"
 	        },{
 	            extend: 'colvis',
+				className: 'btn btn-default btn-sm',
 	            text: "<span class='glyphicon glyphicon-stats table-buttons' title='列可视调整'></span>"
 	        },{
 				extend: 'excel',
+				className: 'btn btn-default btn-sm',
 	    		title: "迈克服装收银系统-历史清单",
 	    		sheetName: $("li#date").text(),
 	            text: "<span class='glyphicon glyphicon-download-alt table-buttons' title='导出Excel'></span>"
@@ -123,8 +130,7 @@ function generateScrollingData() {
 			
 			var time = $(this).find("td").eq(0).text();
 			time = time.replace(/-/g,"/");
-			var now = new Date(time);
-			
+		
 			var timeDiff = GetDateTimeDiff(new Date(time), new Date());
 			
 	    	var str = $(this).find("td").eq(4).text() +"￥"+ $(this).find("td").eq(2).text() + 

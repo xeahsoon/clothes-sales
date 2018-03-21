@@ -29,7 +29,7 @@
 	            <span class="input-group-addon">款号：</span>
 				<select id="good_select">
 				<c:forEach items="${requestScope.good_list }" var="good">
-					<option value="${good.id }">${good.id }</option>
+					<option value="${good.id }" data-type="${good.type }" data-price="${good.price }">${good.id }</option>
 				</c:forEach>
 				</select>
 	        </div>
@@ -38,10 +38,6 @@
 	        <div class="input-group">
 	            <span class="input-group-addon">颜色：</span>
 				<select id="color_select" class="select">
-					<option>黑色</option>
-					<option>蓝色</option>
-					<option>白色</option>
-					<option>红色</option>
 				</select>
 	        </div>
         </div>
@@ -49,17 +45,14 @@
 	        <div class="input-group">
 	            <span class="input-group-addon">尺码：</span>
 	            <select id="size_select" class="select">
-					<option>S</option>
-					<option>M</option>
-					<option>L</option>
-					<option>XL</option>
-					<option>XXL</option>
 				</select>
 	        </div>
         </div>
         <div class="col-md-2 pull-right">   
-        	<input type="button" value="入库" class="btn btn-primary pull-right">
-	        <input type="button" value="存单" class="btn btn-default pull-right" style="margin-right: 15px;">
+        	<input type="button" value="入库" class="btn btn-primary pull-right"
+        		onclick="saveToStorageIn('${sessionScope.user.id }')">
+	        <input type="button" value="存单" class="btn btn-default pull-right"
+	        	onclick="addToStorageInTemp()" style="margin-right: 15px;">
 	    </div>
     </div>
     <div style="margin-top: 30px">
@@ -90,15 +83,18 @@
         	</tr>
         	</tfoot>
         	<tbody>
-        	<c:forEach begin="1" end="50" var="i">
+        	<c:forEach items="${requestScope.temp_list }" var="temp">
        		<tr>
-       			<td>000000000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
-       			<td>000000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
-       			<td>T恤</td>
-       			<td>白色</td>
-       			<td>L</td>
-       			<td>95.00</td>
-       			<td><span class="glyphicon glyphicon-trash"></span></td>
+       			<td><fmt:formatNumber value="${temp.storage_id }" pattern="00000000000"></fmt:formatNumber></td>
+       			<td><fmt:formatNumber value="${temp.good_id }" pattern="00000000"></fmt:formatNumber></td>
+       			<td>${temp.type }</td>
+       			<td>${temp.color }</td>
+       			<td>${temp.size }</td>
+       			<td>${temp.price }</td>
+       			<td>
+       				<span style="color: transparent">/</span>
+       				<span class="glyphicon glyphicon-trash operator" onclick="deleteOneStorageInTemp('${temp.id }')"></span>
+       			</td>
        		</tr>
         	</c:forEach>
         	</tbody>

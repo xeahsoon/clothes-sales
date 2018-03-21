@@ -8,11 +8,37 @@ $(document).ready(function(){
     		filter: '<li class="multiselect-item filter"><input class="form-control multiselect-search" style="height: 26px; padding: 0px 20px 0px 20px;" type="text"></li>'
     	}
 	});
-    
-    $('.select').multiselect({
-    	maxHeight: 200,
-    	buttonWidth: 75
-	});
+    $("#good_select").on("change", function() {
+    	$.ajax({
+    		url: "getColorAndSize",
+    		type: "GET",
+    		async: false,
+    		dataType: "json",
+    		data: {
+    			id: $(this).val()
+    		},
+    		success: function(data) {
+    			// 重新构造color和size multiselect
+    			$('.select').multiselect('destroy');
+    			$('.select').empty();
+    			$.each(data.good_color, function(index, item) {
+    				$("#color_select").append("<option value='"+item.good_color+"'>"+item.good_color+"</option>");
+    			});
+    			$.each(data.good_size, function(index, item) {
+    				$("#size_select").append("<option value='"+item.good_size+"'>"+item.good_size+"</option>");
+    			});
+    			$('.select').multiselect({
+    		    	maxHeight: 200,
+    		    	buttonWidth: 75,
+    		    	disableIfEmpty: true
+    			});
+    		},
+    		error: function(jqXHR) {
+    			toastr.error("发生错误： " + jqXHR.status);
+    		}
+    	});
+    });
+    $("#good_select").trigger("change");
     
     $("#inStorageTable").DataTable({
 		"language": {

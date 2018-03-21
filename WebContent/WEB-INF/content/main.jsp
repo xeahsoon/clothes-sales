@@ -28,6 +28,7 @@
 	
 	<script type="text/javascript" src="assets/jquery-3.3.1.min.js"></script>
 		
+	<script>var user = '${sessionScope.user.loginname }';</script>
 	<script src="assets/showRight.js"></script>
 	<script src="js/base.js"></script>
 	<script src="js/main.js"></script>
@@ -101,7 +102,7 @@
 						</ul></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">System</a>
 						<ul class="dropdown-menu">
-							<li><a data-url="good"> <span
+							<li class="super-entry"><a data-url="good"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>商品信息管理
 							</a></li>
 							<li><a data-url="staff"> <span
@@ -180,7 +181,7 @@
 				</div>
 				<div id="list4" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a data-url="good">商品信息管理</a></li>
+						<li class="super-entry"><a data-url="good">商品信息管理</a></li>
 						<li><a data-url="staff">导购员管理</a></li>
 						<li><a data-url="member">会员管理</a></li>
 						<li><a data-url="test">测试页面</a></li>

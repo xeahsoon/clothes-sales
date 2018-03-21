@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Good;
 import org.xeahsoon.pojo.Storage;
+import org.xeahsoon.pojo.StorageInTemp;
 import org.xeahsoon.service.GoodService;
 import org.xeahsoon.service.StorageService;
 
@@ -63,7 +64,11 @@ public class GoodController {
 		return 0;
 	}
 	
-	//查询指定商品ID
+	/**
+	 * @param good_id
+	 * @param model
+	 * @return 查询指定商品ID
+	 */
 	@RequestMapping("/searchGood/{good_id}")
 	public String searchGoodInfo(
 			@PathVariable(value="good_id")int good_id,
@@ -78,14 +83,109 @@ public class GoodController {
 		return "searchGood";
 	}
 	
+	/**
+	 * @param model
+	 * @return 转发库存进货页面
+	 */
 	@RequestMapping("/storageIn")
 	public String storageIn(Model model) {
 		
 		List<Good> good_list = goodService.listAllGoods();
-		
+		List<StorageInTemp> temp_list = storageService.getStorageInTempList();
+
 		model.addAttribute("good_list", good_list);
+		model.addAttribute("temp_list", temp_list);
 		
 		return "storageIn";
+	}
+	
+	/**
+	 * @param id 款号
+	 * @return 后台检索条形码是否存在
+	 */
+	@ResponseBody
+	@RequestMapping("/checkStorageID")
+	public int checkStorageID(int id) {
+		Storage storage = storageService.getStorageWithId(id);
+		if(storage != null) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	/**
+	 * @param params
+	 * @return 读取单间商品到StorageInTemp
+	 */
+	@ResponseBody
+	@RequestMapping("/addStorageInTemp")
+	public int addStorageInTemp(@RequestParam("params")String params) {
+		
+		JSONObject data = JSONObject.parseObject(params);
+		
+		try {
+			storageService.addSingleItemToStorageInTemp(
+				data.getIntValue("storage_id"),
+				data.getIntValue("good_id"), 
+				data.getString("type"),
+				data.getString("color"),
+				data.getString("size"),
+				data.getDoubleValue("price"));
+		} catch(DuplicateKeyException e) {
+			return -1;
+		}
+		return 1;
+	}
+	
+	/**
+	 * @param id
+	 * @return 从StorageInTemp删除一条信息
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteStorageInTemp")
+	public int deleteStorageInTemp(@RequestParam("id")int id) {
+		int result = storageService.deleteOneStorageInTemp(id);
+		return result;
+	}
+	
+	/**
+	 * @return 清空StorageInTemp并保存至Storage
+	 */
+	@ResponseBody
+	@RequestMapping("/saveTempToStorageIn")
+	public int saveTempStorageIn(int user_id) {
+
+		List<StorageInTemp> temp_list = storageService.getStorageInTempList();
+		
+		int storagein_id = storageService.makeStorageIn(user_id, temp_list.size());
+		// 如果插入ID返回0 则入库失败
+		if(storagein_id == 0) {
+			return -1;
+		}
+
+		// 遍历StorageInTemp表所有条目
+		for(StorageInTemp temp : temp_list) {
+			// 将条目存入storage
+			storageService.insertOneStorge(temp.getStorage_id(), temp.getGood_id(), temp.getColor(), temp.getSize());
+			// 将storage_id存入入库明细单
+			storageService.insertOneStorageInDetail(storagein_id, temp.getStorage_id());
+		}
+		// 清空storagein_temp表
+		storageService.emptyStorageInTemp();
+		
+		return 1;
+	}
+	
+	/**
+	 * @param id
+	 * @return 请求商品详细信息
+	 */
+	@ResponseBody
+	@RequestMapping("/getColorAndSize")
+	public Good getGoodColorAndSize(@RequestParam("id")int id) {
+		
+		Good good = goodService.findGoodInfoWithID(id);
+		return good;
 	}
 	
 	/**
@@ -127,6 +227,10 @@ public class GoodController {
 		return storageService.uncheckAllStorages();
 	}
 	
+	/**
+	 * @param model
+	 * @return 转发商品信息管理页面
+	 */
 	@RequestMapping("/good")
 	public String sendGoodPage(Model model) {
 		
@@ -136,9 +240,13 @@ public class GoodController {
 		return "good";
 	}
 	
+	/**
+	 * @param params
+	 * @return 保存商品信息
+	 */
 	@ResponseBody
 	@RequestMapping("/saveGood")
-	public int addNewGood(@RequestParam String params) {
+	public int addNewGood(@RequestParam("params")String params) {
 		JSONObject data = JSONObject.parseObject(params);
 		JSONArray color = data.getJSONArray("color");
 		JSONArray size = data.getJSONArray("size");

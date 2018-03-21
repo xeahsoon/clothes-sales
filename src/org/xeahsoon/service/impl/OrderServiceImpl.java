@@ -114,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int returnToStorage(int id, int good_id, String color, String size) {
-		return storageMapper.returnToStorage(id, good_id, color, size);
+		return storageMapper.insertOneStorage(id, good_id, color, size);
 	}
 
 	@Override
