@@ -28,19 +28,23 @@
         <h3 class="page-header"><font title="默认显示近16项结果">查询结果</font></h3>
     </div>
     <div class="row panel-list">
-	<c:forEach begin="1" end="16" var="i">
+	<c:forEach items="${requestScope.storagein_list }" var="storagein">
 	<div class="col-md-6 panel-item">
 		<div class="panel panel-default">
 		    <div class="panel-heading">
-		        <h3 class="panel-title"><span>1000000${i }</span><span class="pull-right">2018-0${i }-14 00:00:00</span></h3>
+		        <div>
+		        	<span><fmt:formatNumber value="${storagein.id }" pattern="000000"></fmt:formatNumber> / ${storagein.nums }件 / ${storagein.user.name }</span>
+		        	<span class="pull-right"><fmt:formatDate value="${storagein.create_date }" type="both"></fmt:formatDate></span>
+		        </div>
 		    </div>
 		    <div class="panel-body" style="display: none">
 		        <div class="table-responsive">
-		        	<table class="table table-striped test-panel-table">
+		        	<table class="table table-striped panel-table">
 		        		<thead>
 	        			<tr>
 	        				<th>#</th>
 	        				<th>款号</th>
+	        				<th>类型</th>
 	        				<th>颜色</th>
 	        				<th>大小</th>
 	        			</tr>
@@ -49,17 +53,19 @@
 	        			<tr>
 	        				<th>#</th>
 	        				<th>款号</th>
+	        				<th>类型</th>
 	        				<th>颜色</th>
 	        				<th>大小</th>
 	        			</tr>
 		        		</tfoot>
 		        		<tbody>
-		        		<c:forEach begin="1" end="50" var="i">
+		        		<c:forEach items="${storagein.details }" var="detail">
 		        		<tr>
-		        			<td>100000000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
-		        			<td>172000<fmt:formatNumber value="${i }" pattern="00"></fmt:formatNumber></td>
-		        			<td>白色</td>
-		        			<td>S</td>
+		        			<td><fmt:formatNumber value="${detail.storage.id }" pattern="00000000000"></fmt:formatNumber></td>
+		        			<td><fmt:formatNumber value="${detail.storage.good.id }" pattern="00000000"></fmt:formatNumber></td>
+		        			<td>${detail.storage.good.type }</td>
+		        			<td>${detail.storage.color }</td>
+		        			<td>${detail.storage.size }</td>
 		        		</tr>
 		        		</c:forEach>
 		        		</tbody>

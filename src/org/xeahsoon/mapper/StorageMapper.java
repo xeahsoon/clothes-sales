@@ -30,7 +30,7 @@ public interface StorageMapper {
 		@Result(id=true, column="id", property="id"),
 		@Result(column="good_id", property="good", 
 		one=@One(
-			select = "org.xeahsoon.mapper.GoodMapper.findGoodInfoWithID")),
+			select = "org.xeahsoon.mapper.GoodMapper.findSimpleGoodInfoByID")),
 		@Result(column="color", property="color"),
 		@Result(column="size", property="size")
 	})

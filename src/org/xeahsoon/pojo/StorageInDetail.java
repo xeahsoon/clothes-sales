@@ -17,6 +17,11 @@ public class StorageInDetail {
 	 */
 	private int storage_id;
 	
+	/**
+	 * 库存信息
+	 */
+	private Storage storage;
+	
 	public int getId() {
 		return id;
 	}
@@ -34,6 +39,12 @@ public class StorageInDetail {
 	}
 	public void setStorage_id(int storage_id) {
 		this.storage_id = storage_id;
+	}
+	public Storage getStorage() {
+		return storage;
+	}
+	public void setStorage(Storage storage) {
+		this.storage = storage;
 	}
 	
 	@Override

@@ -13,7 +13,7 @@ import org.xeahsoon.pojo.StorageIn;
 
 public interface StorageInMapper {
 	
-	@Select("select * from storagein")
+	@Select("select * from storagein order by create_date desc")
 	@Results({
 		@Result(id=true, column="id", property="id"),
 		@Result(column="user_id", property="user",
@@ -21,9 +21,9 @@ public interface StorageInMapper {
 			select = "org.xeahsoon.mapper.UserMapper.selectUserById")),
 		@Result(column="nums", property="nums"),
 		@Result(column="create_date", property="create_date"),
-		@Result(column="user_id", property="details",
+		@Result(column="id", property="details",
 		many=@Many(
-			select = "org.xeahsoon.mapper.StorageInDetailMapper.getStorageInDetailById"))
+			select = "org.xeahsoon.mapper.StorageInDetailMapper.getStorageInDetailsById"))
 	})
 	List<StorageIn> getAllStorageIn();
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xeahsoon.pojo.Good;
 import org.xeahsoon.pojo.Storage;
+import org.xeahsoon.pojo.StorageIn;
 import org.xeahsoon.pojo.StorageInTemp;
 import org.xeahsoon.service.GoodService;
 import org.xeahsoon.service.StorageService;
@@ -115,7 +116,7 @@ public class GoodController {
 	
 	/**
 	 * @param params
-	 * @return 读取单间商品到StorageInTemp
+	 * @return 读取单件商品到StorageInTemp
 	 */
 	@ResponseBody
 	@RequestMapping("/addStorageInTemp")
@@ -186,6 +187,19 @@ public class GoodController {
 		
 		Good good = goodService.findGoodInfoWithID(id);
 		return good;
+	}
+	
+	/**
+	 * @param model
+	 * @return 转发storageInHistory页面
+	 */
+	@RequestMapping("/storageInHistory")
+	public String storageInHistory(Model model) {
+		
+		List<StorageIn> storagein_list = storageService.getAllStorageIn();
+		model.addAttribute("storagein_list", storagein_list);
+		
+		return "storageInHistory";
 	}
 	
 	/**
