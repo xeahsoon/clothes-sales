@@ -29,6 +29,10 @@
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/order_detail.png)
 #### 打印订单
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/print_order.png)
+#### 员工业绩
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/staff_sales.png)
+#### 销售统计
+![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/statics.png)
 #### 商品信息
 ![](https://github.com/xeahsoon/clothes_sales/blob/master/WebContent/images/preview/good_detail.png)
 #### 库存进货

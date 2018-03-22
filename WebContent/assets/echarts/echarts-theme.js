@@ -4,6 +4,7 @@
  * 
  * */
 
+
 function Theme() {
 	var blue = {
 		color : [ '#1790cf', '#1bb2d8', '#99d2dd', '#88b0bb', '#1c7099',

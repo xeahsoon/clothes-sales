@@ -33,10 +33,10 @@ $(document).ready(function() {
 	});
 	
 	// 创建菜单栏quicksearch
-	$('input#search_menu').quicksearch('ul.nav li', {
+	$('input#search_menu').quicksearch('ul.nav li:not(.weather)', {
 		// 搜索前展开所有菜单列表
 		'onBefore' : function() {
-			$(".collapse").addClass("in");
+			$(".sidebar .collapse").addClass("in");
 		}
 	});
 	

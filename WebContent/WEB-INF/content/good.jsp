@@ -24,7 +24,7 @@
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
-		        	<table id="goods_table" class="table table-striped table-hover">
+		        	<table id="goods_table" class="table table-striped table-hover" style="white-space: nowrap;">
 		        	<thead>
 		        	<tr>
 		        	<th>#款号</th>
@@ -74,7 +74,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">商品信息</h3>
 			</div>
-			<div class="panel-body" style="min-height: 491px;">
+			<div class="panel-body" style="min-height: 508px;">
 				<div class="input-group">
 					<span class="input-group-addon">款号</span>
 					<input type="text" id="good_id" class="form-control" placeholder="款号..">

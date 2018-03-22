@@ -17,7 +17,6 @@
         <h2 class="page-header">库存进货</h2>
     </div>
     <div class="row">
-    
     	<div class="col-md-3">
 	        <div class="input-group">
 	            <span class="input-group-addon">条形码：</span>

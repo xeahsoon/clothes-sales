@@ -66,7 +66,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><span id="tp-weather-widget" style="display: block; padding-top: 10px;"></span></li>
+					<li class="weather"><span id="tp-weather-widget" style="display: block; padding-top: 10px;"></span></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">Sales</a>
 						<ul class="dropdown-menu">
 							<li><a data-url="makeOrder"> <span
@@ -78,7 +78,7 @@
 						</ul></li>
 					<li><a class="dropdown-toggle" data-toggle="dropdown">Statics</a>
 						<ul class="dropdown-menu">
-							<li><a data-url="staffsales"> <span
+							<li><a data-url="staffSales"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>导购员业绩统计
 							</a></li>
 							<li><a data-url="statics"> <span
@@ -159,7 +159,7 @@
 				</div>
 				<div id="list2" class="collapse">
 					<ul class="nav nav-sidebar">
-						<li><a data-url="staffsales">导购员业绩统计</a></li>
+						<li><a data-url="staffSales">导购员业绩统计</a></li>
 						<li><a data-url="statics">销售统计</a></li>
 					</ul>
 				</div>
