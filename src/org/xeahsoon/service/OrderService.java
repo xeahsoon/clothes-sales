@@ -2,9 +2,10 @@ package org.xeahsoon.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
+
+import com.alibaba.fastjson.JSONObject;
 
 public interface OrderService {
 	
@@ -126,4 +127,6 @@ public interface OrderService {
 	 * @return 更新订单中return_flag标记为0的数量、金额统计结果
 	 */
 	int updateOrderNumsAndMoney(int order_id);
+	
+	List<JSONObject> getStatics(String field);
 }

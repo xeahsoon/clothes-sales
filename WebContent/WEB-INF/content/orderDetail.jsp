@@ -62,8 +62,11 @@
             </tr>
         </table>
     </div>
+    
+   	<div class="panel panel-default">
+	<div class="panel-body" style="background-color: #fafafa;">
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th width="15%">条形码</th>
@@ -176,6 +179,8 @@
 		</div>
 		<!-- printing modal -->
         <c:import url="printModal.jsp"></c:import>
+    </div>
+    </div>
     </div>
 </div>
 </body>

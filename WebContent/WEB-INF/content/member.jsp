@@ -55,6 +55,8 @@
     <div>
         <h2 class="page-header">会员列表</h2>
     </div>
+    <div class="panel panel-default">
+	<div class="panel-body" style="background-color: #fafafa;">
     <div class="table-responsive">
         <table id="memberTable" class="table table-striped">
             <thead>
@@ -145,6 +147,8 @@
     			</div>
     		</div>
     	</div>
+    </div>
+    </div>
     </div>
 </div>
 </body>

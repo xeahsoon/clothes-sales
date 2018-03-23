@@ -48,8 +48,11 @@
         <h3 class="page-header" title="左侧表格为未盘点库存，右侧为已盘点">明细</h3>
     </div>
     <div class="row">
-	    <div class="table-responsive col-md-6">
-	        <table id="uncheckedTable" class="table table-striped">
+    <div class="col-md-6">
+    <div class="panel panel-default">
+		<div class="panel-body" style="background-color: #fafafa;">
+	    <div class="table-responsive">
+	        <table id="uncheckedTable" class="table table-hover">
 	        <thead>
 	        <tr>
 	        	<th>#未盘点</th>
@@ -84,8 +87,14 @@
 	        </tbody>
 	        </table>
 	    </div>
-	    <div class="table-responsive col-md-6">
-	        <table id="checkedTable" class="table table-striped">
+	   	</div>
+   	</div>
+   	</div>
+   	<div class="col-md-6">
+   	<div class="panel panel-default">
+		<div class="panel-body" style="background-color: #fafafa;">
+	    <div class="table-responsive">
+	        <table id="checkedTable" class="table table-hover">
 	        <thead>
 	        <tr>
 	        	<th>#已盘点</th>
@@ -120,6 +129,9 @@
 	        </tbody>
 	        </table>
 	    </div>
+	    </div>
+    </div>
+    </div>
     </div>
 </div>
 </body>

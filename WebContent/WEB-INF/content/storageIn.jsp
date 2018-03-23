@@ -57,8 +57,10 @@
     <div style="margin-top: 30px">
         <h3 class="page-header">入库明细</h3>
     </div>
+    <div class="panel panel-default">
+	<div class="panel-body" style="background-color: #fafafa;">
     <div class="table-responsive">
-        <table id="inStorageTable" class="table table-striped">
+        <table id="inStorageTable" class="table table-hover">
         	<thead>
         	<tr>
         		<th>#</th>
@@ -99,7 +101,8 @@
         	</tbody>
         </table>
     </div>
-
+	</div>
+	</div>
 </div>
 </body>
 </html>

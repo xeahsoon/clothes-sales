@@ -157,7 +157,7 @@
 				<div class="menu">
 					<a data-toggle="collapse" data-parent="#accordion" href="#list2">报表统计</a>
 				</div>
-				<div id="list2" class="collapse">
+				<div id="list2" class="collapse in">
 					<ul class="nav nav-sidebar">
 						<li><a data-url="staffSales">导购员业绩统计</a></li>
 						<li><a data-url="statics">销售统计</a></li>
@@ -167,7 +167,7 @@
 				<div class="menu">
 					<a data-toggle="collapse" data-parent="#accordion" href="#list3">库存管理</a>
 				</div>
-				<div id="list3" class="collapse">
+				<div id="list3" class="collapse in">
 					<ul class="nav nav-sidebar">
 						<li><a data-url="searchGood">商品资料查询</a></li>
 						<li><a data-url="storageIn">库存进货</a></li>

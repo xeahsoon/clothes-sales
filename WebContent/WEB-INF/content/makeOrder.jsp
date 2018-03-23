@@ -101,8 +101,11 @@
                 </td>
                 </tr>
                 </table>
+                
+	    	<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-body" style="background-color: #fafafa;">
                 <div class="table-responsive">
-                    <table id="temp_order_table" class="table table-striped">
+                    <table id="temp_order_table" class="table table-hover">
                         <thead>
                         <tr>
                             <th width="16%">#</th>
@@ -156,6 +159,8 @@
                         </tfoot>
                     </table>
                 </div>
+                </div>
+            </div>
             </form>
     	</div>
     </body>

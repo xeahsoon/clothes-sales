@@ -14,7 +14,7 @@
         $(document).ready(function() {
         	//创建goods dataTable
 	        var table = $('#goods_table').DataTable({
-	        	"dom": 'lrtip',
+	        	"dom": "<'row'<'col-sm-6'l>><'row'<'col-sm-12'tr>><'row'<'col-sm-4'i><'col-sm-8'p>>",
 	        	//设置操作栏 排序为 false
 	            "columnDefs": [
 	                { "orderable": false, "targets": 6 }
@@ -96,7 +96,7 @@
 			</div>
         </div>
         <div class="table-responsive">
-            <table id="goods_table" class="table table-striped">
+            <table id="goods_table" class="table table-hover">
                 <thead>
                 <tr>
                     <th>#</th>

@@ -13,6 +13,8 @@ import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
 import org.xeahsoon.service.OrderService;
 
+import com.alibaba.fastjson.JSONObject;
+
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
@@ -130,5 +132,33 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int updateOrderNumsAndMoney(int order_id) {
 		return orderMapper.updateOrderNumAndeMoney(order_id);
+	}
+
+	@Override
+	public List<JSONObject> getStatics(String field) {
+		List<JSONObject> statics = null;
+		switch(field) {
+			case "good_id":
+				statics = orderDetailMapper.getGoodStatics(); break;
+			case "good_type":
+				statics = orderDetailMapper.getTypeStatics(); break;
+			case "user_id":
+				statics = orderDetailMapper.getUserStatics(); break;
+			case "pay_mode":
+				statics = orderDetailMapper.getPayModeStatics();
+				// 对数据库中的1、2、3、4进行转换
+				for(JSONObject obj : statics) {
+					switch(obj.getIntValue("field")) {
+						case 1: obj.replace("field", "银行卡"); break;
+						case 2: obj.replace("field", "支付宝"); break;
+						case 3: obj.replace("field", "微信"); break;
+						case 4: obj.replace("field", "现金"); break;
+						default: break;
+					}
+				}
+				break;
+			default: statics = null; break;
+		}
+		return statics;
 	}
 }

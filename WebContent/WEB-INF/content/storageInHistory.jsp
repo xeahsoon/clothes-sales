@@ -8,6 +8,8 @@
     <meta charset="UTF-8">
     <title>入库查询</title>
     <script>
+    	var data = '${requestScope.storagein_list }';
+    	console.log(data);
 		$.getScript("js/storageInHistory.js");
     </script>
 </head>
@@ -39,7 +41,7 @@
 		    </div>
 		    <div class="panel-body" style="display: none">
 		        <div class="table-responsive">
-		        	<table class="table table-striped panel-table">
+		        	<table class="table table-hover panel-table">
 		        		<thead>
 	        			<tr>
 	        				<th>#</th>

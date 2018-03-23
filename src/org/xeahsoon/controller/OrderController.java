@@ -432,4 +432,31 @@ public class OrderController {
 		
 		return "staffsales";
 	}*/
+	
+	/**
+	 * @param model
+	 * @return 转发销售统计页面
+	 */
+	@RequestMapping("/statics")
+	public String statics(Model model) {
+		
+		List<JSONObject> good_statics = orderService.getStatics("good_id");
+		model.addAttribute("good_statics", good_statics);
+		
+		return "statics";
+	}
+	
+	/**
+	 * @param params 查询参数
+	 * @return 返回销售统计数据
+	 */
+	@ResponseBody
+	@RequestMapping("/getStatics")
+	public List<JSONObject> getStatics(@RequestParam("params")String params) {
+		
+		System.err.println(params);
+		JSONObject data = JSONObject.parseObject(params);
+		
+		return orderService.getStatics(data.getString("field"));
+	}
 }

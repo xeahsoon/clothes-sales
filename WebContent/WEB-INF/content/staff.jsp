@@ -102,8 +102,10 @@
 		<div>
 			<h2 class="page-header">导购员列表</h2>
 		</div>
+		<div class="panel panel-default">
+		<div class="panel-body" style="background-color: #fafafa;">
 		<div class="table-responsive">
-			<table id="staffTable" class="table table-striped">
+			<table id="staffTable" class="table table-hover">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -182,6 +184,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		</div>
 		</div>
 	</div>
 </body>

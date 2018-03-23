@@ -46,6 +46,7 @@ $(document).ready(function(){
 		},
 		"dom": "<'row'<'col-sm-12'>tr><'row'<'col-sm-4'i><'col-sm-8'p>>",
         "order": [[ 0, "desc" ]],
+        "lengthMenu": [[8], [8]],
         //设置操作栏 排序为 false
         "columnDefs": [
             { "orderable": false, "targets": 6 }

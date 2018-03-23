@@ -14,33 +14,84 @@ $(document).ready(function(){
         forceParse: 0,
         format: "yyyy-mm-dd"
     });
-    
-    $("#statics_table").DataTable({
-		"language": {
-			url: "assets/dataTables/plug-in/Chinese.json"
-		},
-        "lengthMenu": [[8], [8]],
-		"dom": "<'row'<'col-sm-12'>tr><'row'<'col-sm-12'p>>",
-		"ordering": false
-	});
-    
-	var numsChart = echarts.init(document.getElementById('nums_statics'));
-	var moneyChart = echarts.init(document.getElementById('money_statics'));
-
-	var data={};
-	data["title"] = "商品数量";
-	data["xData"] = ['松子','婷婷','小黑','倩倩','小明','景云','小霞'];
-	data["seriesName"] = "数量";
-	data["yData"] = ['10','20','25','40','30','18','12'];
-    // 使用刚指定的配置项和数据显示图表。
-	numsChart.setOption(createOption(data));
-	moneyChart.setOption(createOption(data));
 });
+
+var numsChart = echarts.init(document.getElementById('nums_statics'));
+var moneyChart = echarts.init(document.getElementById('money_statics'));
+
+var table = $("#statics_table").DataTable({
+	"language": {
+		url: "assets/dataTables/plug-in/Chinese.json"
+	},
+    "lengthMenu": [[8], [8]],
+	"dom": "<'row'<'col-sm-12'>tr><'row'<'col-sm-12'p>>",
+	"ordering": false,
+	"footerCallback": function ( row, data, start, end, display ) {
+        var api = this.api(), data; 
+        // Remove the formatting to get integer data for summation
+        var intVal = function ( i ) {
+            return typeof i === 'string' ?
+                i.replace(/[\$,]/g, '')*1 :
+                typeof i === 'number' ?
+                    i : 0;
+        };
+        // Total over all pages
+        totalNum = api.column(1).data().reduce(function(a, b) {
+            return intVal(a) + intVal(b);
+        }, 0);
+        totalPrice = api.column(2).data().reduce( function (a, b) {
+            return intVal(a) + intVal(b);
+        }, 0);
+        // Update footer
+        $(api.column(1).header()).html(totalNum+"件");
+        $(api.column(2).header()).html(totalPrice+"元");
+    }
+});
+
+function initGraphs(rawData) {
+	// x轴公用显示field，yData1存储num，yData2存储price
+	var xData=[], yData1=[], yData2=[];
+	for(var item of rawData) {
+		xData.push(item.field);
+		yData1.push(item.num);
+		yData2.push(item.price);
+	}
+	
+	var data1={}, data2={};
+	
+	data1["title"] = "商品件数";
+	data1["xData"] = xData;
+	data1["seriesName"] = "件数";
+	data1["yData"] = yData1;
+	
+	data2["title"] = "商品金额";
+	data2["xData"] = xData;
+	data2["seriesName"] = "金额";
+	data2["yData"] = yData2;
+	
+    // 使用刚指定的配置项和数据显示图表。
+	numsChart.setOption(createOption(data1));
+	moneyChart.setOption(createOption(data2));
+}
+
+function initTable(rawData) {
+	var dataSet = [];
+	for(var item of rawData) {
+		var row=[];
+		row.push(item.field);
+		row.push(item.num);
+		row.push(item.price);
+		dataSet.push(row);
+	}
+	// 偏方刷新DataTable
+	table.clear();
+	table.rows.add(dataSet).draw();
+}
 
 function createOption(data) {
 	var option = {
 	    title : {
-	        text : data.title,
+	    	text : data.title,
 	        textStyle : {
 				fontSize : 16
 			},
@@ -48,10 +99,10 @@ function createOption(data) {
 			subtextStyle : {
 				// 为何无效？
 				align : 'center',
-				verticalAlign : 'bottom'
-			}
+				verticalAlign : 'bottom',
+			},
+			itemGap : 18
 	    },
-	    color : ["#428bca"],
 	    tooltip : {
 	        trigger: 'axis'
 	    },
@@ -63,6 +114,10 @@ function createOption(data) {
 	        }
 	    },
 	    calculable : true,
+	    grid : {
+	    	top : 68,
+	    	bottom : 38
+	    },
 	    xAxis : [
 	        {
 	            type : 'category',
@@ -72,7 +127,7 @@ function createOption(data) {
 	    yAxis : [
 	        {
 	            type : 'value',
-	            boundaryGap: ['20%', '20%']
+	            boundaryGap: ['0%', '10%']
 	        }
 	    ],
 	    series : [
@@ -81,6 +136,16 @@ function createOption(data) {
 	            type:'bar',
 	            data:data.yData,
 	            barCategoryGap: '40%',
+	            barMaxWidth: 28,
+	            itemStyle : {
+	            	normal : {
+	            		color: function(params) {
+	            		    var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
+	            		    return colorList[params.dataIndex];
+	            		},
+		            	opacity : 0.8
+	            	}
+	            }, 
 	            markPoint : {
 	                data : [
 	                    {type : 'max', name: '最大值'},
@@ -97,13 +162,15 @@ function createOption(data) {
 	};
 	return option;
 }
+
 // 重置查询
 function resetSearch() {
 	$(".date").val("");
 	$('#search_select').multiselect('deselectAll');
 	$('#search_select').multiselect('select', ['good_id']);
 }
-// 获取查询数据
+
+// 查询数据
 function getStatics() {
 	var from_date = $("#from_date").val();
 	var to_date = $("#to_date").val();
@@ -128,5 +195,19 @@ function getStatics() {
 		data["to_date"] = to_date;
 	}
 	
-	toastr.info(JSON.stringify(data));
+	// 请求数据
+	$.ajax({
+		url: "getStatics",
+		type: "POST",
+		data: {
+			params: JSON.stringify(data)
+		},
+		dataType: "json",
+		success: function(data) {
+			// 刷新柱形图
+			initGraphs(data);
+			// 刷新表格
+			initTable(data);
+		},
+	});
 }

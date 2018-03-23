@@ -2,7 +2,6 @@ package org.xeahsoon.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +10,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.xeahsoon.pojo.OrderDetail;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author user
@@ -80,4 +81,38 @@ public interface OrderDetailMapper {
 	 */
 	@Update("update `order_detail` set return_flag = '1' where order_id = #{order_id} and storage_id = #{storage_id}")
 	int updateDetailFlag(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
+	
+	/**
+	 * @return 款号销售数据
+	 */
+	@Select("select good_id as field, count(*) as num, sum(dis_price) as price "
+			+ "from order_detail "
+			+ "group by field")
+	List<JSONObject> getGoodStatics();
+	
+	/**
+	 * @return 类型销售数据
+	 */
+	@Select("select (select type from good where id=good_id) as field, count(*) as num, sum(dis_price) as price "
+			+ "from order_detail "
+			+ "group by field")
+	List<JSONObject> getTypeStatics();
+	
+	/**
+	 * @return 店长销售数据
+	 */
+	@Select("select (select name from `user` where id = (select user_id from `order` where id = order_id)) as field, "
+			+ "count(*) as num, sum(dis_price) as price "
+			+ "from `order_detail` "
+			+ "group by field;")
+	List<JSONObject> getUserStatics();
+	
+	/**
+	 * @return 支付方式统计数据
+	 */
+	@Select("select (select pay_mode from `order` where id = order_id) as field, "
+			+ "count(*) as num, sum(dis_price) as price "
+			+ "from `order_detail` "
+			+ "group by field;")
+	List<JSONObject> getPayModeStatics();
 }

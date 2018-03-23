@@ -8,7 +8,11 @@
     <meta charset="UTF-8">
     <title>销售统计</title>
     <script>
-    	$.getScript("js/statics.js");
+    	$.getScript("js/statics.js", function() {
+    		var init_statics = '${requestScope.good_statics }';
+    		initGraphs(JSON.parse(init_statics));
+    		initTable(JSON.parse(init_statics));
+    	});
     </script>
 </head>
 <body>
@@ -68,20 +72,18 @@
 	        	<thead>
 		        	<tr>
 		        	<th>#</th>
-		        	<th>条目</th>
-		        	<th>数量</th>
-		        	<th>金额</th>
+		        	<th style="word-break: keep-all;">0件</th>
+		        	<th style="word-break: keep-all;">0.00</th>
 		        	</tr>
 	        	</thead>
 	        	<tbody>
-	        	<c:forEach begin="1" end="8" var="i">
+	        	<%-- <c:forEach items="${requestScope.good_statics }" var="good_static">
 		        	<tr>
-		        	<td>${i }</td>
-		        	<td>导购员${i }</td>
-		        	<td>${i }</td>
-		        	<td>${i }00</td>
+		        	<td>${good_static.field }</td>
+		        	<td>${good_static.num }</td>
+		        	<td>${good_static.price }</td>
 		        	</tr>
-	        	</c:forEach>
+	        	</c:forEach> --%>
 	        	</tbody>
 	        	</table>
         	</div>
