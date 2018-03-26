@@ -1,6 +1,7 @@
 package org.xeahsoon.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -440,7 +441,7 @@ public class OrderController {
 	@RequestMapping("/statics")
 	public String statics(Model model) {
 		
-		List<JSONObject> good_statics = orderService.getStatics("good_id");
+		List<JSONObject> good_statics = orderService.getStatics(null, null, "good_id");
 		model.addAttribute("good_statics", good_statics);
 		
 		return "statics";
@@ -456,7 +457,10 @@ public class OrderController {
 		
 		System.err.println(params);
 		JSONObject data = JSONObject.parseObject(params);
+		Date from = data.getDate("from_date");
+		Date to = data.getDate("to_date");
+		System.err.println(from + "\n" + to);
 		
-		return orderService.getStatics(data.getString("field"));
+		return orderService.getStatics(from, to, data.getString("field"));
 	}
 }

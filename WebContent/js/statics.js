@@ -192,7 +192,7 @@ function getStatics() {
 		data["from_date"] = from_date;
 	}
 	if(to_date.length != 0) {
-		data["to_date"] = to_date;
+		data["to_date"] = to_date + " 23:59:59";
 	}
 	
 	// 请求数据

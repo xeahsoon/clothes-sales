@@ -1,5 +1,6 @@
 package org.xeahsoon.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,17 +136,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<JSONObject> getStatics(String field) {
+	public List<JSONObject> getStatics(Date from, Date to, String field) {
 		List<JSONObject> statics = null;
 		switch(field) {
 			case "good_id":
-				statics = orderDetailMapper.getGoodStatics(); break;
+				statics = orderDetailMapper.getGoodStatics(from, to); break;
 			case "good_type":
-				statics = orderDetailMapper.getTypeStatics(); break;
+				statics = orderDetailMapper.getTypeStatics(from, to); break;
 			case "user_id":
-				statics = orderDetailMapper.getUserStatics(); break;
+				statics = orderDetailMapper.getUserStatics(from, to); break;
 			case "pay_mode":
-				statics = orderDetailMapper.getPayModeStatics();
+				statics = orderDetailMapper.getPayModeStatics(from, to);
 				// 对数据库中的1、2、3、4进行转换
 				for(JSONObject obj : statics) {
 					switch(obj.getIntValue("field")) {

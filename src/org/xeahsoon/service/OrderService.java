@@ -1,5 +1,6 @@
 package org.xeahsoon.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.xeahsoon.pojo.Order;
@@ -128,5 +129,5 @@ public interface OrderService {
 	 */
 	int updateOrderNumsAndMoney(int order_id);
 	
-	List<JSONObject> getStatics(String field);
+	List<JSONObject> getStatics(Date from, Date to, String field);
 }

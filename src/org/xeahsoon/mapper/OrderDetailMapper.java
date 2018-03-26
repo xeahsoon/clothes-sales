@@ -1,5 +1,6 @@
 package org.xeahsoon.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -83,36 +84,74 @@ public interface OrderDetailMapper {
 	int updateDetailFlag(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
 	
 	/**
+	 * @param to 
+	 * @param from 
 	 * @return 款号销售数据
 	 */
-	@Select("select good_id as field, count(*) as num, sum(dis_price) as price "
+	@Select("<script>"
+			+ "select good_id as field, count(*) as num, sum(dis_price) as price "
 			+ "from order_detail "
-			+ "group by field")
-	List<JSONObject> getGoodStatics();
+			+ "where 1=1 "
+			+ "<if test='from != null'> "
+			+ "and (select create_date from `order` where id = order_id) &gt; #{from} "
+			+ "</if> "
+			+ "<if test='to != null'> "
+			+ "and (select create_date from `order` where id = order_id) &lt; #{to} "
+			+ "</if> "
+			+ "group by field"
+			+ "</script>")
+	List<JSONObject> getGoodStatics(@Param("from")Date from, @Param("to")Date to);
 	
 	/**
 	 * @return 类型销售数据
 	 */
-	@Select("select (select type from good where id=good_id) as field, count(*) as num, sum(dis_price) as price "
+	@Select("<script>"
+			+ "select (select type from good where id=good_id) as field, count(*) as num, sum(dis_price) as price "
 			+ "from order_detail "
-			+ "group by field")
-	List<JSONObject> getTypeStatics();
+			+ "where 1=1 "
+			+ "<if test='from != null'> "
+			+ "and (select create_date from `order` where id = order_id) &gt; #{from} "
+			+ "</if> "
+			+ "<if test='to != null'> "
+			+ "and (select create_date from `order` where id = order_id) &lt; #{to} "
+			+ "</if> "
+			+ "group by field"
+			+ "</script>")
+	List<JSONObject> getTypeStatics(@Param("from")Date from, @Param("to")Date to);
 	
 	/**
 	 * @return 店长销售数据
 	 */
-	@Select("select (select name from `user` where id = (select user_id from `order` where id = order_id)) as field, "
+	@Select("<script>"
+			+ "select (select name from `user` where id = (select user_id from `order` where id = order_id)) as field, "
 			+ "count(*) as num, sum(dis_price) as price "
 			+ "from `order_detail` "
-			+ "group by field;")
-	List<JSONObject> getUserStatics();
+			+ "where 1=1 "
+			+ "<if test='from != null'> "
+			+ "and (select create_date from `order` where id = order_id) &gt; #{from} "
+			+ "</if> "
+			+ "<if test='to != null'> "
+			+ "and (select create_date from `order` where id = order_id) &lt; #{to} "
+			+ "</if> "
+			+ "group by field"
+			+ "</script>")
+	List<JSONObject> getUserStatics(@Param("from")Date from, @Param("to")Date to);
 	
 	/**
 	 * @return 支付方式统计数据
 	 */
-	@Select("select (select pay_mode from `order` where id = order_id) as field, "
+	@Select("<script>"
+			+ "select (select pay_mode from `order` where id = order_id) as field, "
 			+ "count(*) as num, sum(dis_price) as price "
 			+ "from `order_detail` "
-			+ "group by field;")
-	List<JSONObject> getPayModeStatics();
+			+ "where 1=1 "
+			+ "<if test='from != null'> "
+			+ "and (select create_date from `order` where id = order_id) &gt; #{from} "
+			+ "</if> "
+			+ "<if test='to != null'> "
+			+ "and (select create_date from `order` where id = order_id) &lt; #{to} "
+			+ "</if> "
+			+ "group by field"
+			+ "</script>")
+	List<JSONObject> getPayModeStatics(@Param("from")Date from, @Param("to")Date to);
 }
