@@ -84,6 +84,33 @@ public interface OrderDetailMapper {
 	int updateDetailFlag(@Param("order_id")int order_id, @Param("storage_id")int storage_id);
 	
 	/**
+	 * @param from
+	 * @param to
+	 * @return 返回sum_money, nums, snums, staff_id
+	 */
+	@Select("<script>"+
+			"select sum_money, nums, snums, name from ( "+
+				"select o.id, o.sum_money, o.nums, s.name "+
+				"from `order` o, `order_staff` os, `staff` s "+
+				"where os.order_id = o.id and os.staff_id = s.id "+
+				"<if test='from != null'> "+
+				"and o.create_date &gt; #{from} "+
+				"</if> "+
+				"<if test='to != null'> "+
+				"and o.create_date &lt; #{to} "+
+				"</if> "+
+			") as t  "+
+			"left join ( "+
+				"select o1.id, count(o1.id) as snums "+
+				"from `order` o1, `order_staff` os1 "+
+				"where os1.order_id = o1.id "+
+				"group by o1.id "+
+			") as t1 "+
+			"on t.id = t1.id" +
+			"</script>")
+	List<JSONObject> getStaffSales(@Param("from")Date from, @Param("to")Date to);
+	
+	/**
 	 * @param to 
 	 * @param from 
 	 * @return 款号销售数据

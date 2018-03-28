@@ -57,17 +57,6 @@
 			            </tr>
 			            </thead>
 			            <tbody>
-			            <c:forEach begin="1" end="8">
-			            <tr>
-			                <td>1001</td>
-			                <td>松子</td>
-			                <td>10</td>
-			                <td>4</td>
-			                <td>2.5</td>
-			                <td>160</td>
-			                <td>640.00</td>
-			            </tr>
-			            </c:forEach>
 			            <tr style="border-bottom: 2px solid #ddd">
 			                <th>合计</th>
 			                <th>7位</th>

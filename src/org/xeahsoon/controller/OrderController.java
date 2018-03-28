@@ -27,6 +27,7 @@ import org.xeahsoon.service.OrderService;
 import org.xeahsoon.service.StaffService;
 import org.xeahsoon.service.StorageService;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -336,8 +337,55 @@ public class OrderController {
 		return "orderDetail/" + order_id;
 	}
 	
-	//计算导购员业绩
-	@RequestMapping(value="/staffsales")
+	/*//计算导购员业绩
+	@RequestMapping("/staffSales")
+	public String staffsales(Model model) {
+		// 金额、件数、导购员数、导购员姓名
+		List<JSONObject> raw_sales = orderService.getStaffSales(null, null);
+		Map<String, JSONObject> staff_sales = new HashMap<String, JSONObject>();
+		for(int i=0; i<raw_sales.size(); i++) {
+			// 姓名、件数、票数、附加、单效、业绩
+			int nums = raw_sales.get(i).getIntValue("nums");
+			int snums = raw_sales.get(i).getIntValue("snums");
+			double sum_money = raw_sales.get(i).getDoubleValue("sum_money");
+			
+			String name = raw_sales.get(i).getString("name");
+
+			JSONObject obj = new JSONObject();
+			obj.put("money", 0.00);
+			obj.put("nums", 0);
+			obj.put("onums", 0);
+			if(!staff_sales.containsKey(name)) {
+				obj.put("money", sum_money);
+				obj.put("nums", nums);
+				obj.put("onums", 1);
+				staff_sales.put(name, obj);
+			} else {
+				obj = staff_sales.get("name");
+				obj.put("money", obj.getDoubleValue("money") + sum_money);
+				obj.put("nums", obj.getDoubleValue("nums") + nums);
+				obj.put("onums", obj.getDoubleValue("nums") + 1);
+			}
+		}
+		System.err.println(JSON.toJSON(staff_sales));
+		
+		return "staffsales";
+	}*/
+	
+	@ResponseBody
+	@RequestMapping("/getStaffSales")
+	public List<JSONObject> getStaffSales(@RequestParam("params")String params) {
+		
+		JSONObject data = JSONObject.parseObject(params);
+		Date from = data.getDate("from_date");
+		Date to = data.getDate("to_date");
+		
+		List<JSONObject> sales_list = orderService.getStaffSales(from, to);
+
+		return sales_list;
+	}
+	
+	/*@RequestMapping(value="/staffsales")
 	public String countStaffMoney(Model model) {
 		
 		// 订单列表
@@ -455,11 +503,9 @@ public class OrderController {
 	@RequestMapping("/getStatics")
 	public List<JSONObject> getStatics(@RequestParam("params")String params) {
 		
-		System.err.println(params);
 		JSONObject data = JSONObject.parseObject(params);
 		Date from = data.getDate("from_date");
 		Date to = data.getDate("to_date");
-		System.err.println(from + "\n" + to);
 		
 		return orderService.getStatics(from, to, data.getString("field"));
 	}

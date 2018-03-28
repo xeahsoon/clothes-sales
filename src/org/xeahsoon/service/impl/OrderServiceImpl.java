@@ -136,6 +136,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public List<JSONObject> getStaffSales(Date from, Date to) {
+		return orderDetailMapper.getStaffSales(from, to);
+	}
+	
+	@Override
 	public List<JSONObject> getStatics(Date from, Date to, String field) {
 		List<JSONObject> statics = null;
 		switch(field) {

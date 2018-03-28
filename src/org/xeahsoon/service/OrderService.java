@@ -129,5 +129,18 @@ public interface OrderService {
 	 */
 	int updateOrderNumsAndMoney(int order_id);
 	
+	/**
+	 * @param from
+	 * @param to
+	 * @return 返回sum_money, nums, snums, staff_id
+	 */
+	List<JSONObject> getStaffSales(Date from, Date to);
+	
+	/**
+	 * @param from
+	 * @param to
+	 * @param field
+	 * @return 返回field, nums, price
+	 */
 	List<JSONObject> getStatics(Date from, Date to, String field);
 }

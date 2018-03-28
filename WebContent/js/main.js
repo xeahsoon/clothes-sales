@@ -101,6 +101,16 @@ $(document).ready(function() {
 	        }
 	    ]
 	});
+	
+	// 设置全局ajax显示loading GIF
+	$.ajaxSetup({
+		beforeSend: function() {
+			$("#shade").show();
+		},
+		complete: function() {
+			$("#shade").hide();
+		}
+	});
 });
 
 // 设置顶部栏时间

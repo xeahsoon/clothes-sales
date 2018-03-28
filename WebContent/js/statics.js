@@ -95,12 +95,12 @@ function createOption(data) {
 	        textStyle : {
 				fontSize : 16
 			},
-			subtext: '2018-03-01 ~ 2018-03-22',
+			/*subtext: '2018-03-01 ~ 2018-03-22',
 			subtextStyle : {
 				// 为何无效？
 				align : 'center',
 				verticalAlign : 'bottom',
-			},
+			},*/
 			itemGap : 18
 	    },
 	    tooltip : {
@@ -115,7 +115,7 @@ function createOption(data) {
 	    },
 	    calculable : true,
 	    grid : {
-	    	top : 68,
+	    	top : 48, //68
 	    	bottom : 38
 	    },
 	    xAxis : [

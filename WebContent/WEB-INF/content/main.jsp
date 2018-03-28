@@ -272,17 +272,24 @@
 								</c:forEach>
 							</tbody>
 						</table>
-
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
-
-	<!-- Placed at the end of the document so the pages load faster -->
 	
+	<!-- 加载loading -->
+	<div id="shade" class="shade">
+		<div class="loading">  
+		     <span></span>  
+		     <span></span>  
+		     <span></span>  
+		     <span></span>  
+		     <span></span>  
+		</div>
+	</div>
+	
+	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 	<script src="assets/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
