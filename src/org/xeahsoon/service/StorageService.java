@@ -6,6 +6,8 @@ import org.xeahsoon.pojo.Storage;
 import org.xeahsoon.pojo.StorageIn;
 import org.xeahsoon.pojo.StorageInTemp;
 
+import com.alibaba.fastjson.JSONObject;
+
 public interface StorageService {
 
 	List<Storage> listSameGoods(int code);
@@ -25,6 +27,8 @@ public interface StorageService {
 	int insertOneStorge(int id, int good_id, String color, String size);
 	
 	Storage getStorageWithId(int id);
+	
+	List<JSONObject> getGoodLeftColorAndSize(int good_id);
 	
 	/**
 	 * 分界线..

@@ -66,13 +66,22 @@
                         <tr style="border-bottom: 1px solid #ddd">
                             <th>面料</th><td>${requestScope.good.fabric }</td>
                             <td style="color: #ddd">/</td>
-                            <th>库存</th><td>52</td>
+                            <c:set var="storage_nums" value="0"></c:set>
+                            
+                            <!-- 计算总库存 -->
+                            <c:forEach items="${requestScope.left_storage }" var="storage">
+                            	<c:set var="storage_nums" value="${storage_nums + storage.left }"></c:set>
+                            </c:forEach>
+                            <th>库存</th><td>${storage_nums }件</td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <div class="container col-md-8"style="height:200px;">
-                <div class="table-responsive col-md-6" style="height: 195px; overflow: auto;">
+            <div class="container col-md-8"style="height:200px; ">
+                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" alt="No Picture Found"
+                	onload="placeGoodPicture('${requestScope.good.picture }', '${requestScope.good.type }', this)"/>
+                <div class="table-responsive col-md-6 pull-right" 
+                	style="height: 195px; overflow: auto; margin-right:30px;">
                     <table class="table table-condensed">
                         <thead>
                         <tr>
@@ -85,14 +94,28 @@
                         <tbody>
                         <c:forEach items="${requestScope.good.good_color }" var="color">
                         	<tr>
-                        		<td>${color.good_color }</td>
+                        		<th>${color.good_color }</th>
+                        		<c:forEach items="${requestScope.good.good_size }" var="size">
+                        			<c:set var="exist" value="false"></c:set>
+                        			
+                        			<!-- 循环匹配剩余库存，颜色及尺码相同则输出字段left，并更新exist标记 -->
+                        			<c:forEach items="${requestScope.left_storage }" var="storage">
+                        				<c:if test="${storage.color == color.good_color && storage.size == size.good_size }">
+                        					<c:set var="exist" value="true"></c:set>
+                        					<td>${storage.left }</td>
+                        				</c:if>
+                        			</c:forEach>
+                        			
+                        			<!-- exist标记为false，即没有库存 -->
+                        			<c:if test="${exist == false }">
+                        				<td style="color:#888">-</td>
+                        			</c:if>
+                        		</c:forEach>
                         	</tr>
                         </c:forEach>
                         </tbody>
                     </table>
                 </div>
-                <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" alt="No Picture Found"
-                	onload="placeGoodPicture('${requestScope.good.picture }', '${requestScope.good.type }', this)"/>
 			</div>
         </div>
         <div class="table-responsive">
@@ -121,13 +144,13 @@
                 </tfoot>
                 <tbody>
                 
-                <c:forEach items="${requestScope.good_list }" var="good">
+                <c:forEach items="${requestScope.storage_array }" var="good">
 	            	<tr>
 	            		<td><fmt:formatNumber value="${good.id }" pattern="00000000" /></td>
 	            		<td>${good.type }</td>
-	            		<td>白色 黑色 蓝色 深绿色</td>
-	            		<td>S M L XL XXL XXXL</td>
-	            		<td>10</td>
+	            		<td>${good.color }</td>
+	            		<td>${good.size }</td>
+	            		<td>${good.left }</td>
 	            		<td><fmt:formatNumber value="${good.price }" pattern=".00" /></td>
 	            		<td>
 				        	<input type="hidden" id="search_id" value="${good.id}"/>

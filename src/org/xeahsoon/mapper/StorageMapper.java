@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.xeahsoon.pojo.Storage;
 
+import com.alibaba.fastjson.JSONObject;
+
 public interface StorageMapper {
 	
 	/**
@@ -107,4 +109,11 @@ public interface StorageMapper {
 	 */
 	@Insert("insert into storage(id, good_id, color, size) values(#{id}, #{good_id}, #{color}, '${size}')")
 	int insertOneStorage(@Param("id")int id, @Param("good_id")int good_id, @Param("color")String color, @Param("size")String size);
+
+	/**
+	 * @param good_id
+	 * @return 指定款号颜色尺码的剩余库存
+	 */
+	@Select("select color, size, count(*) as `left` from storage where good_id = #{good_id} group by color, size")
+	List<JSONObject> getGoodLeftColorAndSize(@Param("good_id")int good_id);
 }

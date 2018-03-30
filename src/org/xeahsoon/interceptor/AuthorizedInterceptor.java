@@ -26,7 +26,7 @@ public class AuthorizedInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
-		System.err.println(">>>> 进拦截器... " + request.getRequestURI() + " >>>>");
+		System.out.println(">>>> 进拦截器... " + request.getRequestURI() + " >>>>");
 		
 		/*default not login*/
 		boolean flag = false;

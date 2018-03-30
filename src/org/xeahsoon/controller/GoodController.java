@@ -1,6 +1,8 @@
 package org.xeahsoon.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,10 +45,35 @@ public class GoodController {
 	public String searchGoodPage(Model model) {
 		
 		Good good = goodService.findLastGood();
+		List<JSONObject> left_storage = storageService.getGoodLeftColorAndSize(good.getId());
 		List<Good> good_list = goodService.listAllGoods();
 		
+		JSONArray storage_array = new JSONArray();
+		for(Good g: good_list) {
+			Set<String> colors = new HashSet<String>();
+			Set<String> sizes = new HashSet<String>();
+			int left = 0;
+			List<JSONObject> storage = storageService.getGoodLeftColorAndSize(g.getId());
+			for(JSONObject j : storage) {
+				colors.add(j.getString("color"));
+				sizes.add(j.getString("size"));
+				left += j.getIntValue("left");
+			}
+			
+			// 去掉任何"[" "," "]"
+			String regEx = "[\\[,\\]]";
+			
+			JSONObject jobj = (JSONObject) JSONObject.toJSON(g);
+			jobj.put("color", colors.toString().replaceAll(regEx, ""));
+			jobj.put("size", sizes.toString().replaceAll(regEx, ""));
+			jobj.put("left", left);
+			
+			storage_array.add(jobj);
+		}
+		
 		model.addAttribute("good", good);
-		model.addAttribute("good_list", good_list);
+		model.addAttribute("left_storage", left_storage);
+		model.addAttribute("storage_array", storage_array);
 		
 		return "searchGood";
 	}
@@ -76,10 +103,35 @@ public class GoodController {
 			Model model) {
 		
 		Good good = goodService.findGoodInfoWithID(good_id);
+		List<JSONObject> left_storage = storageService.getGoodLeftColorAndSize(good.getId());
 		List<Good> good_list = goodService.listAllGoods();
 		
+		JSONArray storage_array = new JSONArray();
+		for(Good g: good_list) {
+			Set<String> colors = new HashSet<String>();
+			Set<String> sizes = new HashSet<String>();
+			int left = 0;
+			List<JSONObject> storage = storageService.getGoodLeftColorAndSize(g.getId());
+			for(JSONObject j : storage) {
+				colors.add(j.getString("color"));
+				sizes.add(j.getString("size"));
+				left += j.getIntValue("left");
+			}
+			
+			// 去掉任何"[" "," "]"
+			String regEx = "[\\[,\\]]";
+			
+			JSONObject jobj = (JSONObject) JSONObject.toJSON(g);
+			jobj.put("color", colors.toString().replaceAll(regEx, ""));
+			jobj.put("size", sizes.toString().replaceAll(regEx, ""));
+			jobj.put("left", left);
+			
+			storage_array.add(jobj);
+		}
+		
 		model.addAttribute("good", good);
-		model.addAttribute("good_list", good_list);
+		model.addAttribute("left_storage", left_storage);
+		model.addAttribute("storage_array", storage_array);
 		
 		return "searchGood";
 	}
@@ -300,10 +352,27 @@ public class GoodController {
 	 * */
 	@ResponseBody
 	@RequestMapping(value="/goodSuggest")
-	public List<Good> listGoods(Model model){
+	public List<Good> listGoods(){
 		
 		List<Good> good_list = goodService.listAllGoods();
 		
 		return good_list;
+	}
+	
+	/**
+	 * 处理loading请求
+	 * */
+	@SuppressWarnings("static-access")
+	@ResponseBody
+	@RequestMapping(value="/loading")
+	public int loading(@RequestParam("delay")int delay){
+		
+		try {
+			Thread.currentThread().sleep(delay*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 }

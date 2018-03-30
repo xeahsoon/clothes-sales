@@ -5,6 +5,16 @@ $(document).ready(function() {
 	//jQuery QuickSearch测试
 	var qs = $('input#menu_search').quicksearch('ul.nav li');
 	
+	$.ajax({
+		url: "loading",
+		data: {
+			delay: 3
+		},
+		success: function() {
+			console.log("Display Loading.");
+		}
+	});
+	
 	/**
 	 * 测试(首次从 URL 获取数据，显示 header，不显示按钮，忽略大小写，可清除)
 	 */

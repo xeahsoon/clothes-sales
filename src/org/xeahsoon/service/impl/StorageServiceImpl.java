@@ -13,6 +13,8 @@ import org.xeahsoon.pojo.StorageIn;
 import org.xeahsoon.pojo.StorageInTemp;
 import org.xeahsoon.service.StorageService;
 
+import com.alibaba.fastjson.JSONObject;
+
 
 @Service("storageService")
 public class StorageServiceImpl implements StorageService {
@@ -72,6 +74,11 @@ public class StorageServiceImpl implements StorageService {
 	@Override
 	public Storage getStorageWithId(int id) {
 		return storageMapper.getStorageWithId(id);
+	}
+
+	@Override
+	public List<JSONObject> getGoodLeftColorAndSize(int good_id) {
+		return storageMapper.getGoodLeftColorAndSize(good_id);
 	}
 	
 	/**
