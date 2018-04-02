@@ -221,7 +221,7 @@ public class GoodController {
 			// 将条目存入storage
 			storageService.insertOneStorge(temp.getStorage_id(), temp.getGood_id(), temp.getColor(), temp.getSize());
 			// 将storage_id存入入库明细单
-			storageService.insertOneStorageInDetail(storagein_id, temp.getStorage_id());
+			storageService.insertOneStorageInDetail(storagein_id, temp.getStorage_id(), temp.getGood_id(), temp.getType(), temp.getColor(), temp.getSize());
 		}
 		// 清空storagein_temp表
 		storageService.emptyStorageInTemp();

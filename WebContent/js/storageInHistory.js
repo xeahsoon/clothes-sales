@@ -14,12 +14,12 @@ $(document).ready(function(){
 		}
 	});
     
-    /*$(".panel-table").DataTable({
+    $(".panel-table").DataTable({
 		"language": config,
 		"lengthMenu": [[8, 18, 28, -1], [8, 18, 28, "全部"]],
 		"dom": "<'row'<'col-sm-6'i><'col-sm-6'f>><'row'<'col-sm-12'>tr><'row'<'col-sm-12'p>>",
         "order": [[ 0, "asc" ]]
-	});*/
+	});
     
     // 创建panel快速搜索，搜索内容为panel-heading
 	$('input#panel-search').quicksearch('.panel-item',{

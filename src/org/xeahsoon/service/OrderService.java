@@ -6,6 +6,7 @@ import java.util.List;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public interface OrderService {
@@ -143,4 +144,9 @@ public interface OrderService {
 	 * @return 返回field, nums, price
 	 */
 	List<JSONObject> getStatics(Date from, Date to, String field);
+	
+	/**
+	 * @return 库存类型，数量
+	 */
+	List<JSONObject> getDiaStatics(int dianum);
 }

@@ -8,8 +8,6 @@
     <meta charset="UTF-8">
     <title>入库查询</title>
     <script>
-    	var data = '${requestScope.storagein_list }';
-    	console.log(data);
 		$.getScript("js/storageInHistory.js");
     </script>
 </head>
@@ -63,11 +61,11 @@
 		        		<tbody>
 		        		<c:forEach items="${storagein.details }" var="detail">
 		        		<tr>
-		        			<td><fmt:formatNumber value="${detail.storage.id }" pattern="00000000000"></fmt:formatNumber></td>
-		        			<td><fmt:formatNumber value="${detail.storage.good.id }" pattern="00000000"></fmt:formatNumber></td>
-		        			<td>${detail.storage.good.type }</td>
-		        			<td>${detail.storage.color }</td>
-		        			<td>${detail.storage.size }</td>
+		        			<td><fmt:formatNumber value="${detail.storage_id }" pattern="00000000000"></fmt:formatNumber></td>
+		        			<td><fmt:formatNumber value="${detail.good_id }" pattern="00000000"></fmt:formatNumber></td>
+		        			<td>${detail.type }</td>
+		        			<td>${detail.color }</td>
+		        			<td>${detail.size }</td>
 		        		</tr>
 		        		</c:forEach>
 		        		</tbody>

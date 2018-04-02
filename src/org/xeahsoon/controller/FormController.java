@@ -43,7 +43,7 @@ public class FormController{
 	public String sendMainPage(Model model) {
 		
 		List<Order> order_list = orderService.listAllOrders();
-
+		
 		model.addAttribute("order_list", order_list);
 		
 		return "main";
@@ -54,17 +54,10 @@ public class FormController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getDiagram/{diaNumber}")
-	public JSONArray sendDiagramData(@PathVariable int diaNumber) {
+	public List<JSONObject> sendDiagramData(@PathVariable int diaNumber) {
 		
-		String[] diaName = {"商品金额","商品数量","员工业绩","商品库存"};
-		JSONArray statics = new JSONArray();
+		List<JSONObject> statics = orderService.getDiaStatics(diaNumber);
 		
-		for(int i=0; i<Math.floor(Math.random()*3)+5; i++) {
-			JSONObject obj = new JSONObject();
-			obj.put("value", Math.floor(Math.random()*100));
-			obj.put("name", "" + diaName[diaNumber] + (i+1));
-			statics.add(obj);
-		}
 		return statics;
 	}
 }

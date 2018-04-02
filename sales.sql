@@ -268,7 +268,7 @@ CREATE TABLE `order_temp` (
   `size` varchar(4) NOT NULL COMMENT '尺码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_ot_storage_id` (`storage_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,6 +277,7 @@ CREATE TABLE `order_temp` (
 
 LOCK TABLES `order_temp` WRITE;
 /*!40000 ALTER TABLE `order_temp` DISABLE KEYS */;
+INSERT INTO `order_temp` VALUES (95,1,17020101,'黑色','M'),(96,4,17020101,'黑色','S');
 /*!40000 ALTER TABLE `order_temp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +352,7 @@ CREATE TABLE `storage` (
   PRIMARY KEY (`id`),
   KEY `fk_storage_good` (`good_id`),
   CONSTRAINT `fk_storage_good` FOREIGN KEY (`good_id`) REFERENCES `good` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,7 +361,7 @@ CREATE TABLE `storage` (
 
 LOCK TABLES `storage` WRITE;
 /*!40000 ALTER TABLE `storage` DISABLE KEYS */;
-INSERT INTO `storage` VALUES (00000000001,17020101,'黑色','M',0),(00000000004,17020101,'黑色','S',0),(00000000006,17020102,'灰色','XL',0),(00000000008,17202010,'黑色','29',0),(00000000009,17202010,'黑色','30',0),(00000000010,17202010,'黑色','31',0),(00000000011,17202010,'黑色','31',0),(00000000012,17202010,'黑色','32',0),(00000000013,18040001,'白色','40',0),(00000000014,18040001,'黑色','39',0),(00000000016,17020102,'黑色','S',0),(00000000018,17021101,'黑色','28',0),(00000000019,17021102,'黑色','28',0),(00000000020,17021201,'黑色','28',0),(00000000021,17202010,'黑色','28',0),(00000000022,17207003,'军绿色','S',0),(00000000024,18032020,'黑色','28',0),(00000000025,18033020,'白色','38',0),(00000000026,18040001,'黑色','38',0);
+INSERT INTO `storage` VALUES (00000000001,17020101,'黑色','M',1),(00000000004,17020101,'黑色','S',1),(00000000006,17020102,'灰色','XL',1),(00000000008,17202010,'黑色','29',1),(00000000009,17202010,'黑色','30',1),(00000000010,17202010,'黑色','31',1),(00000000011,17202010,'黑色','31',0),(00000000012,17202010,'黑色','32',0),(00000000013,18040001,'白色','40',0),(00000000014,18040001,'黑色','39',0),(00000000016,17020102,'黑色','S',0),(00000000018,17021101,'黑色','28',0),(00000000019,17021102,'黑色','28',0),(00000000020,17021201,'黑色','28',0),(00000000021,17202010,'黑色','28',0),(00000000022,17207003,'军绿色','S',0),(00000000024,18032020,'黑色','28',0),(00000000025,18033020,'白色','38',0),(00000000026,18040001,'黑色','38',0),(00000000123,17020101,'黑色','S',0),(00000000124,17020102,'黑色','S',0);
 /*!40000 ALTER TABLE `storage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,7 +378,7 @@ CREATE TABLE `storagein` (
   `nums` int(11) NOT NULL COMMENT '件数',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作日期',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +387,7 @@ CREATE TABLE `storagein` (
 
 LOCK TABLES `storagein` WRITE;
 /*!40000 ALTER TABLE `storagein` DISABLE KEYS */;
-INSERT INTO `storagein` VALUES (1,5,3,'2018-03-21 06:23:54'),(2,5,9,'2018-03-21 07:43:39'),(3,1,12,'2018-03-23 08:02:31');
+INSERT INTO `storagein` VALUES (1,5,3,'2018-03-21 06:23:54'),(2,5,9,'2018-03-21 07:43:39'),(3,1,12,'2018-03-23 08:02:31'),(4,5,2,'2018-04-02 06:40:09');
 /*!40000 ALTER TABLE `storagein` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,10 +402,14 @@ CREATE TABLE `storagein_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `storagein_id` int(6) NOT NULL COMMENT '入库单号',
   `storage_id` int(11) NOT NULL COMMENT '条形码',
+  `good_id` int(8) NOT NULL COMMENT '款号',
+  `type` varchar(10) NOT NULL COMMENT '类型',
+  `color` varchar(8) NOT NULL COMMENT '颜色',
+  `size` varchar(4) NOT NULL COMMENT '尺码',
   PRIMARY KEY (`id`),
   KEY `fk_sid_storagein` (`storagein_id`),
   CONSTRAINT `fk_sid_storagein` FOREIGN KEY (`storagein_id`) REFERENCES `storagein` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +418,7 @@ CREATE TABLE `storagein_detail` (
 
 LOCK TABLES `storagein_detail` WRITE;
 /*!40000 ALTER TABLE `storagein_detail` DISABLE KEYS */;
-INSERT INTO `storagein_detail` VALUES (1,1,1),(2,1,2),(3,1,3),(4,2,4),(5,2,5),(6,2,6),(7,2,7),(8,2,8),(9,2,9),(10,2,10),(11,2,11),(12,2,12),(13,3,15),(14,3,16),(15,3,17),(16,3,18),(17,3,19),(18,3,20),(19,3,21),(20,3,22),(21,3,23),(22,3,24),(23,3,25),(24,3,26);
+INSERT INTO `storagein_detail` VALUES (1,1,1,17020101,'T恤','黑色','M'),(2,1,2,17020101,'T恤','红色','XL'),(3,1,3,17207003,'风衣','军绿色','XL'),(4,2,4,17020101,'T恤','白色','S'),(5,2,5,17020101,'T恤','白色','S'),(6,2,6,17020101,'T恤','BLACK','XXL'),(7,2,7,17020101,'T恤','BLACK','XXL'),(8,2,8,17020101,'T恤','黑色','M'),(9,2,9,17020101,'T恤','白色','XXL'),(10,2,10,17021101,'短裤','蓝色','30'),(11,2,11,18040001,'鞋子','白色','41'),(12,2,12,17020101,'T恤','蓝色','XXXL'),(13,3,15,17020101,'T恤','黑色','S'),(14,3,16,17020102,'T恤','黑色','S'),(15,3,17,17020201,'衬衫','白色','M'),(16,3,18,17021101,'短裤','黑色','28'),(17,3,19,17021102,'短裤','黑色','28'),(18,3,20,17021201,'长裤','黑色','28'),(19,3,21,17202010,'长裤','黑色','28'),(20,3,22,17207003,'风衣','军绿色','S'),(21,3,23,18030020,'外套','黑色','S'),(22,3,24,18032020,'长裤','黑色','28'),(23,3,25,18033020,'鞋子','白色','38'),(24,3,26,18040001,'鞋子','黑色','38'),(25,4,123,17020101,'T恤','黑色','S'),(26,4,124,17020102,'T恤','黑色','S');
 /*!40000 ALTER TABLE `storagein_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -434,7 +439,7 @@ CREATE TABLE `storagein_temp` (
   `price` double(6,2) NOT NULL COMMENT '价格',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_sit_storage_id` (`storage_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -484,4 +489,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-23 16:41:52
+-- Dump completed on 2018-04-02 15:11:30

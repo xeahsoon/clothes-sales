@@ -111,6 +111,15 @@ public interface OrderDetailMapper {
 	List<JSONObject> getStaffSales(@Param("from")Date from, @Param("to")Date to);
 	
 	/**
+	 * @return name, effort, nums, onums
+	 */
+	@Select("select s.name as name, sum(o.sum_money) as effort, sum(o.nums) as nums, count(o.id) as onums "
+			+ "from `order` o, `order_staff` os, staff s "
+			+ "where os.order_id = o.id and os.staff_id = s.id "
+			+ "group by s.name;")
+	List<JSONObject> getStaffSalesBeta();
+	
+	/**
 	 * @param to 
 	 * @param from 
 	 * @return 款号销售数据
@@ -181,4 +190,12 @@ public interface OrderDetailMapper {
 			+ "group by field"
 			+ "</script>")
 	List<JSONObject> getPayModeStatics(@Param("from")Date from, @Param("to")Date to);
+	
+	/**
+	 * @return 库存类型，数量
+	 */
+	@Select("select (select type from good where id = good_id) as good_type, count(*) as nums "
+			+ "from storage "
+			+ "group by good_type")
+	List<JSONObject> getLeftGoodTypeNums();
 }

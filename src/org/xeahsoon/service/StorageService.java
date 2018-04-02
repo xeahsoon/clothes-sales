@@ -31,7 +31,7 @@ public interface StorageService {
 	List<JSONObject> getGoodLeftColorAndSize(int good_id);
 	
 	/**
-	 * 分界线..
+	 * -------------分界线-------------
 	 */
 	
 	List<StorageIn> getAllStorageIn();
@@ -46,5 +46,5 @@ public interface StorageService {
 	
 	int makeStorageIn(int user_id, int nums);
 	
-	int insertOneStorageInDetail(int storagein_id, int storage_id);
+	int insertOneStorageInDetail(int storagein_id, int storage_id, int good_id, String type, String color, String size);
 }

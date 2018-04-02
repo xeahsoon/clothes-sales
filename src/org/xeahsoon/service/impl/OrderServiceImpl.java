@@ -1,5 +1,6 @@
 package org.xeahsoon.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -164,6 +165,47 @@ public class OrderServiceImpl implements OrderService {
 				}
 				break;
 			default: statics = null; break;
+		}
+		return statics;
+	}
+
+	@Override
+	public List<JSONObject> getDiaStatics(int dianum) {
+		List<JSONObject> statics = new ArrayList<JSONObject>();
+		switch(dianum) {
+			case 0:
+			case 1:
+				List<JSONObject> good_statics = orderDetailMapper.getGoodStatics(null, null);
+				for(JSONObject obj : good_statics) {
+					JSONObject nobj = new JSONObject();
+					nobj.put("name", obj.getString("field"));
+					if(dianum == 0) {
+						nobj.put("value", obj.getDoubleValue("price"));
+					} else if(dianum == 1) {
+						nobj.put("value", obj.getDoubleValue("num"));
+					}
+					statics.add(nobj);
+				}
+				break;
+			case 2:
+				List<JSONObject> staff_statics = orderDetailMapper.getStaffSalesBeta();
+				for(JSONObject obj : staff_statics) {
+					JSONObject nobj = new JSONObject();
+					nobj.put("name", obj.getString("name"));
+					nobj.put("value", obj.getDoubleValue("effort"));
+					statics.add(nobj);
+				}
+				break;
+			case 3:
+				List<JSONObject> type_statics = orderDetailMapper.getLeftGoodTypeNums();
+				for(JSONObject obj: type_statics) {
+					JSONObject nobj = new JSONObject();
+					nobj.put("name", obj.getString("good_type"));
+					nobj.put("value", obj.getIntValue("nums"));
+					statics.add(nobj);
+				}
+				break;
+			default: break;
 		}
 		return statics;
 	}

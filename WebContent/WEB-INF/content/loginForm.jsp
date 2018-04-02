@@ -37,7 +37,7 @@
       <label class="col-md-5">
         <input type="checkbox" value="remember-me"> Remember me
       </label>
-      <a href="" class="pull-right">Administration</a>
+      <a href="" class="pull-right invisible">Administration</a>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>

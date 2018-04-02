@@ -122,7 +122,7 @@ public class StorageServiceImpl implements StorageService {
 	}
 
 	@Override
-	public int insertOneStorageInDetail(int storagein_id, int storage_id) {
-		return storageInDetailMapper.intsertOneStorageInDetail(storagein_id, storage_id);
+	public int insertOneStorageInDetail(int storagein_id, int storage_id, int good_id, String type, String color, String size) {
+		return storageInDetailMapper.intsertOneStorageInDetail(storagein_id, storage_id, good_id, type, color, size);
 	}
 }

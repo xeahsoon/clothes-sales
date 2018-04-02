@@ -1,27 +1,19 @@
 package org.xeahsoon.pojo;
 
 public class StorageInDetail {
-
+	
 	/**
 	 * 入库明细主键
 	 */
 	private int id;
 	
-	/**
-	 * 入库单号
-	 */
 	private int storagein_id;
-	
-	/**
-	 * 商品编号（条形码）
-	 */
 	private int storage_id;
-	
-	/**
-	 * 库存信息
-	 */
-	private Storage storage;
-	
+	private int good_id;
+	private String type;
+	private String color;
+	private String size;
+
 	public int getId() {
 		return id;
 	}
@@ -40,15 +32,34 @@ public class StorageInDetail {
 	public void setStorage_id(int storage_id) {
 		this.storage_id = storage_id;
 	}
-	public Storage getStorage() {
-		return storage;
+	public int getGood_id() {
+		return good_id;
 	}
-	public void setStorage(Storage storage) {
-		this.storage = storage;
+	public void setGood_id(int good_id) {
+		this.good_id = good_id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
 	}
 	
 	@Override
 	public String toString() {
-		return "StorageInDetail [id=" + id + ", storagein_id=" + storagein_id + ", storage_id=" + storage_id + "]";
+		return "StorageInDetail [id=" + id + ", storagein_id=" + storagein_id + ", storage_id=" + storage_id
+				+ ", good_id=" + good_id + ", type=" + type + ", color=" + color + ", size=" + size + "]";
 	}
 }

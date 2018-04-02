@@ -27,15 +27,6 @@ var table = $("#sales_table").DataTable({
     "order": [[ 0, "asc" ]]
 });
 
-// 临时生成随机值
-function randomValue() {
-	var value = [];
-	for(var i=0; i<5; i++) {
-		value.push((Math.round(Math.random()*100))*50/100 + 50);
-	}
-	return value;
-}
-
 function createOption(data) {
 	var option = {
 	    title : {
