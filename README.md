@@ -1,5 +1,6 @@
 ## 标题
-服装销售管理系统clothes_sales-毕业设计（仍在建设）
+服装销售管理系统clothes_sales-毕业设计（初步完成）<br>
+*\*个人呕心沥血之作，仅供参考*
 ## 后台
 采用SSM框架（注解配置）+MySQL数据库进行后台搭建
 ## 前端
@@ -12,7 +13,7 @@
 * [dateTables Buttons](https://datatables.net/extensions/buttons/) 扩展插件，支持复制、导出、打印表格数据
 * [jQuery QuickSearch](https://github.com/DeuxHuitHuit/quicksearch) 快速搜索插件 `jquery.quicksearch.js`
 * [bootstrap-suggest](https://github.com/lzwme/bootstrap-suggest-plugin) bootstrap搜索提示插件 `bootstrap-suggest.js`
-* [jqprint](http://webscripts.softpedia.com/script/Modules/jQuery-Plugins/jqPrint-68448.html) 打印页面指定区域 `jquery.jqprint-0.3.js`
+* [jqprint](http://webscripts.softpedia.com/script/Modules/jQuery-Plugins/jqPrint-68448.html) 打印页面指定区域 `jquery.jqprint-0.3.js` （更改为 [printArea](https://github.com/RitsC/PrintArea) `jquery.printarea.js`）
 * [bootstrap-multiselect](https://github.com/davidstutz/bootstrap-multiselect) bootstrap下拉多选菜单 `bootstrap-multiselect.js`
 * [bootstrap-datetimepicker](https://github.com/smalot/bootstrap-datetimepicker) bootstrap时间选择器 `bootstrap-datetimepicker.js`
 
