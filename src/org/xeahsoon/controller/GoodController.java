@@ -1,8 +1,11 @@
 package org.xeahsoon.controller;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.xeahsoon.pojo.Good;
 import org.xeahsoon.pojo.Storage;
 import org.xeahsoon.pojo.StorageIn;
@@ -307,12 +311,19 @@ public class GoodController {
 	}
 	
 	/**
+	 * @param request
 	 * @param params
+	 * @param file
 	 * @return 保存商品信息
+	 * @throws Exception
 	 */
 	@ResponseBody
 	@RequestMapping("/saveGood")
-	public int addNewGood(@RequestParam("params")String params) {
+	public int addNewGood(
+			HttpServletRequest request,
+			@RequestParam("params")String params,
+			@RequestParam(value = "picture", required = false)MultipartFile file) {
+		
 		JSONObject data = JSONObject.parseObject(params);
 		JSONArray color = data.getJSONArray("color");
 		JSONArray size = data.getJSONArray("size");
@@ -338,10 +349,26 @@ public class GoodController {
 		for(int i=0; i<size.size(); i++) {
 			goodService.addGoodSize(good_id, size.getString(i));
 		}
-		// 更新存储图片
-		String picture = data.getString("picture");
-		if(picture != null) {
-			goodService.updateGoodPicture(picture, good_id);
+		
+		try {
+			// 更新存储图片
+			if(!file.isEmpty()) {
+				// 上传文件路径
+				String path = request.getServletContext().getRealPath("/images/goods");
+				String filename = file.getOriginalFilename();
+				File filepath = new File(path, filename);
+				
+				//判断路径是否存在，否则创建新目录
+				if(!filepath.getParentFile().exists()) {
+					filepath.getParentFile().mkdirs();
+				}
+				file.transferTo(new File(path + File.separator + filename));
+				
+				//存储图片名到数据库
+				goodService.updateGoodPicture(filename, good_id);
+			}
+		} catch (Exception e) {
+			e.getMessage();
 		}
 		
 		return 1;

@@ -15,6 +15,7 @@
         	//创建goods dataTable
 	        var table = $('#goods_table').DataTable({
 	        	"dom": "<'row'<'col-sm-6'l>><'row'<'col-sm-12'tr>><'row'<'col-sm-4'i><'col-sm-8'p>>",
+	    		"order": [[ 0, "desc" ]],
 	        	//设置操作栏 排序为 false
 	            "columnDefs": [
 	                { "orderable": false, "targets": 6 }
@@ -80,7 +81,7 @@
             <div class="container col-md-8"style="height:200px; ">
                 <img class="thumbnail pull-right" style="height: 195px;" src="images/icon.png" alt="No Picture Found"
                 	onload="placeGoodPicture('${requestScope.good.picture }', '${requestScope.good.type }', this)"/>
-                <div class="table-responsive col-md-6 pull-right" 
+                <div class="table-responsive col-md-5 pull-right" 
                 	style="height: 195px; overflow: auto; margin-right:30px;">
                     <table class="table table-condensed">
                         <thead>

@@ -21,21 +21,21 @@
 </head>
 
 <body style="background: url(images/icon_blue.png) no-repeat; background-size: 36%; background-position: 666px 50px; ">
-  <form action="login" style="width: 330px; margin: 280px 330px 0; ">
+  <form id="loginForm" action="login" style="width: 330px; margin: 280px 330px 0; ">
     <h2>Please login</h2>
     
     <font color="red">${requestScope.message }</font>
     <div class="input-group">
       <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-      <input type="text" name="loginname" class="form-control" placeholder="Username" required autofocus>
+      <input type="text" name="loginname" id="loginname" class="form-control" placeholder="Username" required autofocus>
     </div>
     <div class="input-group" style="margin-top: 5px">
       <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-      <input type="password" name="password" class="form-control" placeholder="Password" required>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
     </div>
     <div class="checkbox">
       <label class="col-md-5">
-        <input type="checkbox" value="remember-me"> Remember me
+        <input type="checkbox" id="remember_tag"> Remember me
       </label>
       <a href="" class="pull-right invisible">Administration</a>
     </div>

@@ -556,6 +556,13 @@ function uncheckAllStorages() {
 
 // 保存商品信息
 function saveGood() {
+	
+	var input_color = $(".bootstrap-filestyle input").css("color");
+	if(input_color == "rgb(255, 0, 0)") {
+		toastr.error("不支持的图片格式");
+		return;
+	}
+	
 	var data = {};
 	data["id"] = $("#good_id").val();
 	data["type"] = $("#good_type").val();
@@ -574,12 +581,17 @@ function saveGood() {
     data["size"] = size;
     data["opt"] = $("#save").data("opt");
 	
+    var formdata = new FormData();
+    formdata.append("params", JSON.stringify(data));
+    formdata.append("picture", $("#good_file")[0].files[0]);
+    
 	$.ajax({
 		url: "saveGood",
 		type: "POST",
-		data: {
-			params: JSON.stringify(data)
-		},
+		cache: false,
+	    data: formdata,
+	    processData: false,
+	    contentType: false,
 		success: function(data) {
 			if(data == 1) {
 				showAtRight("good");

@@ -38,8 +38,8 @@ $(document).ready(function() {
 					return;
 				}
 				$("#right .panel-title").text("修改商品");
-				$("#left").animate({width: '76%'});
-				$("#right").show();
+				$("#left").animate({width: '76%'}, '888');
+				$("#right").show('888');
 				
 				var rowData = goodtable.rows( index ).data().toArray();
 				$("#good_id").val(rowData[0][0]);
@@ -49,9 +49,11 @@ $(document).ready(function() {
 				$("#good_price").val(rowData[0][3]);
 				
 				var colors = rowData[0][4].split(" ");
+				$("#good_color").multiselect('deselectAll', false);
 				$("#good_color").multiselect('select', colors);
 				
 				var sizes = rowData[0][5].split(" ");
+				$("#good_size").multiselect('deselectAll', false);
 				$('#good_size').multiselect('select', sizes);
 				
 				var picture = rowData[0][6];
@@ -127,7 +129,7 @@ $(document).ready(function() {
 			if(allowedType.indexOf(type) == -1) {
 				$("#good_preview").hide();
 				$(".bootstrap-filestyle input").css({color: 'red'});
-				toastr.error("不支持的文件格式");
+				// toastr.error("不支持的图片格式");
 			} else {
 				$("#good_preview").show();
 				$(".bootstrap-filestyle input").css({color: 'black'});

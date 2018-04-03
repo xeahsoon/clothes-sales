@@ -59,4 +59,11 @@
             <value>.jsp</value>
         </property>
     </bean>
+    <!-- 配置MultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
+		<!-- 设置上传文件最大值   2M=2*1024*1024(B)=2097152 bytes -->    
+	    <property name="maxUploadSize" value="2097152" />
+	    <!-- 请求的编码格式 -->
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean> 
 </beans>

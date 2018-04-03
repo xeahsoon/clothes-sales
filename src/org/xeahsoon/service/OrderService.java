@@ -6,7 +6,6 @@ import java.util.List;
 import org.xeahsoon.pojo.Order;
 import org.xeahsoon.pojo.OrderTemp;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public interface OrderService {
