@@ -326,7 +326,6 @@
 	<script src="assets/bootstrap-suggest/bootstrap-suggest.js"></script>
 
 	<script src="assets/json2.js"></script>
-
 	
 </body>
 </html>
