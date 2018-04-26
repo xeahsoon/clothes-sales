@@ -697,6 +697,11 @@ function deleteOneStorageInTemp(id) {
 // 入库所有StorageInTemp商品
 function saveToStorageIn(user_id) {
 	
+	if($("#inStorageTable tbody").find("td").eq("0").text() == "表中数据为空") {
+		toastr.error("入库商品为空！");
+		return;
+	}
+	
 	if(!confirm("确定入库当前页面所有商品？")) {
 		return;
 	}
