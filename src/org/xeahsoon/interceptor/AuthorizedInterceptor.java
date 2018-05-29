@@ -9,7 +9,7 @@ import org.xeahsoon.pojo.User;
 
 public class AuthorizedInterceptor implements HandlerInterceptor{
 	
-	private static final String[] IGNORE_URL = {"/loginForm", "/login", "registForm", "/regist", "/404.html"};
+	private static final String[] IGNORE_URL = {"/loginForm", "/login", "/logout", "registForm", "/regist", "/404.html"};
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)

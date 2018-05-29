@@ -48,8 +48,9 @@
         	</div>
         </div>
         
-        <div id="test_jquery_load" style="background-color: #ddd">
+        <div id="test_jquery_load">
         </div>
+        
 	</div>
 </body>
 </html>

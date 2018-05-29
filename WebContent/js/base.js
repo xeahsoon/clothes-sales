@@ -64,6 +64,7 @@ function sendRemark() {
 		},
 		dataType: "json",
 		success: function(data) {
+			console.log(JSON.stringify(data));
 			$("#dismissButton").click();
 			//window.location.reload();
 			document.getElementById("table_remark").innerHTML = data.remark;
@@ -71,6 +72,55 @@ function sendRemark() {
 		error: function(jqXHR) {
 			$("#dismissButton").click();
 			toastr.error("发生错误: " + jqXHR.status);
+		}
+	});
+}
+
+// 首页修改用户信息
+function editUser() {
+	var loginname = $("#modal_loginname").val();
+	var name = $("#modal_username").val();
+	var phone = $("#modal_userphone").val();
+	var true_password = $("#modal_user_password").val();
+	var old_password = $("#modal_old_password").val();
+	var new_password = $("#modal_new_password").val();
+
+	var data = {};
+	data["loginname"] = loginname;
+	data["name"] = name;
+	data["phone"] = phone;
+	
+	//用户名不能为空
+	if(name.length == 0) {
+		toastr.error("用户名不能为空！");
+		return;
+	}
+	//原密码输入不正确
+	if(old_password.length != 0 && old_password != true_password) {
+		toastr.error("原密码输入错误");
+		return;
+	}
+	//原密码输入正确并且新密码不为空
+	if(old_password == true_password && new_password.length != 0) {
+		data["password"] = new_password;
+	}
+	
+	$.ajax({
+		url: "editUser",
+		type: "POST",
+		data: {
+			params: JSON.stringify(data)
+		},
+		success: function(data) {
+			$("#editUserModal").modal("hide");
+			if(data == 1) {
+				toastr.success("操作成功！");
+			} else {
+				toastr.error("操作失败！");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
 		}
 	});
 }
@@ -418,7 +468,7 @@ function payForOrder() {
     	toastr.error("请选择至少一位导购员！")
     	return;
     }
-    if(types.length == 0) {
+    if(types.length == 1 && types[0] == "") {
     	toastr.error("请先选择商品！")
     	return;
     }
@@ -598,6 +648,41 @@ function saveGood() {
 				toastr.success("操作成功！");
 			} else if(data == -1){
 				toastr.error("商品款号已存在！");
+			} else {
+				toastr.error("操作失败！");
+			}
+		},
+		error: function(jqXHR) {
+			toastr.error("发生错误： " + jqXHR.status);
+		}
+	});
+}
+
+// 保存用户信息
+function saveUser() {
+	var loginname = $("#loginname").val();
+	var name = $("#username").val();
+	if(name.length == 0) {
+		toastr.error("用户名不能为空！");
+		return;
+	}
+	var phone = $("#userphone").val();
+	var data = {};
+	data["loginname"] = loginname;
+	data["name"] = name;
+	data["phone"] = phone;
+	
+	//ajax
+	$.ajax({
+		url: "editUser",
+		type: "POST",
+		data: {
+			params: JSON.stringify(data)
+		},
+		success: function(data) {
+			if(data == 1) {
+				showAtRight("user");
+				toastr.success("操作成功！");
 			} else {
 				toastr.error("操作失败！");
 			}

@@ -125,7 +125,7 @@
                 <td>
                 	<input type="hidden" value="<fmt:formatNumber value="${order.id }" pattern="00000000"/>" id="hidden_id">
                 	<input type="hidden" value="${order.remark }" id="hidden_remark">
-                	<span class="glyphicon glyphicon-edit operator" title="详细" data-toggle="modal" data-target="#remarkModal" onclick="setModalContent()"></span>
+                	<span class="glyphicon glyphicon-edit operator" title="备注" data-toggle="modal" data-target="#remarkModal" onclick="setModalContent()"></span>
                 	<span style="color: #ddd;">/</span>
                     <span class="glyphicon glyphicon-print operator" title="打印" data-toggle="modal" data-target="#printModal"></span>
                 </td>

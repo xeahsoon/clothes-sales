@@ -105,6 +105,9 @@
 							<li class="super-entry"><a data-url="good"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>商品信息管理
 							</a></li>
+							<li class="super-entry"><a data-url="user"> <span
+									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>店长信息管理
+							</a></li>
 							<li><a data-url="staff"> <span
 									class="glyphicon glyphicon-chevron-right" style="width: 25px"></span>导购员管理
 							</a></li>
@@ -118,11 +121,13 @@
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="font-style: italic;">
 						<span class="glyphicon glyphicon-user" style="display: inline-block; width: 20px; height: 20px;"></span>${sessionScope.user.loginname }</a>
 						<ul class="dropdown-menu">
-							<li><a><span class="glyphicon glyphicon-cog"
+							<li><a><span class="glyphicon glyphicon-home"
 									style="width: 25px"></span><span id="top_username">${sessionScope.user.name }</span></a></li>
 							<li><a><span class="glyphicon glyphicon-phone"
 									style="width: 25px"></span><span>${sessionScope.user.phone }</span></a></li>
 							<li class="divider"></li>
+							<li><a data-toggle="modal" data-target="#editUserModal" ><span class="glyphicon glyphicon-cog"
+									style="width: 25px"></span><span>修改信息</span></a></li>
 							<li><a href="logout"> <span
 									class="glyphicon glyphicon-log-out" style="width: 25px"></span>注销登录
 							</a></li>
@@ -182,6 +187,7 @@
 				<div id="list4" class="collapse">
 					<ul class="nav nav-sidebar">
 						<li class="super-entry"><a data-url="good">商品信息管理</a></li>
+						<li class="super-entry"><a data-url="user">店长信息管理</a></li>
 						<li><a data-url="staff">导购员管理</a></li>
 						<li><a data-url="member">会员管理</a></li>
 						<li><a data-url="test">测试页面</a></li>
@@ -277,6 +283,49 @@
 			</div>
 		</div>
 	</div>
+	<!-- edit user modal -->
+	<div class="modal fade" id="editUserModal" role="dialog"
+   		aria-labelledby="myModalLabel" aria-hidden="true">
+   		<div class="modal-dialog">
+   			<div class="modal-content">
+   				<div class="modal-header">
+   					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+   				</div>
+   				<div class="modal-body" style="width:50%; margin-left:25%">
+   					<div class="input-group">
+   						<span class="input-group-addon">登录名</span>
+   						<input id="modal_loginname" type="text" class="form-control"
+   							value="${sessionScope.user.loginname}" readOnly="readonly"/>
+   					</div>
+   					<div class="input-group" style="margin-top: 10px;">
+   						<span class="input-group-addon">用户名</span>
+   						<input id="modal_username" type="text" class="form-control" value="${sessionScope.user.name}"/>
+   					</div>
+   					<div class="input-group" style="margin-top: 10px;">
+   						<span class="input-group-addon">电&nbsp;&nbsp;&nbsp;话</span>
+   						<input id="modal_userphone" type="text" class="form-control" value="${sessionScope.user.phone}"/>
+   					</div>
+					<div class="input-group" style="margin-top: 10px;">
+   						<span class="input-group-addon">原密码</span>
+   						<input id="modal_old_password" type="text" class="form-control"/>
+   						<input id="modal_user_password" type="hidden" value="${sessionScope.user.password}"/>
+   					</div>
+   					<div class="input-group" style="margin-top: 10px;">
+   						<span class="input-group-addon">新密码</span>
+   						<input id="modal_new_password" type="password" class="form-control"/>
+   					</div>
+   				</div>
+   				<div class="modal-footer">
+   					<input type="button" class="btn btn-default"
+						id="dismissButton" data-dismiss="modal" value="关闭">
+					<input type="button" class="btn btn-primary"
+						onclick="editUser()" value="保存">
+   				</div>
+   			</div>
+   		</div>
+   	</div>
 	
 	<!-- 加载loading -->
 	<div id="shade" class="shade">
@@ -326,6 +375,7 @@
 	<script src="assets/bootstrap-suggest/bootstrap-suggest.js"></script>
 
 	<script src="assets/json2.js"></script>
+	<!-- <script type="text/javascript" color="66,139,202" opacity='0.5' mouse-folow="false" src="assets/canvas-nest.js"></script> -->
 	
 </body>
 </html>

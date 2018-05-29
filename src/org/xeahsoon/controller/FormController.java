@@ -30,7 +30,7 @@ public class FormController{
 	 * @return 动态跳转页面
 	 */
 	@RequestMapping(value="/{formName}")
-	 public String loginForm(@PathVariable String formName){
+	 public String sendToForm(@PathVariable String formName){
 		return formName;
 	}
 	
