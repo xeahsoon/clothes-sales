@@ -1,5 +1,6 @@
 ## 标题
 服装销售管理系统clothes_sales - 毕业设计
+[演示地址](http://weixue.imwork.net/clothes_sales/)
 ## 后台
 采用SSM框架（注解配置）+MySQL数据库进行后台搭建
 ## 前端
